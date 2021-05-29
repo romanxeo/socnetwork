@@ -1,0 +1,20 @@
+.head-wrap {
+    display: grid;
+
+    grid-template-rows: 54px;
+    grid-template-columns: auto 1080px auto;
+
+    grid-template-areas:
+    "ll cc rr";
+}
+
+.left {
+    grid-area: ll;
+    background-color: #35454e;
+}
+
+.right {
+    grid-area: rr;
+    background-color: #35454e;
+}
+

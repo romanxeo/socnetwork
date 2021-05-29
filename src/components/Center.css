@@ -1,0 +1,62 @@
+.center {
+    grid-area: cc;
+    background-color: #35454e;
+
+    display: grid;
+
+    grid-template-rows: 54px;
+    grid-template-columns:  60px 100px auto 100px 100px 100px 100px 100px 100px;
+
+    grid-template-areas:
+    "logo search empty home feed messages settings colum avatarname";
+
+    color: white;
+}
+
+.center img{
+    grid-area: logo;
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 44px;
+}
+
+.search {
+    margin-top: 5px;
+    grid-area: search;
+}
+
+.empty {
+    margin-top: 5px;
+    grid-area: empty;
+}
+
+.home {
+    margin-top: 5px;
+    grid-area: home;
+}
+
+.feed {
+    margin-top: 5px;
+    grid-area: feed;
+}
+
+.messages {
+    margin-top: 5px;
+    grid-area: messages;
+}
+
+.settings {
+    margin-top: 5px;
+    grid-area: settings;
+}
+
+.colum {
+    margin-top: 5px;
+    grid-area: colum;
+}
+
+.avatarname {
+    margin-top: 5px;
+    grid-area: avatarname;
+}
+

@@ -1,0 +1,29 @@
+.content-wrap {
+    display: grid;
+    width: 1080px;
+    margin: 0 auto;
+    margin-top: 10px;
+
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 2fr 8fr;
+    grid-gap: 10px;
+
+    grid-template-areas:
+    "profile posts"
+    "footer posts";
+}
+
+.profile {
+    grid-area: profile;
+    background-color: darkgreen;
+}
+
+.posts {
+    grid-area: posts;
+    background-color: darkgreen;
+}
+
+.footer {
+    grid-area: footer;
+    background-color: darkgreen;
+}
