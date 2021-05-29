@@ -2,14 +2,25 @@ import React from 'react';
 import s from './Content.module.css';
 import Profile from "./Profile/Profile"
 import Posts from "./Posts/Posts"
+import Dialogs from "./Dialogs/Dialogs";
+import Messages from "./Messages/Messages";
 import Footer from "./Footer/Footer"
 
 const Content = () => {
     return (
         <div className={s.content_wrap}>
-            <Profile />
-            <Posts />
-            <Footer />
+            <div className={s.top_left}>
+                {/*<Profile />*/}
+                <Dialogs/>
+            </div>
+            <div className={s.top_center}>
+                {/*<Posts />*/}
+                <Messages/>
+            </div>
+            <div className={s.bottom_left}>
+                <Footer />
+            </div>
+
         </div>
     )
 }

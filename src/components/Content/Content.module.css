@@ -9,11 +9,21 @@
     grid-gap: 10px;
 
     grid-template-areas:
-    "profile posts"
-    "footer posts";
+    "top_left top_center"
+    "bottom_left top_center";
 }
 
+.top_left {
+    grid-area: top_left;
+}
 
+.bottom_left {
+    grid-area: bottom_left;
+}
+
+.top_center {
+    grid-area: top_center;
+}
 
 
 

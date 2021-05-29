@@ -8,7 +8,7 @@
     grid-template-columns:  60px 100px auto 100px 100px 100px 100px 100px 100px;
 
     grid-template-areas:
-    "logo search empty home feed messages settings colum avatarname";
+    "logo search empty profile dialogs feed settings colum avatarname";
 
     color: white;
 }
@@ -30,9 +30,9 @@
     grid-area: empty;
 }
 
-.home {
+.profile {
     margin-top: 5px;
-    grid-area: home;
+    grid-area: profile;
 }
 
 .feed {
@@ -40,9 +40,9 @@
     grid-area: feed;
 }
 
-.messages {
+.dialogs {
     margin-top: 5px;
-    grid-area: messages;
+    grid-area: dialogs;
 }
 
 .settings {
