@@ -1,20 +1,20 @@
-.head-wrap {
+.head_wrap {
     display: grid;
 
     grid-template-rows: 54px;
     grid-template-columns: auto 1080px auto;
 
     grid-template-areas:
-    "ll cc rr";
+    "left center right";
 }
 
 .left {
-    grid-area: ll;
+    grid-area: left;
     background-color: #35454e;
 }
 
 .right {
-    grid-area: rr;
+    grid-area: right;
     background-color: #35454e;
 }
 

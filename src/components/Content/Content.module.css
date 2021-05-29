@@ -1,4 +1,4 @@
-.content-wrap {
+.content_wrap {
     display: grid;
     width: 1080px;
     margin: 0 auto;
@@ -13,17 +13,7 @@
     "footer posts";
 }
 
-.profile {
-    grid-area: profile;
-    background-color: darkgreen;
-}
 
-.posts {
-    grid-area: posts;
-    background-color: darkgreen;
-}
 
-.footer {
-    grid-area: footer;
-    background-color: darkgreen;
-}
+
+
