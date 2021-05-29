@@ -7,16 +7,8 @@ const Posts = () => {
     return (
         <div className={s.posts}>
             <NewPost/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
+            <Post name="Igor" message="Hello world"/>
+            <Post name="Valera" message="I'm know React"/>
         </div>
     )
 }
