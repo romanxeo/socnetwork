@@ -10,7 +10,7 @@ const Posts = () => {
         {id: 1, name: 'VALERA', post: 'HERLfdE', likesCount: 43},
         {id: 2, name: 'Dimon', post: 'HERdsfLfdE', likesCount: 421},
         {id: 3, name: 'Kukareku', post: 'HEfsdfRLfdE', likesCount: 13},
-        {id: 4, name: 'Stop', post: 'qweHERLfdE', likesCount: 3},
+        {id: 4, name: 'Stop', post: 'qweHERLfdE', likesCount: 5},
 
     ]
 
