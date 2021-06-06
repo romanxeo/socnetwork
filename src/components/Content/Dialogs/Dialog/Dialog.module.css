@@ -1,0 +1,8 @@
+.dialog {
+    background-color: darkorange;
+    display:block;
+}
+
+.active {
+    color: gold;
+}

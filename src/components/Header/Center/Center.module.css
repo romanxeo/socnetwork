@@ -21,42 +21,67 @@
 }
 
 .search {
-    margin-top: 5px;
     grid-area: search;
 }
 
 .empty {
-    margin-top: 5px;
     grid-area: empty;
 }
 
-.profile {
-    margin-top: 5px;
-    grid-area: profile;
-}
 
-.feed {
-    margin-top: 5px;
-    grid-area: feed;
+
+.profile {
+    grid-area: profile;
+
 }
 
 .dialogs {
-    margin-top: 5px;
     grid-area: dialogs;
 }
 
+.feed {
+    grid-area: feed;
+}
+
 .settings {
-    margin-top: 5px;
     grid-area: settings;
 }
 
+
+
 .colum {
-    margin-top: 5px;
     grid-area: colum;
 }
 
 .avatarname {
-    margin-top: 5px;
     grid-area: avatarname;
 }
 
+
+.bottom {
+    height: 39px;
+    text-align: center;
+
+
+    padding-top: 15px;
+
+    width: 100px;
+    background-color: #35454e;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-size:15px;
+    text-decoration:none;
+}
+.bottom:hover {
+    background:linear-gradient(to bottom, #35454e 15%, #435a66 100%);
+    background-color:#35454e;
+}
+.bottom:active {
+    position:relative;
+
+    top:2px;
+
+    height: 37px;
+
+}

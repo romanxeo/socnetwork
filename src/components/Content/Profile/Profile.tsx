@@ -5,6 +5,7 @@ const Profile = () => {
     return (
         <div className={s.profile}>
             Profile;
+            AVA + DESCRIPTION
         </div>
     )
 }
