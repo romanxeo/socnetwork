@@ -8,7 +8,6 @@ import Messages from "./Messages/Messages";
 import Footer from "./Footer/Footer"
 
 
-
 const Content = () => {
     return (
             <div className={s.content_wrap}>

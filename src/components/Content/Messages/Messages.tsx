@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './Messages.module.css';
 import Message from "./Message/Message";
-import Dialog from "../Dialogs/Dialog/Dialog";
 
 
 const Messages = () => {
