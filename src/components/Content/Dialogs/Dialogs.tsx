@@ -11,7 +11,7 @@ const Dialogs = () => {
         {id: 3, name: 'Pasha'},
         {id: 4, name: 'Dasha'},
         {id: 5, name: 'Sveta'},
-        {id: 6, name: 'Kolya'},
+        {id: 6, name: 'SANEK'},
     ]
 
     let dialogsElement = dialogsData.map( d => <Dialog name={d.name} id={d.id}/>);
