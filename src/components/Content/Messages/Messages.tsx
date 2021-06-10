@@ -2,23 +2,22 @@ import React from 'react';
 import s from './Messages.module.css';
 import Message from "./Message/Message";
 
+type messagesDataArray = {
+    id: number
+    message: string
+}
 
-const Messages = () => {
+type messagesType = {
+    messagesData: Array<messagesDataArray>
+}
 
-    let messagesData =  [
-        {id: 1, message: 'HERLE'},
-        {id: 2, message: 'MASHA'},
-        {id: 3, message: 'VALERCHI PRIYOM'},
-        {id: 4, message: 'SUCHARA'},
-        {id: 5, message: 'fdsfdf5435s erwtgaa'},
-        {id: 6, message: 'eFGSGA DSFDSGA'},
-    ]
+const Messages = (props: messagesType) => {
 
-    let messagesElement = messagesData.map( m => <Message message={m.message} id={m.id}/>);
+    let messagesElement = props.messagesData.map(m => <Message message={m.message} id={m.id}/>);
 
     return (
         <div className={s.messages}>
-            { messagesElement }
+            {messagesElement}
         </div>
     )
 }

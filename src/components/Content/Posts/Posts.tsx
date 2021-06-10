@@ -3,22 +3,26 @@ import s from './Posts.module.css';
 import NewPost from "./NewPost/NewPost";
 import Post from "./Post/Post";
 
-const Posts = () => {
+type postsDataArray = {
+    id: number
+    name: string
+    post: string
+    likesCount: number
+}
 
-    let postsData =  [
-        {id: 1, name: 'VALERA', post: 'HERLfdE', likesCount: 43},
-        {id: 2, name: 'Dimon', post: 'HERdsfLfdE', likesCount: 421},
-        {id: 3, name: 'Kukareku', post: 'HEfsdfRLfdE', likesCount: 13},
-        {id: 4, name: 'Stop', post: 'qweHERLfdE', likesCount: 5},
+type postsType = {
+    postsData: Array<postsDataArray>
+}
 
-    ]
+const Posts = (props: postsType) => {
 
-    let postsElement = postsData.map( p => <Post name={p.name} post={p.post} id={p.id} likesCount={p.likesCount}/>);
+    let postsElement = props.postsData.map(p => <Post name={p.name} post={p.post} id={p.id}
+                                                      likesCount={p.likesCount}/>);
 
     return (
         <div className={s.posts}>
             <NewPost/>
-            { postsElement }
+            {postsElement}
         </div>
     )
 }

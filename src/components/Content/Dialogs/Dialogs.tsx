@@ -2,23 +2,22 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import Dialog from "./Dialog/Dialog";
 
+type dialogsDataArray = {
+    id: number
+    name: string
+}
 
-const Dialogs = () => {
+type dialogsType = {
+    dialogsData: Array<dialogsDataArray>
+}
 
-    let dialogsData =  [
-        {id: 1, name: 'Dima'},
-        {id: 2, name: 'Masha'},
-        {id: 3, name: 'Pasha'},
-        {id: 4, name: 'Dasha'},
-        {id: 5, name: 'Sveta'},
-        {id: 6, name: 'SANEK'},
-    ]
+const Dialogs = (props: dialogsType) => {
 
-    let dialogsElement = dialogsData.map( d => <Dialog name={d.name} id={d.id}/>);
+    let dialogsElement = props.dialogsData.map(d => <Dialog name={d.name} id={d.id}/>);
 
     return (
         <div className={s.dialogs}>
-            { dialogsElement }
+            {dialogsElement}
         </div>
     )
 }
