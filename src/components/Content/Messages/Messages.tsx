@@ -1,17 +1,13 @@
 import React from 'react';
 import s from './Messages.module.css';
 import Message from "./Message/Message";
+import {MessagesDataArray} from "../../../redux/state";
 
-type messagesDataArray = {
-    id: number
-    message: string
+type PropsType = {
+    messagesData: Array<MessagesDataArray>
 }
 
-type messagesType = {
-    messagesData: Array<messagesDataArray>
-}
-
-const Messages = (props: messagesType) => {
+const Messages = (props: PropsType) => {
 
     let messagesElement = props.messagesData.map(m => <Message message={m.message} id={m.id}/>);
 

@@ -2,19 +2,13 @@ import React from 'react';
 import s from './Posts.module.css';
 import NewPost from "./NewPost/NewPost";
 import Post from "./Post/Post";
+import {PostsDataArray} from "../../../redux/state";
 
-type postsDataArray = {
-    id: number
-    name: string
-    post: string
-    likesCount: number
+type PropsType = {
+    postsData: Array<PostsDataArray>
 }
 
-type postsType = {
-    postsData: Array<postsDataArray>
-}
-
-const Posts = (props: postsType) => {
+const Posts = (props: PropsType) => {
 
     let postsElement = props.postsData.map(p => <Post name={p.name} post={p.post} id={p.id}
                                                       likesCount={p.likesCount}/>);

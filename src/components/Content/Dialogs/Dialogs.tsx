@@ -1,17 +1,13 @@
 import React from 'react';
 import s from './Dialogs.module.css';
 import Dialog from "./Dialog/Dialog";
+import {DialogsDataArray} from "../../../redux/state";
 
-type dialogsDataArray = {
-    id: number
-    name: string
+type PropsType = {
+    dialogsData: Array<DialogsDataArray>
 }
 
-type dialogsType = {
-    dialogsData: Array<dialogsDataArray>
-}
-
-const Dialogs = (props: dialogsType) => {
+const Dialogs = (props: PropsType) => {
 
     let dialogsElement = props.dialogsData.map(d => <Dialog name={d.name} id={d.id}/>);
 

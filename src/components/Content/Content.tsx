@@ -6,40 +6,23 @@ import Posts from "./Posts/Posts"
 import Dialogs from "./Dialogs/Dialogs";
 import Messages from "./Messages/Messages";
 import Footer from "./Footer/Footer"
+import {StateType} from "../../redux/state";
 
-type dialogsDataArray = {
-    id: number
-    name: string
+type PropsType = {
+    state: StateType
 }
 
-type postsDataArray = {
-    id: number
-    name: string
-    post: string
-    likesCount: number
-}
-
-type messagesDataArray = {
-    id: number
-    message: string
-}
-
-type contentType = {
-    dialogsData: Array<dialogsDataArray>
-    postsData: Array<postsDataArray>
-    messagesData: Array<messagesDataArray>
-}
-
-const Content = (props: contentType) => {
+const Content = (props: PropsType) => {
+    debugger;
     return (
         <div className={s.content_wrap}>
             <div className={s.top_left}>
                 <Route path="/profile" render={() => <Profile/>}/>
-                <Route path="/dialogs" render={() => <Dialogs dialogsData={props.dialogsData}/>}/>
+                <Route path="/dialogs" render={() => <Dialogs dialogsData={props.state.dialogsPage.dialogsData}/>}/>
             </div>
             <div className={s.top_center}>
-                <Route path="/profile" render={() => <Posts postsData={props.postsData}/>}/>
-                <Route path="/dialogs" render={() => <Messages messagesData={props.messagesData}/>}/>
+                <Route path="/profile" render={() => <Posts postsData={props.state.profilePage.postsData}/>}/>
+                <Route path="/dialogs" render={() => <Messages messagesData={props.state.dialogsPage.messagesData}/>}/>
             </div>
             <div className={s.bottom_left}>
                 <Footer/>

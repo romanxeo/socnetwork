@@ -1,12 +1,8 @@
 import React from 'react';
 import s from './Message.module.css';
+import {MessagesDataArray} from "../../../../redux/state";
 
-type MessageType = {
-    message: string
-    id: number
-}
-
-const Message = (props: MessageType) => {
+const Message = (props: MessagesDataArray) => {
     return (
         <div className={s.message}>
             {props.message}
