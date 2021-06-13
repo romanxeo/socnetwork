@@ -1,5 +1,8 @@
+import {useState} from "react";
+import {v1} from "uuid";
+
 export type PostsDataArray = {
-    id: number
+    id: string
     name: string
     post: string
     likesCount: number
@@ -29,10 +32,10 @@ export type StateType = {
 let state: StateType = {
     profilePage: {
         postsData: [
-            {id: 1, name: 'VALERA', post: 'HERLfdE', likesCount: 43},
-            {id: 2, name: 'Dimon', post: 'HERdsfLfdE', likesCount: 421},
-            {id: 3, name: 'Kukareku', post: 'HEfsdfRLfdE', likesCount: 13},
-            {id: 4, name: 'Stop', post: 'qweHERLfdE', likesCount: 5},
+            {id: v1(), name: 'VALERA', post: 'HERLfdE', likesCount: 43},
+            {id: v1(), name: 'Dimon', post: 'HERdsfLfdE', likesCount: 421},
+            {id: v1(), name: 'Kukareku', post: 'HEfsdfRLfdE', likesCount: 13},
+            {id: v1(), name: 'Stop', post: 'qweHERLfdE', likesCount: 5},
 
         ]
     },
@@ -54,6 +57,11 @@ let state: StateType = {
             {id: 6, message: 'eFGSGA DSFDSGA'},
         ]
     }
+}
+
+
+export let addPost = (post: string) => {
+    alert(post)
 }
 
 export default state;

@@ -6,6 +6,7 @@ import {PostsDataArray} from "../../../redux/state";
 
 type PropsType = {
     postsData: Array<PostsDataArray>
+    addPost: (post: string) => void
 }
 
 const Posts = (props: PropsType) => {
@@ -15,7 +16,7 @@ const Posts = (props: PropsType) => {
 
     return (
         <div className={s.posts}>
-            <NewPost/>
+            <NewPost addPost={props.addPost}/>
             {postsElement}
         </div>
     )
