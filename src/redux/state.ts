@@ -49,7 +49,7 @@ let state: StateType = {
             {id: 3, name: 'Pasha'},
             {id: 4, name: 'Dasha'},
             {id: 5, name: 'Sveta'},
-            {id: 6, name: 'SANEK'},
+            {id: 6, name: 'SANEK1'},
         ],
         messagesData: [
             {id: 1, message: 'HERLE'},
