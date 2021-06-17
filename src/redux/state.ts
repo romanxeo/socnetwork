@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {v1} from "uuid";
+import {rerenderEntireTree} from "../render";
 
 export type PostsDataArray = {
     id: string
@@ -18,6 +19,7 @@ export type MessagesDataArray = {
 
 export type ProfilePageArray = {
     postsData: Array<PostsDataArray>
+    newPostText: string
 }
 export type DialogsPageArray = {
     dialogsData: Array<DialogsDataArray>
@@ -37,7 +39,8 @@ let state: StateType = {
             {id: v1(), name: 'Kukareku', post: 'HEfsdfRLfdE', likesCount: 13},
             {id: v1(), name: 'Stop', post: 'qweHERLfdE', likesCount: 5},
 
-        ]
+        ],
+        newPostText: 'it-kamak'
     },
     dialogsPage: {
         dialogsData: [
@@ -60,8 +63,24 @@ let state: StateType = {
 }
 
 
-export let addPost = (post: string) => {
-    alert(post)
+export let addPost = () = {
+    let newPost = {
+        id: v1(),
+        name: 'string',
+        post: state.profilePage.newPostText,
+        likesCount: 0
+    }
+    state.profilePage.postsData.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state);
 }
+
+
+export let updateNewPostText = (newText: string)
+= {
+    state.profilePage.newPostText = newText
+    rerenderEntireTree(state);
+}
+
 
 export default state;

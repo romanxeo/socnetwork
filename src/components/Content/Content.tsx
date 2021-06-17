@@ -10,7 +10,8 @@ import {StateType} from "../../redux/state";
 
 type PropsType = {
     state: StateType
-    addPost: (post: string) => void
+    addPost: () => void
+    updateNewPostText: (post: string) => void
 }
 
 const Content = (props: PropsType) => {
@@ -23,8 +24,12 @@ const Content = (props: PropsType) => {
             </div>
             <div className={s.top_center}>
                 <Route path="/profile"
-                       render={() => <Posts postsData={props.state.profilePage.postsData} addPost={props.addPost}/>}/>
-                <Route path="/dialogs" render={() => <Messages messagesData={props.state.dialogsPage.messagesData}/>}/>
+                       render={() => <Posts postsData={props.state.profilePage.postsData}
+                                            newPostText={props.state.profilePage.newPostText}
+                                            addPost={props.addPost}
+                                            updateNewPostText={props.updateNewPostText}/>}/>
+                <Route path="/dialogs"
+                       render={() => <Messages messagesData={props.state.dialogsPage.messagesData}/>}/>
             </div>
             <div className={s.bottom_left}>
                 <Footer/>

@@ -2,28 +2,28 @@ import React, {ChangeEvent, useState} from 'react';
 
 type PropsType = {
     addPost: (post: string) => void
+    newPostText: string
+    updateNewPostText: (post: string) => void
 }
 
 const NewPost = (props: PropsType) => {
 
-    let [post, setPost] = useState('');
+    let newPost = React.createRef();
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setPost(e.currentTarget.value);
+    let onCLickHandler = () => {
+        props.addPost();
     }
 
-    const onClickHandler = () => {
-        if (post !== "") {
-            props.addPost(post);
-            setPost("");
-        }
+    let onPostChange = () => {
+        let post = newPost.current.value;
+        props.updateNewPostText(post);
     }
 
     return (
         <div>
             <div>NEW POST</div>
-            <input value={post} onChange={onChangeHandler}></input>
-            <button onClick={onClickHandler}>Add post</button>
+            <textarea onChange={onPostChange} ref={newPost} value={props.newPostText}/>
+            <button onClick={onCLickHandler}>Add post</button>
         </div>
     )
 }

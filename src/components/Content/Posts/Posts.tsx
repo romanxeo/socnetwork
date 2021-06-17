@@ -6,17 +6,23 @@ import {PostsDataArray} from "../../../redux/state";
 
 type PropsType = {
     postsData: Array<PostsDataArray>
-    addPost: (post: string) => void
+    newPostText: string
+    addPost: () => void
+    updateNewPostText: (post: string) => void
 }
 
 const Posts = (props: PropsType) => {
 
-    let postsElement = props.postsData.map(p => <Post name={p.name} post={p.post} id={p.id}
+    let postsElement = props.postsData.map(p => <Post name={p.name}
+                                                      post={p.post}
+                                                      id={p.id}
                                                       likesCount={p.likesCount}/>);
 
     return (
         <div className={s.posts}>
-            <NewPost addPost={props.addPost}/>
+            <NewPost addPost={props.addPost}
+                     newPostText={props.newPostText}
+                     updateNewPostText={props.updateNewPostText}/>
             {postsElement}
         </div>
     )
