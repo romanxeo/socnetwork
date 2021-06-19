@@ -5,7 +5,7 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import {addPost, StateType, updateNewPostText} from './redux/state';
 
-export let rerenderEntireTree = (state: StateType) => {
+export const rerenderEntireTree = (state: StateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>

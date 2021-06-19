@@ -8,7 +8,7 @@ type PropsType = {
     postsData: Array<PostsDataArray>
     newPostText: string
     addPost: () => void
-    updateNewPostText: (post: string) => void
+    updateNewPostText: (newText: string) => void
 }
 
 const Posts = (props: PropsType) => {

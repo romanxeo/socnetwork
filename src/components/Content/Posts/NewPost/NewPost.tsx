@@ -1,28 +1,30 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 
 type PropsType = {
-    addPost: (post: string) => void
+    addPost: () => void
     newPostText: string
-    updateNewPostText: (post: string) => void
+    updateNewPostText: (newText: string) => void
 }
 
 const NewPost = (props: PropsType) => {
 
-    let newPost = React.createRef();
+    let postText = React.createRef<HTMLTextAreaElement>();
 
-    let onCLickHandler = () => {
-        props.addPost();
+    const onCLickHandler = () => {
+        if (postText.current) {
+
+        }
+        props.addPost()
     }
 
-    let onPostChange = () => {
-        let post = newPost.current.value;
-        props.updateNewPostText(post);
+    let onPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value);
     }
 
     return (
         <div>
             <div>NEW POST</div>
-            <textarea onChange={onPostChange} ref={newPost} value={props.newPostText}/>
+            <textarea onChange={onPostChangeHandler} value={props.newPostText}/>
             <button onClick={onCLickHandler}>Add post</button>
         </div>
     )

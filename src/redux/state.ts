@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {v1} from "uuid";
 import {rerenderEntireTree} from "../render";
 
@@ -40,7 +39,7 @@ let state: StateType = {
             {id: v1(), name: 'Stop', post: 'qweHERLfdE', likesCount: 5},
 
         ],
-        newPostText: 'it-kamak'
+        newPostText: ''
     },
     dialogsPage: {
         dialogsData: [
@@ -63,21 +62,20 @@ let state: StateType = {
 }
 
 
-export let addPost = () = {
-    let newPost = {
+export const addPost = () => {
+    const newPost: PostsDataArray = {
         id: v1(),
-        name: 'string',
+        name: 'name',
         post: state.profilePage.newPostText,
         likesCount: 0
     }
     state.profilePage.postsData.push(newPost)
     state.profilePage.newPostText = ''
-    rerenderEntireTree(state);
+    rerenderEntireTree(state)
 }
 
 
-export let updateNewPostText = (newText: string)
-= {
+export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
     rerenderEntireTree(state);
 }
