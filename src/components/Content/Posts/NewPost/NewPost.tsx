@@ -8,12 +8,7 @@ type PropsType = {
 
 const NewPost = (props: PropsType) => {
 
-    let postText = React.createRef<HTMLTextAreaElement>();
-
     const onCLickHandler = () => {
-        if (postText.current) {
-
-        }
         props.addPost()
     }
 
