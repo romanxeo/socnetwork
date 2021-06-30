@@ -2,13 +2,14 @@ import React from 'react';
 import s from './Posts.module.css';
 import NewPost from "./NewPost/NewPost";
 import Post from "./Post/Post";
-import {PostsDataArray} from "../../../redux/state";
+import {ActionTypes, PostsDataArray} from "../../../redux/state";
 
 type PropsType = {
     postsData: Array<PostsDataArray>
     newPostText: string
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    /*addPost: () => void
+    updateNewPostText: (newText: string) => void*/
+    dispatch: (action: ActionTypes) => void
 }
 
 const Posts = (props: PropsType) => {
@@ -20,9 +21,10 @@ const Posts = (props: PropsType) => {
 
     return (
         <div className={s.posts}>
-            <NewPost addPost={props.addPost}
-                     newPostText={props.newPostText}
-                     updateNewPostText={props.updateNewPostText}/>
+            <NewPost newPostText={props.newPostText}
+                /*addPost={props.addPost}
+                updateNewPostText={props.updateNewPostText} */
+                     dispatch={props.dispatch}/>
             {postsElement}
         </div>
     )

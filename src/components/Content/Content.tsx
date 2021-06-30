@@ -6,12 +6,13 @@ import Posts from "./Posts/Posts"
 import Dialogs from "./Dialogs/Dialogs";
 import Messages from "./Messages/Messages";
 import Footer from "./Footer/Footer"
-import {StateType} from "../../redux/state";
+import {StateType, ActionTypes} from "../../redux/state";
 
 type PropsType = {
     state: StateType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionTypes) => void
+    /*addPost: () => void
+    updateNewPostText: (newText: string) => void*/
 }
 
 const Content = (props: PropsType) => {
@@ -26,10 +27,14 @@ const Content = (props: PropsType) => {
                 <Route path="/profile"
                        render={() => <Posts postsData={props.state.profilePage.postsData}
                                             newPostText={props.state.profilePage.newPostText}
-                                            addPost={props.addPost}
-                                            updateNewPostText={props.updateNewPostText}/>}/>
+                           /*addPost={props.addPost}
+                           updateNewPostText={props.updateNewPostText}*/
+                                            dispatch={props.dispatch}
+                       />}/>
                 <Route path="/dialogs"
-                       render={() => <Messages messagesData={props.state.dialogsPage.messagesData}/>}/>
+                       render={() => <Messages messagesData={props.state.dialogsPage.messagesData}
+                           /*dispatch={props.dispatch}*/
+                       />}/>
             </div>
             <div className={s.bottom_left}>
                 <Footer/>

@@ -29,6 +29,18 @@ export type StateType = {
     dialogsPage: DialogsPageArray
 }
 
+
+export type AddPostActionType = {
+    type: "ADD-POST"
+}
+export type updateNewPostTextActionType = {
+    type: "UPDATE-NEW-POST-TEXT"
+    newText: string
+}
+
+export type ActionTypes = AddPostActionType | updateNewPostTextActionType
+
+
 export type StoreType = {
     _state: StateType
     _callSubscriber: () => void
@@ -36,7 +48,10 @@ export type StoreType = {
     updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
+    dispatch: (action: ActionTypes) => void
 }
+
+
 
 let store: StoreType = {
     _state: {
@@ -93,6 +108,23 @@ let store: StoreType = {
     getState() {
         return this._state;
     },
+    dispatch(action) {
+        if (action.type === "ADD-POST") {
+            const newPost: PostsDataArray = {
+                id: v1(),
+                name: 'name',
+                post: this._state.profilePage.newPostText,
+                likesCount: 0
+            }
+            this._state.profilePage.postsData.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber()
+        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+            this._state.profilePage.newPostText = action.newText
+            this._callSubscriber();
+        }
+
+    }
 }
 
 export default store;
