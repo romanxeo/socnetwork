@@ -75,7 +75,7 @@ let store: StoreType = {
                 {id: 6, name: 'SANEK12'},
             ],
             messagesData: [
-                {id: 1, message: 'HERLE'},
+                {id: 1, message: 'HERLE1'},
                 {id: 2, message: 'MASHA'},
                 {id: 3, message: 'VALERCHI PRIYOM'},
                 {id: 4, message: 'SUCHARA'},
