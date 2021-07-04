@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import store, {ActionTypes} from "../../../../redux/state";
+import store, {ActionTypes, addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/state";
 
 type PropsType = {
     newPostText: string
@@ -8,16 +8,17 @@ type PropsType = {
     dispatch: (action: ActionTypes) => void
 }
 
+
 const NewPost = (props: PropsType) => {
 
     const onCLickHandler = () => {
-        props.dispatch({type: 'ADD-POST'});
+        props.dispatch(addPostActionCreator());
         /*props.addPost()*/
     }
 
     let onPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         /*let newText = e.currentTarget.value*/
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: e.currentTarget.value});
+        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value));
         /*props.updateNewPostText(e.currentTarget.value);*/
     }
 

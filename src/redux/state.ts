@@ -30,15 +30,10 @@ export type StateType = {
 }
 
 
-export type AddPostActionType = {
-    type: "ADD-POST"
-}
-export type updateNewPostTextActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
-}
+const ADD_POST = "ADD-POST"
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 
-export type ActionTypes = AddPostActionType | updateNewPostTextActionType
+export type ActionTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
 
 
 export type StoreType = {
@@ -109,7 +104,7 @@ let store: StoreType = {
         return this._state;
     },
     dispatch(action) {
-        if (action.type === "ADD-POST") {
+        if (action.type === ADD_POST) {
             const newPost: PostsDataArray = {
                 id: v1(),
                 name: 'name',
@@ -119,12 +114,24 @@ let store: StoreType = {
             this._state.profilePage.postsData.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubscriber()
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber();
         }
 
     }
+}
+
+export const addPostActionCreator = () => {
+    return (
+        {type: ADD_POST}
+    ) as const
+}
+
+export const updateNewPostTextActionCreator = (newText: string) => {
+    return (
+        {type: UPDATE_NEW_POST_TEXT, newText: newText}
+    ) as const
 }
 
 export default store;
