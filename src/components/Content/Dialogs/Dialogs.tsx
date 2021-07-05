@@ -16,6 +16,8 @@ const Dialogs = (props: PropsType) => {
             {dialogsElement}
         </div>
     )
+
+
 }
 
 export default Dialogs;

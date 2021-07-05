@@ -5,6 +5,7 @@ import {DialogsDataArray} from "../../../../redux/state";
 
 const Dialog = (props: DialogsDataArray) => {
     return (
+
         <NavLink to={"/dialogs/" + props.id} className={s.dialog + ' ' + s.active}> {props.name} </NavLink>
     )
 }

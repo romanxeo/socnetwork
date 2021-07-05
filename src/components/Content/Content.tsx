@@ -33,7 +33,8 @@ const Content = (props: PropsType) => {
                        />}/>
                 <Route path="/dialogs"
                        render={() => <Messages messagesData={props.state.dialogsPage.messagesData}
-                           /*dispatch={props.dispatch}*/
+                                               newMessageText={props.state.dialogsPage.newMessageText}
+                                               dispatch={props.dispatch}
                        />}/>
             </div>
             <div className={s.bottom_left}>

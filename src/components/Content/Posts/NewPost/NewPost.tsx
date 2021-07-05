@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import store, {ActionTypes, addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/state";
+import {ActionTypes, addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/state";
 
 type PropsType = {
     newPostText: string

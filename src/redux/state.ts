@@ -7,11 +7,11 @@ export type PostsDataArray = {
     likesCount: number
 }
 export type DialogsDataArray = {
-    id: number
+    id: string
     name: string
 }
 export type MessagesDataArray = {
-    id: number
+    id: string
     message: string
 }
 
@@ -22,6 +22,7 @@ export type ProfilePageArray = {
 export type DialogsPageArray = {
     dialogsData: Array<DialogsDataArray>
     messagesData: Array<MessagesDataArray>
+    newMessageText: string
 }
 
 export type StateType = {
@@ -32,8 +33,14 @@ export type StateType = {
 
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
+const ADD_MESSAGE = "ADD-MESSAGE"
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 
-export type ActionTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextActionCreator>
+
+export type ActionTypes = ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof updateNewPostTextActionCreator> |
+    ReturnType<typeof addMessageActionCreator> |
+    ReturnType<typeof updateNewMessageTextActionCreator>
 
 
 export type StoreType = {
@@ -62,21 +69,22 @@ let store: StoreType = {
         },
         dialogsPage: {
             dialogsData: [
-                {id: 1, name: 'Dima'},
-                {id: 2, name: 'Masha'},
-                {id: 3, name: 'Pasha'},
-                {id: 4, name: 'Dasha'},
-                {id: 5, name: 'Sveta'},
-                {id: 6, name: 'SANEK12'},
+                {id: v1(), name: 'Dima'},
+                {id: v1(), name: 'Masha'},
+                {id: v1(), name: 'Pasha'},
+                {id: v1(), name: 'Dasha'},
+                {id: v1(), name: 'Sveta'},
+                {id: v1(), name: 'SANEK12'},
             ],
             messagesData: [
-                {id: 1, message: 'HERLE1'},
-                {id: 2, message: 'MASHA'},
-                {id: 3, message: 'VALERCHI PRIYOM'},
-                {id: 4, message: 'SUCHARA'},
-                {id: 5, message: 'fdsfdf5435s erwtgaa'},
-                {id: 6, message: 'eFGSGA DSFDSGA'},
-            ]
+                {id: v1(), message: 'HERLE1'},
+                {id: v1(), message: 'MASHA'},
+                {id: v1(), message: 'VALERCHI PRIYOM'},
+                {id: v1(), message: 'SUCHARA'},
+                {id: v1(), message: 'fdsfdf5435s erwtgaa'},
+                {id: v1(), message: 'eFGSGA DSFDSGA'},
+            ],
+            newMessageText: ''
         }
     },
     _callSubscriber() {
@@ -117,6 +125,21 @@ let store: StoreType = {
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber();
+        } else if (action.type === ADD_MESSAGE) {
+
+            const newMessage: MessagesDataArray = {
+                id: v1(),
+                message: this._state.dialogsPage.newMessageText,
+            }
+            this._state.dialogsPage.messagesData.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this._callSubscriber()
+
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+
+            this._state.dialogsPage.newMessageText = action.newText
+            this._callSubscriber();
+
         }
 
     }
@@ -133,5 +156,18 @@ export const updateNewPostTextActionCreator = (newText: string) => {
         {type: UPDATE_NEW_POST_TEXT, newText: newText}
     ) as const
 }
+
+export const addMessageActionCreator = () => {
+    return (
+        {type: ADD_MESSAGE}
+    ) as const
+}
+
+export const updateNewMessageTextActionCreator = (newText: string) => {
+    return (
+        {type: UPDATE_NEW_MESSAGE_TEXT, newText: newText}
+    ) as const
+}
+
 
 export default store;
