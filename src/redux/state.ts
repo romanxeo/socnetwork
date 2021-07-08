@@ -1,4 +1,7 @@
 import {v1} from "uuid";
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+
 
 export type PostsDataArray = {
     id: string
@@ -31,10 +34,10 @@ export type StateType = {
 }
 
 
-const ADD_POST = "ADD-POST"
+/*const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const ADD_MESSAGE = "ADD-MESSAGE"
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"*/
 
 
 export type ActionTypes = ReturnType<typeof addPostActionCreator> |
@@ -111,7 +114,16 @@ let store: StoreType = {
     getState() {
         return this._state;
     },
+
+
     dispatch(action) {
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._callSubscriber();
+
+
+        /*
         if (action.type === ADD_POST) {
             const newPost: PostsDataArray = {
                 id: v1(),
@@ -140,12 +152,12 @@ let store: StoreType = {
             this._state.dialogsPage.newMessageText = action.newText
             this._callSubscriber();
 
-        }
+        }*/
 
     }
 }
 
-export const addPostActionCreator = () => {
+/*export const addPostActionCreator = () => {
     return (
         {type: ADD_POST}
     ) as const
@@ -167,7 +179,7 @@ export const updateNewMessageTextActionCreator = (newText: string) => {
     return (
         {type: UPDATE_NEW_MESSAGE_TEXT, newText: newText}
     ) as const
-}
+}*/
 
 
 export default store;
