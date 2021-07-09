@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Message.module.css';
-import {MessagesDataArray} from "../../../../redux/state";
+import {MessagesDataArray} from "../../../../redux/store";
 
 const Message = (props: MessagesDataArray) => {
     return (

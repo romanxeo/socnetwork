@@ -120,6 +120,7 @@ let store: StoreType = {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+
         this._callSubscriber();
 
 

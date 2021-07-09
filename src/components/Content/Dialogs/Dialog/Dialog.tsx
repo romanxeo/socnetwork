@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialog.module.css';
-import {DialogsDataArray} from "../../../../redux/state";
+import {DialogsDataArray} from "../../../../redux/store";
 
 const Dialog = (props: DialogsDataArray) => {
     return (

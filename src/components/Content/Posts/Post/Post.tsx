@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Post.module.css';
-import {PostsDataArray} from "../../../../redux/state";
+import {PostsDataArray} from "../../../../redux/store";
 
 const Post = (props: PostsDataArray) => {
     return (

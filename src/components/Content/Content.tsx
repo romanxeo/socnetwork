@@ -6,7 +6,7 @@ import Posts from "./Posts/Posts"
 import Dialogs from "./Dialogs/Dialogs";
 import Messages from "./Messages/Messages";
 import Footer from "./Footer/Footer"
-import {StateType, ActionTypes} from "../../redux/state";
+import {StateType, ActionTypes} from "../../redux/store";
 
 type PropsType = {
     state: StateType

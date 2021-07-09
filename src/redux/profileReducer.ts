@@ -1,10 +1,21 @@
 import {v1} from "uuid";
-import {PostsDataArray} from "./state";
+import {PostsDataArray} from "./store";
 
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 
-const profileReducer = (state, action) => {
+let initialState = {
+    postsData: [
+        {id: v1(), name: 'VALERA', post: 'HERLfdE', likesCount: 43},
+        {id: v1(), name: 'Dimon', post: 'HERdsfLfdE', likesCount: 421},
+        {id: v1(), name: 'Kukareku', post: 'HEfsdfRLfdE', likesCount: 13},
+        {id: v1(), name: 'Stop', post: 'qweHERLfdE', likesCount: 5},
+
+    ],
+    newPostText: ''
+}
+
+const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST:

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Messages.module.css';
 import Message from "./Message/Message";
-import {ActionTypes, MessagesDataArray} from "../../../redux/state";
+import {ActionTypes, MessagesDataArray} from "../../../redux/store";
 import NewMessage from "./NewMessage/NewMessage";
 
 type PropsType = {

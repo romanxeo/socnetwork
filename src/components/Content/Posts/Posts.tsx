@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Posts.module.css';
 import NewPost from "./NewPost/NewPost";
 import Post from "./Post/Post";
-import {ActionTypes, PostsDataArray} from "../../../redux/state";
+import {ActionTypes, PostsDataArray} from "../../../redux/store";
 
 type PropsType = {
     postsData: Array<PostsDataArray>

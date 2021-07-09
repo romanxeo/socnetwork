@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Dialogs.module.css';
 import Dialog from "./Dialog/Dialog";
-import {DialogsDataArray} from "../../../redux/state";
+import {DialogsDataArray} from "../../../redux/store";
 
 type PropsType = {
     dialogsData: Array<DialogsDataArray>
