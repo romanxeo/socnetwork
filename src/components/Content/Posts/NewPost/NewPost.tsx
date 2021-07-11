@@ -1,21 +1,11 @@
-import React, {ChangeEvent} from 'react';
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/profileReducer";
-import {ActionTypes} from "../../../../redux/store";
+import React from 'react';
+import {NewPostPropsType} from "../PostsContainer";
 
 
-type PropsType = {
-    newPostText: string
-    /*addPost: () => void
-    updateNewPostText: (newText: string) => void*/
-    dispatch: (action: ActionTypes) => void
-}
-
-
-const NewPost = (props: PropsType) => {
+const NewPost = (props: NewPostPropsType) => {
 
     const onCLickHandler = () => {
-        props.dispatch(addPostActionCreator());
-        /*props.addPost()*/
+        props.addPostActionCreator();
     }
 
     let onPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {

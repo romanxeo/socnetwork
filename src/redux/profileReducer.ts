@@ -1,10 +1,27 @@
 import {v1} from "uuid";
-import {PostsDataArray} from "./store";
 
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 
-let initialState = {
+//типизируем массив постов
+export type PostsDataArray = {
+    id: string
+    name: string
+    post: string
+    likesCount: number
+}
+//типизируем стейт
+export type initialStateType = {
+    postsData: Array<PostsDataArray>
+    newPostText: string
+}
+
+//типизируем action который может приходить
+export type ActionTypes = ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof updateNewPostTextActionCreator>
+
+//инициализируем стейт с данными
+const initialState: initialStateType = {
     postsData: [
         {id: v1(), name: 'VALERA', post: 'HERLfdE', likesCount: 43},
         {id: v1(), name: 'Dimon', post: 'HERdsfLfdE', likesCount: 421},
@@ -15,7 +32,8 @@ let initialState = {
     newPostText: ''
 }
 
-const profileReducer = (state = initialState, action) => {
+//profileReducer
+const profileReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
 
     switch (action.type) {
         case ADD_POST:

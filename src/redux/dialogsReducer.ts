@@ -1,10 +1,31 @@
 import {v1} from "uuid";
-import {MessagesDataArray} from "./store";
 
 const ADD_MESSAGE = "ADD-MESSAGE"
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 
-let initialState = {
+//типизируем стейт
+type DialogsDataArray = {
+    id: string
+    name: string
+}
+//типизируем стейт
+type MessagesDataArray = {
+    id: string
+    message: string
+}
+//типизируем стейт
+type initialStateType = {
+    dialogsData: Array<DialogsDataArray>
+    messagesData: Array<MessagesDataArray>
+    newMessageText: string
+}
+
+//типизируем action который может приходить
+export type ActionTypes = ReturnType<typeof addMessageActionCreator> |
+    ReturnType<typeof updateNewMessageTextActionCreator>
+
+//инициализируем стейт с данными
+let initialState: initialStateType = {
     dialogsData: [
         {id: v1(), name: 'Dima'},
         {id: v1(), name: 'Masha'},
@@ -24,7 +45,8 @@ let initialState = {
     newMessageText: ''
 }
 
-export const dialogsReducer = (state, action) => {
+//dialogsReducer
+export const dialogsReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
 
     switch (action.type) {
         case ADD_MESSAGE:

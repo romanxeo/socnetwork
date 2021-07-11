@@ -3,32 +3,32 @@ import profileReducer from "./profileReducer";
 import dialogsReducer from "./dialogsReducer";
 
 
-export type PostsDataArray = {
+type PostsDataArray = {
     id: string
     name: string
     post: string
     likesCount: number
 }
-export type DialogsDataArray = {
+type DialogsDataArray = {
     id: string
     name: string
 }
-export type MessagesDataArray = {
+type MessagesDataArray = {
     id: string
     message: string
 }
 
-export type ProfilePageArray = {
+type ProfilePageArray = {
     postsData: Array<PostsDataArray>
     newPostText: string
 }
-export type DialogsPageArray = {
+type DialogsPageArray = {
     dialogsData: Array<DialogsDataArray>
     messagesData: Array<MessagesDataArray>
     newMessageText: string
 }
 
-export type StateType = {
+type StateType = {
     profilePage: ProfilePageArray
     dialogsPage: DialogsPageArray
 }
