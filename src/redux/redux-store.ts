@@ -12,4 +12,6 @@ export const rootReducer = combineReducers({
 export type AppStateType = ReturnType<typeof rootReducer>
 
 //создаем стор
-export const store = createStore(rootReducer);
+const store = createStore(rootReducer);
+
+export default store

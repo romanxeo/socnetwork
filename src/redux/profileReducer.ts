@@ -37,18 +37,45 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
 
     switch (action.type) {
         case ADD_POST:
+
+            //создаем новый обхект поста
             const newPost: PostsDataArray = {
                 id: v1(),
                 name: 'name',
                 post: state.newPostText,
                 likesCount: 0
             }
-            state.postsData.push(newPost);
-            state.newPostText = '';
-            return state;
+
+            //делаем глубокую копию объекта стейт
+            let copyState: initialStateType = {...state}
+            copyState.postsData = [...state.postsData]
+
+            //вносим изменения добавляем пост и затираем текст в текстариа
+            copyState.postsData.push(newPost);
+            copyState.newPostText = '';
+
+            return copyState;
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            return state;
+            return {
+                ...state,
+                newPostText: action.newText
+            }
+
+
+        //почемуто не работает
+        /*            let copyState = {...state};
+                    copyState.newPostText = action.newText;
+                    return copyState;
+
+                    */
+        /*            */
+        // state.newPostText = action.newText;
+        // return state;
+
+        //делаем глубокую копию объекта стейт
+        // return state;
+
+
         default:
             return state;
     }

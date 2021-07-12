@@ -1,21 +1,27 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
+import Post from "../Post/Post";
 import {NewPostPropsType} from "../PostsContainer";
 
 
 const NewPost = (props: NewPostPropsType) => {
+    /*
+        let postsElement = props.postsData.map(p => <Post name={p.name}
+                                                         post={p.post}
+                                                         id={p.id}
+                                                         likesCount={p.likesCount}/>);*/
+
 
     const onCLickHandler = () => {
-        props.addPostActionCreator();
+        props.addPost();
     }
 
     let onPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        /*let newText = e.currentTarget.value*/
-        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value));
-        /*props.updateNewPostText(e.currentTarget.value);*/
+        props.updateNewPostText(e.currentTarget.value);
     }
 
     return (
         <div>
+            {/*{postsElement}*/}
             <div>NEW POST</div>
             <textarea onChange={onPostChangeHandler} value={props.newPostText}/>
             <button onClick={onCLickHandler}>Add post</button>
@@ -24,3 +30,5 @@ const NewPost = (props: NewPostPropsType) => {
 }
 
 export default NewPost;
+
+// react doc => поднятие состояния

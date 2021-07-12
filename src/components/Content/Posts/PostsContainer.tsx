@@ -1,25 +1,33 @@
 import React from 'react';
-import {addPostActionCreator, initialStateType, updateNewPostTextActionCreator} from "../../../redux/profileReducer";
+import {addPostActionCreator, PostsDataArray, updateNewPostTextActionCreator} from "../../../redux/profileReducer";
 import {connect} from "react-redux";
 import NewPost from "./NewPost/NewPost";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
 
-type mapDispatchToPropsType = {
+//Типизируем мап то пропс
+type MSTPPropsType = {
+    postsData: Array<PostsDataArray>
+    newPostText: string
+}
+
+//тиизируем диспатч то пропс
+type MDTPPropsType = {
     addPost: () => void
     updateNewPostText: (newText: string) => void
 }
 
-export type NewPostPropsType = initialStateType & mapDispatchToPropsType
+//объединяем тип
+export type NewPostPropsType = MSTPPropsType & MDTPPropsType
 
-const mapStateToProps = (state: AppStateType): initialStateType => {
+const mapStateToProps = (state: AppStateType): MSTPPropsType => {
     return {
         postsData: state.profilePage.postsData,
         newPostText: state.profilePage.newPostText
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
     return {
         addPost: () => {
             dispatch(addPostActionCreator());
@@ -30,4 +38,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 }
 
-const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(NewPost)
+export const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(NewPost)

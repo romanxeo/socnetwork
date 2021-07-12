@@ -6,36 +6,18 @@ import Posts from "./Posts/Posts"
 import Dialogs from "./Dialogs/Dialogs";
 import Messages from "./Messages/Messages";
 import Footer from "./Footer/Footer"
-import {StateType, ActionTypes} from "../../redux/store";
 
-type PropsType = {
-    state: StateType
-    dispatch: (action: ActionTypes) => void
-    /*addPost: () => void
-    updateNewPostText: (newText: string) => void*/
-}
-
-const Content = (props: PropsType) => {
+const Content = () => {
     debugger;
     return (
         <div className={s.content_wrap}>
             <div className={s.top_left}>
                 <Route path="/profile" render={() => <Profile/>}/>
-                <Route path="/dialogs" render={() => <Dialogs dialogsData={props.state.dialogsPage.dialogsData}/>}/>
+                {/*<Route path="/dialogs" render={() => <Dialogs/>}/>*/}
             </div>
             <div className={s.top_center}>
-                <Route path="/profile"
-                       render={() => <Posts postsData={props.state.profilePage.postsData}
-                                            newPostText={props.state.profilePage.newPostText}
-                           /*addPost={props.addPost}
-                           updateNewPostText={props.updateNewPostText}*/
-                                            dispatch={props.dispatch}
-                       />}/>
-                <Route path="/dialogs"
-                       render={() => <Messages messagesData={props.state.dialogsPage.messagesData}
-                                               newMessageText={props.state.dialogsPage.newMessageText}
-                                               dispatch={props.dispatch}
-                       />}/>
+                <Route path="/profile" render={() => <Posts/>}/>
+                {/*<Route path="/dialogs" render={() => <Messages />}/>*/}
             </div>
             <div className={s.bottom_left}>
                 <Footer/>
@@ -43,11 +25,5 @@ const Content = (props: PropsType) => {
             </div>
     )
 }
-
-//<div className={s.content_wrap}>
-//    <div className={s.profile}>Profile</div>
-//    <div className={s.posts}>Posts</div>
-//    <div className={s.footer}>Footer</div>
-//</div>
 
 export default Content;

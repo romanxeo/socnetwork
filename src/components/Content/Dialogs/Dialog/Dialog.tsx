@@ -1,12 +1,11 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Dialog.module.css';
-import {DialogsDataArray} from "../../../../redux/store";
 
-const Dialog = (props: DialogsDataArray) => {
+const Dialog = () => {
     return (
-
-        <NavLink to={"/dialogs/" + props.id} className={s.dialog + ' ' + s.active}> {props.name} </NavLink>
+        <div>q</div>
+        /*        <NavLink to={"/dialogs/" + props.id} className={s.dialog + ' ' + s.active}> {props.name} </NavLink>*/
     )
 }
 
