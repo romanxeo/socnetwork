@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import Post from "../Post/Post";
-import {NewPostPropsType} from "../PostsContainer";
+import {NewPostPropsType} from "./NewPostContainer";
 
 
 const NewPost = (props: NewPostPropsType) => {

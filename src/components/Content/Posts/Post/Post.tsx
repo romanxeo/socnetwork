@@ -1,17 +1,26 @@
 import React from 'react';
 import s from './Post.module.css';
+import {PostPropsType} from "./PostContainer";
 
-const Post = () => {
-    return (
+const Post = (props: PostPropsType) => {
+
+    let postElement = props.postsData.map(p =>
         <div className={s.item}>
-            {/*<img
+            <img
                 src="https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png"
                 alt="img"/>
-            <div>{props.name}</div>
-            <div>{props.post}</div>
-            <div>{props.id}</div>
-            <div>like {props.likesCount}</div>*/}
+            <div>{p.name}</div>
+            <div>{p.post}</div>
+            <div>{p.id}</div>
+            <div>like {p.likesCount}</div>
         </div>
+    );
+
+    return (
+        <div>
+            {postElement}
+        </div>
+
     )
 }
 
