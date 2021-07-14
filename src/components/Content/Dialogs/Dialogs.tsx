@@ -1,20 +1,16 @@
 import React from 'react';
 import s from './Dialogs.module.css';
-import Dialog from "./Dialog/Dialog";
+import {DialogContainer} from "./Dialog/DialogContainer";
 
 
 
 const Dialogs = () => {
 
-    /*    let dialogsElement = props.dialogsData.map(d => <Dialog name={d.name} id={d.id}/>);
-
-        return (
-            <div className={s.dialogs}>
-                {dialogsElement}
-            </div>
-        )*/
-
-
+    return (
+        <div className={s.dialogs}>
+            <DialogContainer/>
+        </div>
+    )
 }
 
 export default Dialogs;

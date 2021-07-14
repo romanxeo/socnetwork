@@ -1,15 +1,21 @@
 import React from 'react';
 import s from './Message.module.css';
+import {MessagePropsType} from "./MessageContainer";
 
-const Message = () => {
+const Message = (props: MessagePropsType) => {
+
+    let messageElement = props.messagesData.map(m =>
+        <div className={s.message}>
+            <div>{m.message}</div>
+            <div>{m.id}</div>
+        </div>
+    )
+
     return (
-        <div> IhD</div>
+        <div>
+            {messageElement}
+        </div>
     )
 }
-
-
-/*className={s.message}>
-    {props.message}
-{props.id}*/
 
 export default Message;

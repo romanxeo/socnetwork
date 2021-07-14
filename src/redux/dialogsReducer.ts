@@ -4,17 +4,17 @@ const ADD_MESSAGE = "ADD-MESSAGE"
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 
 //типизируем стейт
-type DialogsDataArray = {
+export type DialogsDataArray = {
     id: string
     name: string
 }
 //типизируем стейт
-type MessagesDataArray = {
+export type MessagesDataArray = {
     id: string
     message: string
 }
 //типизируем стейт
-type initialStateType = {
+export type initialStateType = {
     dialogsData: Array<DialogsDataArray>
     messagesData: Array<MessagesDataArray>
     newMessageText: string
@@ -50,16 +50,28 @@ export const dialogsReducer = (state: initialStateType = initialState, action: A
 
     switch (action.type) {
         case ADD_MESSAGE:
+
+            //создаем новый объект сообщения
             const newMessage: MessagesDataArray = {
                 id: v1(),
                 message: state.newMessageText
             }
-            state.messagesData.push(newMessage);
-            state.newMessageText = '';
-            return state;
+
+            //делаем глубокую копию объекта стейт
+            let copyState: initialStateType = {...state}
+            copyState.messagesData = [...state.messagesData]
+
+            //вносим изменения добавляем пост и затираем текст в текстариа
+            copyState.messagesData.push(newMessage);
+            copyState.newMessageText = '';
+
+            return copyState;
+
         case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.newText
-            return state;
+            return {
+                ...state,
+                newMessageText: action.newText
+            }
         default:
             return state;
     }

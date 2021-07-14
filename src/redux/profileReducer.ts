@@ -60,22 +60,6 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
                 ...state,
                 newPostText: action.newText
             }
-
-
-        //почемуто не работает
-        /*            let copyState = {...state};
-                    copyState.newPostText = action.newText;
-                    return copyState;
-
-                    */
-        /*            */
-        // state.newPostText = action.newText;
-        // return state;
-
-        //делаем глубокую копию объекта стейт
-        // return state;
-
-
         default:
             return state;
     }

@@ -13,11 +13,11 @@ const Content = () => {
         <div className={s.content_wrap}>
             <div className={s.top_left}>
                 <Route path="/profile" render={() => <Profile/>}/>
-                {/*<Route path="/dialogs" render={() => <Dialogs/>}/>*/}
+                <Route path="/dialogs" render={() => <Dialogs/>}/>
             </div>
             <div className={s.top_center}>
                 <Route path="/profile" render={() => <Posts/>}/>
-                {/*<Route path="/dialogs" render={() => <Messages />}/>*/}
+                <Route path="/dialogs" render={() => <Messages/>}/>
             </div>
             <div className={s.bottom_left}>
                 <Footer/>

@@ -1,34 +1,23 @@
 import React, {ChangeEvent} from 'react';
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../../redux/dialogsReducer";
+import {NewMessagePropsType} from "./NewMessageContainer";
 
 
-const NewMessage = () => {
+const NewMessage = (props: NewMessagePropsType) => {
 
-    /*   /!* const onCLickHandler = () => {
-            props.dispatch(addMessageActionCreator());
-        }
+    const onCLickHandler = () => {
+        props.addMessage();
+    }
 
-        let onPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-            props.dispatch(updateNewMessageTextActionCreator(e.currentTarget.value));
-
-
-            /!*onChange={onPostChangeHandler} value={props.newMessageText}*!/
-
-
-
-    /!*onClick={onCLickHandler}*!/
-
-
-
-
-        }*!/*/
+    let onPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewMessageText(e.currentTarget.value);
+    }
 
     return (
         <div>
+            {/*{postsElement}*/}
             <div>NEW MESSAGE</div>
-            <textarea/>
-            <button>Add message</button>
-
+            <textarea onChange={onPostChangeHandler} value={props.newMessageText}/>
+            <button onClick={onCLickHandler}>Add message</button>
         </div>
     )
 }
