@@ -5,7 +5,7 @@ import {MessagePropsType} from "./MessageContainer";
 const Message = (props: MessagePropsType) => {
 
     let messageElement = props.messagesData.map(m =>
-        <div className={s.message}>
+        <div key={m.id} className={s.message}>
             <div>{m.message}</div>
             <div>{m.id}</div>
         </div>

@@ -1,18 +1,21 @@
 import {v1} from "uuid";
 
+//типы для редьюеров
 const ADD_MESSAGE = "ADD-MESSAGE"
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 
-//типизируем стейт
+//типизируем масив диалогов
 export type DialogsDataArray = {
     id: string
     name: string
 }
-//типизируем стейт
+
+//типизируем масив сообщений
 export type MessagesDataArray = {
     id: string
     message: string
 }
+
 //типизируем стейт
 export type initialStateType = {
     dialogsData: Array<DialogsDataArray>
@@ -21,8 +24,7 @@ export type initialStateType = {
 }
 
 //типизируем action который может приходить
-export type ActionTypes = ReturnType<typeof addMessageActionCreator> |
-    ReturnType<typeof updateNewMessageTextActionCreator>
+export type ActionTypes = ReturnType<typeof addMessageAC> | ReturnType<typeof updateNewMessageTextAC>
 
 //инициализируем стейт с данными
 let initialState: initialStateType = {
@@ -46,10 +48,10 @@ let initialState: initialStateType = {
 }
 
 //dialogsReducer
-export const dialogsReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
+const dialogsReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
 
     switch (action.type) {
-        case ADD_MESSAGE:
+        case ADD_MESSAGE: {
 
             //создаем новый объект сообщения
             const newMessage: MessagesDataArray = {
@@ -57,35 +59,43 @@ export const dialogsReducer = (state: initialStateType = initialState, action: A
                 message: state.newMessageText
             }
 
-            //делаем глубокую копию объекта стейт
-            let copyState: initialStateType = {...state}
-            copyState.messagesData = [...state.messagesData]
+            //делаем глубокую копию объекта стейт и ретурним ее
+            return {
+                ...state,
+                messagesData: [...state.messagesData, newMessage], //делаем глубокую копию сообщений и в конец добавляем новое сообщение
+                newMessageText: ''
+            }
+        }
 
-            //вносим изменения добавляем пост и затираем текст в текстариа
-            copyState.messagesData.push(newMessage);
-            copyState.newMessageText = '';
+        case UPDATE_NEW_MESSAGE_TEXT: {
 
-            return copyState;
-
-        case UPDATE_NEW_MESSAGE_TEXT:
+            //делаем копию стейта и вносим изменение обновление строки ввода нового сообщения и ретурним ее
             return {
                 ...state,
                 newMessageText: action.newText
             }
-        default:
+        }
+        default: {
+            //возращение стейта по дефолту если нет нужного типа
             return state;
+        }
     }
 }
 
-export const addMessageActionCreator = () => {
+//экшн креейтор на добавление сообщения
+export const addMessageAC = () => {
     return (
         {type: ADD_MESSAGE}
     ) as const
 }
 
-export const updateNewMessageTextActionCreator = (newText: string) => {
+//экшн креейтор на обновление строки в инпуте
+export const updateNewMessageTextAC = (newText: string) => {
     return (
-        {type: UPDATE_NEW_MESSAGE_TEXT, newText: newText}
+        {
+            type: UPDATE_NEW_MESSAGE_TEXT,
+            newText: newText
+        }
     ) as const
 }
 

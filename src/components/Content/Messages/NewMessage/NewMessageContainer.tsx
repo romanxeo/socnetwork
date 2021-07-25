@@ -1,5 +1,5 @@
 import React from 'react'
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../../redux/dialogsReducer";
+import {addMessageAC, updateNewMessageTextAC} from "../../../../redux/dialogsReducer";
 import {connect} from "react-redux";
 import NewMessage from "./NewMessage";
 import {AppStateType} from "../../../../redux/redux-store";
@@ -28,10 +28,10 @@ const mapStateToProps = (state: AppStateType): MSTPPropsType => {
 const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
     return {
         addMessage: () => {
-            dispatch(addMessageActionCreator());
+            dispatch(addMessageAC());
         },
         updateNewMessageText: (newText: string) => {
-            dispatch(updateNewMessageTextActionCreator(newText));
+            dispatch(updateNewMessageTextAC(newText));
         }
     }
 }

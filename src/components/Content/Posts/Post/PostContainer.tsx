@@ -1,7 +1,7 @@
 import React from 'react';
-import {PostsDataArray} from "../../../../redux/profileReducer";
 import {connect} from "react-redux";
 import Post from "./Post";
+import {PostsDataArray} from "../../../../redux/profileReducer";
 import {AppStateType} from "../../../../redux/redux-store";
 import {Dispatch} from "redux"
 

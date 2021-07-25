@@ -5,10 +5,10 @@
     display: grid;
 
     grid-template-rows: 54px;
-    grid-template-columns:  60px 100px auto 100px 100px 100px 100px 100px 100px;
+    grid-template-columns:  60px 100px auto 100px 100px 100px 100px 100px 100px 100px;
 
     grid-template-areas:
-    "logo search empty profile dialogs feed settings colum avatarname";
+    "logo search empty users profile dialogs feed settings colum avatarname";
 
     color: white;
 }
@@ -29,10 +29,12 @@
 }
 
 
+.users {
+    grid-area: users;
+}
 
 .profile {
     grid-area: profile;
-
 }
 
 .dialogs {

@@ -6,6 +6,7 @@ import Posts from "./Posts/Posts"
 import Dialogs from "./Dialogs/Dialogs";
 import Messages from "./Messages/Messages";
 import Footer from "./Footer/Footer"
+import Users from './Users/Users';
 
 const Content = () => {
     debugger;
@@ -18,6 +19,7 @@ const Content = () => {
             <div className={s.top_center}>
                 <Route path="/profile" render={() => <Posts/>}/>
                 <Route path="/dialogs" render={() => <Messages/>}/>
+                <Route path="/users" render={() => <Users/>}/>
             </div>
             <div className={s.bottom_left}>
                 <Footer/>

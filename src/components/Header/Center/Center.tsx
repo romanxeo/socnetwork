@@ -12,6 +12,7 @@ const Center = () => {
                 <a className={s.search}>Search</a>
                 <a className={s.empty}> </a>
 
+                <NavLink to="/users" className={`${s.users} ${s.bottom}`}>Users</NavLink>
                 <NavLink to="/profile" className={`${s.profile} ${s.bottom}`}>Profile</NavLink>
                 <NavLink to="/dialogs" className={`${s.dialogs} ${s.bottom}`}>Dialogs</NavLink>
                 <NavLink to="/feed" className={`${s.feed} ${s.bottom}`}>Feed</NavLink>
