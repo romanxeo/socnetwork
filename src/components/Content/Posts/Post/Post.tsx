@@ -6,9 +6,9 @@ const Post = (props: PostPropsType) => {
 
     let postElement = props.postsData.map(p =>
         <div key={p.id} className={s.item}>
-            <img
-                src="https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png"
-                alt="img"/>
+            <img className={s.avatar}
+                 src="https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png"
+                 alt="img"/>
             <div>{p.name}</div>
             <div>{p.post}</div>
             <div>{p.id}</div>

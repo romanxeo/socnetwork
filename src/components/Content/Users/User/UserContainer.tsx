@@ -4,6 +4,7 @@ import {Dispatch} from "redux";
 import User from './User';
 import {AppStateType} from "../../../../redux/redux-store";
 import {followAC, setUsersAC, unfollowAC, UsersDataArray} from "../../../../redux/usersReducer";
+import UserC from "./UserC";
 
 
 //Типизируем мап стейт то пропс
@@ -13,8 +14,8 @@ type MSTPPropsType = {
 
 //типизируем мап диспатч то пропс
 type MDTPPropsType = {
-    follow: (userID: string) => void
-    unfollow: (userID: string) => void
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
     setUsers: (usersData: Array<UsersDataArray>) => void
 };
 
@@ -31,10 +32,10 @@ const mapStateToProps = (state: AppStateType): MSTPPropsType => {
 //мап диспатч то пропс
 const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
     return {
-        follow: (userID: string) => {
+        follow: (userID: number) => {
             dispatch(followAC(userID));
         },
-        unfollow: (userID: string) => {
+        unfollow: (userID: number) => {
             dispatch(unfollowAC(userID));
         },
         setUsers: (usersData: Array<UsersDataArray>) => {
@@ -44,4 +45,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
 }
 
 //создание контейнеркой компоненты
-export const UserContainer = connect(mapStateToProps, mapDispatchToProps)(User)
+export const UserContainer = connect(mapStateToProps, mapDispatchToProps)(UserC)

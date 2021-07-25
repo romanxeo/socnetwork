@@ -9,7 +9,6 @@ import Footer from "./Footer/Footer"
 import Users from './Users/Users';
 
 const Content = () => {
-    debugger;
     return (
         <div className={s.content_wrap}>
             <div className={s.top_left}>

@@ -6,19 +6,83 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 
 //типизируем объект местонахождения
-export type locationType = {
-    country: string
-    city: string
+//export type locationType = {
+//    country: string
+//    city: string
+//}
+
+/*id: string
+firstName: string
+lastName: string
+avatar: string
+status: string
+followed: boolean
+location: locationType*/
+
+/*{
+    id: v1(),
+        firstName: 'Denis',
+    lastName: 'Ivanov',
+    avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
+    status: 'HELLO',
+    followed: false,
+    location: {
+    country: 'Ukraine',
+        city: 'Kyiv'
 }
+},
+{
+    id: v1(),
+        firstName: 'Kirril',
+    lastName: 'Petrov',
+    avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
+    status: 'GOOD TIME',
+    followed: false,
+    location: {
+    country: 'Ukraine',
+        city: 'Lviv'
+}
+},
+{
+    id: v1(),
+        firstName: 'Anna',
+    lastName: 'Potapova',
+    avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
+    status: 'HI',
+    followed: false,
+    location: {
+    country: 'Ukraine',
+        city: 'Kherson'
+}
+},
+{
+    id: v1(),
+        firstName: 'Vasiliy',
+    lastName: 'VASYA',
+    avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
+    status: 'HELLO',
+    followed: false,
+    location: {
+    country: 'Russia',
+        city: 'Moscow'
+}
+}*/
+
+
+//типизируем объект фото
+export type photosType = {
+    small: null | string
+    large: null | string
+}
+
 //типизируем массив юзеров
 export type UsersDataArray = {
-    id: string
-    firstName: string
-    lastName: string
-    avatar: string
-    status: string
+    name: string
+    id: number
+    uniqueUrlName: null
+    photos: photosType
+    status: null
     followed: boolean
-    location: locationType
 }
 
 //типизируем стейт
@@ -31,56 +95,7 @@ export type ActionTypes = ReturnType<typeof followAC> | ReturnType<typeof unfoll
 
 //инициализируем стейт с данными
 const initialState: initialStateType = {
-    usersData: [
-        {
-            id: v1(),
-            firstName: 'Denis',
-            lastName: 'Ivanov',
-            avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
-            status: 'HELLO',
-            followed: false,
-            location: {
-                country: 'Ukraine',
-                city: 'Kyiv'
-            }
-        },
-        {
-            id: v1(),
-            firstName: 'Kirril',
-            lastName: 'Petrov',
-            avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
-            status: 'GOOD TIME',
-            followed: false,
-            location: {
-                country: 'Ukraine',
-                city: 'Lviv'
-            }
-        },
-        {
-            id: v1(),
-            firstName: 'Anna',
-            lastName: 'Potapova',
-            avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
-            status: 'HI',
-            followed: false,
-            location: {
-                country: 'Ukraine',
-                city: 'Kherson'
-            }
-        },
-        {
-            id: v1(),
-            firstName: 'Vasiliy',
-            lastName: 'VASYA',
-            avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
-            status: 'HELLO',
-            followed: false,
-            location: {
-                country: 'Russia',
-                city: 'Moscow'
-            }
-        }
-    ]
+    usersData: []
 }
 
 //userReducer
@@ -111,7 +126,7 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
 }
 
 
-export const followAC = (userID: string) => {
+export const followAC = (userID: number) => {
     return (
         {
             type: FOLLOW,
@@ -120,7 +135,7 @@ export const followAC = (userID: string) => {
     ) as const
 }
 
-export const unfollowAC = (userID: string) => {
+export const unfollowAC = (userID: number) => {
     return (
         {
             type: UNFOLLOW,
