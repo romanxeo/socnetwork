@@ -4,70 +4,8 @@ import {v1} from "uuid";
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
-
-//типизируем объект местонахождения
-//export type locationType = {
-//    country: string
-//    city: string
-//}
-
-/*id: string
-firstName: string
-lastName: string
-avatar: string
-status: string
-followed: boolean
-location: locationType*/
-
-/*{
-    id: v1(),
-        firstName: 'Denis',
-    lastName: 'Ivanov',
-    avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
-    status: 'HELLO',
-    followed: false,
-    location: {
-    country: 'Ukraine',
-        city: 'Kyiv'
-}
-},
-{
-    id: v1(),
-        firstName: 'Kirril',
-    lastName: 'Petrov',
-    avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
-    status: 'GOOD TIME',
-    followed: false,
-    location: {
-    country: 'Ukraine',
-        city: 'Lviv'
-}
-},
-{
-    id: v1(),
-        firstName: 'Anna',
-    lastName: 'Potapova',
-    avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
-    status: 'HI',
-    followed: false,
-    location: {
-    country: 'Ukraine',
-        city: 'Kherson'
-}
-},
-{
-    id: v1(),
-        firstName: 'Vasiliy',
-    lastName: 'VASYA',
-    avatar: 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png',
-    status: 'HELLO',
-    followed: false,
-    location: {
-    country: 'Russia',
-        city: 'Moscow'
-}
-}*/
-
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 
 //типизируем объект фото
 export type photosType = {
@@ -87,15 +25,25 @@ export type UsersDataArray = {
 
 //типизируем стейт
 export type initialStateType = {
-    usersData: Array<UsersDataArray>
+    usersData: Array<UsersDataArray>,
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
 }
 
 //типизируем action который может приходить
-export type ActionTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
+export type ActionTypes = ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 //инициализируем стейт с данными
 const initialState: initialStateType = {
-    usersData: []
+    usersData: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 //userReducer
@@ -116,8 +64,16 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
             // (мап возвращает копию масива и мап меняет значение параметра фоловед и ретурним ее
         }
         case SET_USERS: {
-            return {...state, usersData: [...state.usersData, ...action.usersData]} //делаем глубокую копию существущего стейта
+            return {...state, usersData: action.usersData} //делаем глубокую копию существущего стейта
             //по изначальной задумке там должно быть пусто и передаем туда массив юзеров которые должны прийти с сервера
+        }
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.currentPage}
+            //создаем копию стейта и закидываем значение текущей выбранной страницы которая пришла через экнш
+        }
+        case SET_TOTAL_USERS_COUNT: {
+            return {...state, totalUsersCount: action.totalUsersCount}
+            //создаем копию стейта и закидываем значение общего числа юзеров которые пришли через экнш
         }
         default: {
             return state;
@@ -149,6 +105,24 @@ export const setUsersAC = (usersData: Array<UsersDataArray>) => {
         {
             type: SET_USERS,
             usersData: usersData
+        }
+    ) as const
+}
+
+export const setCurrentPageAC = (currentPage: number) => {
+    return (
+        {
+            type: SET_CURRENT_PAGE,
+            currentPage: currentPage
+        }
+    ) as const
+}
+
+export const setTotalUsersCountAC = (totalUsersCount: number) => {
+    return (
+        {
+            type: SET_TOTAL_USERS_COUNT,
+            totalUsersCount: totalUsersCount
         }
     ) as const
 }

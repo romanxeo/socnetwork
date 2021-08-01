@@ -3,3 +3,11 @@
     width: 50px;
     border-radius: 26px;
 }
+
+.selectedPage {
+    font-weight: bolder;
+}
+
+.nonSelectedPage {
+
+}

@@ -3,20 +3,28 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import User from './User';
 import {AppStateType} from "../../../../redux/redux-store";
-import {followAC, setUsersAC, unfollowAC, UsersDataArray} from "../../../../redux/usersReducer";
+import {
+    followAC,
+    initialStateType,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    unfollowAC,
+    UsersDataArray
+} from "../../../../redux/usersReducer";
 import UserC from "./UserC";
 
 
 //Типизируем мап стейт то пропс
-type MSTPPropsType = {
-    usersData: Array<UsersDataArray>
-};
+type MSTPPropsType = initialStateType;
 
 //типизируем мап диспатч то пропс
 type MDTPPropsType = {
     follow: (userID: number) => void
     unfollow: (userID: number) => void
     setUsers: (usersData: Array<UsersDataArray>) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalUsersCount: number) => void
 };
 
 //объединяем тип
@@ -25,7 +33,10 @@ export type UserPropsType = MSTPPropsType & MDTPPropsType
 //мап стейт то пропс
 const mapStateToProps = (state: AppStateType): MSTPPropsType => {
     return {
-        usersData: state.usersPage.usersData
+        usersData: state.usersPage.usersData,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPage: state.usersPage.currentPage
     }
 }
 
@@ -40,6 +51,12 @@ const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
         },
         setUsers: (usersData: Array<UsersDataArray>) => {
             dispatch(setUsersAC(usersData));
+        },
+        setCurrentPage: (currentPage: number) => {
+            dispatch(setCurrentPageAC(currentPage));
+        },
+        setTotalUsersCount: (totalUsersCount: number) => {
+            dispatch(setTotalUsersCountAC(totalUsersCount));
         }
     }
 }

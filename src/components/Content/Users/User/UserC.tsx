@@ -4,27 +4,54 @@ import {UserPropsType} from "./UserContainer";
 import axios from 'axios';
 
 
-
-
 class UserC extends React.Component<UserPropsType> {
 
-    constructor(props: UserPropsType) {
-        super(props);
-
+    //когда компонента монтируется вызывается тело метода один раз
+    componentDidMount() {
         this.getUsers();
     }
 
+    //метод который вызывается когда мы нажимаем кнопку получить еще юзеров
     getUsers = () => {
-        if (this.props.usersData.length < 10000) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                this.props.setUsers(response.data.items)
-            })
-        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
     }
 
+    //метод для кнопки переключения страницы
+    onPageChanged = (b: number) => {
+        //меняем стейт
+        this.props.setCurrentPage(b)
+
+        //даем новый запрос на сервер
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${b}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+        })
+    }
+
+
     render() {
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        let pagesButtonSwitcher = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pagesButtonSwitcher.push(i)
+        }
+
         return (
             <div>
+                <div>
+                    {pagesButtonSwitcher.map(b =>
+                        <button className={this.props.currentPage === b ? s.selectedPage : s.nonSelectedPage}
+                                onClick={(e) => {
+                                    this.onPageChanged(b)
+                                }}>{b}</button>
+                    )}
+                </div>
+
+
                 {this.props.usersData.map(u =>
 
                     <div key={u.id} className={s.item}>
