@@ -1,10 +1,10 @@
 import React from 'react';
-import s from './User.module.css';
 import {UserPropsType} from "./UserContainer";
 import axios from 'axios';
+import UsersPresentationForClass from "./UserNew";
 
 
-class UserC extends React.Component<UserPropsType> {
+class UserContainerAPI extends React.Component<UserPropsType> {
 
     //когда компонента монтируется вызывается тело метода один раз
     componentDidMount() {
@@ -30,18 +30,39 @@ class UserC extends React.Component<UserPropsType> {
         })
     }
 
-
     render() {
 
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        /*        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
 
-        let pagesButtonSwitcher = [];
-        for (let i = 1; i <= pagesCount; i++) {
-            pagesButtonSwitcher.push(i)
-        }
+                let pagesButtonSwitcher = [];
+                pagesButtonSwitcher.push(1)
+
+                for (let i = this.props.currentPage-3; i <= this.props.currentPage+3; i++) {
+                    if (i < 3) {
+                        pagesButtonSwitcher.push(2, 3, 4, 5, 6)
+                        break;
+                    }
+                    else if (i > pagesCount - 3) {
+                        pagesButtonSwitcher.push(pagesCount - 1, pagesCount - 2, pagesCount - 3, pagesCount - 4)
+                        break;
+                    }
+                    else {
+                        pagesButtonSwitcher.push(i)
+                    }
+                }
+                pagesButtonSwitcher.push(pagesCount)*/
 
         return (
-            <div>
+
+            <UsersPresentationForClass totalUsersCount={this.props.totalUsersCount}
+                                       pageSize={this.props.pageSize}
+                                       currentPage={this.props.currentPage}
+                                       onPageChanged={this.onPageChanged}
+                                       usersData={this.props.usersData}
+                                       follow={this.props.follow}
+                                       unfollow={this.props.unfollow}/>
+
+            /*<div>
                 <div>
                     {pagesButtonSwitcher.map(b =>
                         <button className={this.props.currentPage === b ? s.selectedPage : s.nonSelectedPage}
@@ -76,9 +97,7 @@ class UserC extends React.Component<UserPropsType> {
                 )}
                 {this.props.usersData.length}
                 <button onClick={this.getUsers}>Get users</button>
-            </div>
+            </div>*/
         )
     }
 }
-
-export default UserC;

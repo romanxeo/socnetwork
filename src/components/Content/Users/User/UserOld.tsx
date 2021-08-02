@@ -4,7 +4,7 @@ import {UserPropsType} from "./UserContainer";
 import axios from 'axios';
 
 
-const User = (props: UserPropsType) => {
+const UserOld = (props: UserPropsType) => {
 
 
     /*    const usersData: Array<UsersDataArray> = [
@@ -101,4 +101,4 @@ const User = (props: UserPropsType) => {
     )
 }
 
-export default User;
+export default UserOld;
