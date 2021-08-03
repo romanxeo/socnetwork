@@ -8,13 +8,14 @@ import {
     initialStateType,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC,
+    setUsersAC, toggleIsFetchingAC,
     unfollowAC,
     UsersDataArray
 } from "../../../../redux/usersReducer";
 
 import axios from "axios";
 import UserNew from "./UserNew";
+import Preloader from '../../common/preloader/Preloader';
 
 
 //Типизируем мап стейт то пропс
@@ -27,6 +28,7 @@ type MDTPPropsType = {
     setUsers: (usersData: Array<UsersDataArray>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
+    toggleIsFetching: (isFetching: boolean) => void
 };
 
 //объединяем тип
@@ -38,7 +40,8 @@ const mapStateToProps = (state: AppStateType): MSTPPropsType => {
         usersData: state.usersPage.usersData,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching
     }
 }
 
@@ -59,6 +62,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
         },
         setTotalUsersCount: (totalUsersCount: number) => {
             dispatch(setTotalUsersCountAC(totalUsersCount));
+        },
+        toggleIsFetching: (isFetching: boolean) => {
+            dispatch(toggleIsFetchingAC(isFetching));
         }
     }
 }
@@ -73,7 +79,12 @@ class UserContainerC extends React.Component<UserPropsType> {
 
     //метод который вызывается когда мы нажимаем кнопку получить еще юзеров
     getUsers = () => {
+
+        this.props.toggleIsFetching(true)
+
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.toggleIsFetching(false)
+
             this.props.setUsers(response.data.items);
             this.props.setTotalUsersCount(response.data.totalCount)
         })
@@ -81,11 +92,15 @@ class UserContainerC extends React.Component<UserPropsType> {
 
     //метод для кнопки переключения страницы
     onPageChanged = (b: number) => {
+        this.props.toggleIsFetching(true)
+
         //меняем стейт
         this.props.setCurrentPage(b)
 
         //даем новый запрос на сервер
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${b}&count=${this.props.pageSize}`).then(response => {
+            this.props.toggleIsFetching(false)
+
             this.props.setUsers(response.data.items)
         })
     }
@@ -113,14 +128,24 @@ class UserContainerC extends React.Component<UserPropsType> {
                 pagesButtonSwitcher.push(pagesCount)*/
 
         return (
+            <div>
+                {this.props.isFetching
+                    ? <Preloader/>
+                    : <UserNew totalUsersCount={this.props.totalUsersCount}
+                               pageSize={this.props.pageSize}
+                               currentPage={this.props.currentPage}
+                               onPageChanged={this.onPageChanged}
+                               usersData={this.props.usersData}
+                               follow={this.props.follow}
+                               unfollow={this.props.unfollow}/>
+                }
 
-            <UserNew totalUsersCount={this.props.totalUsersCount}
-                     pageSize={this.props.pageSize}
-                     currentPage={this.props.currentPage}
-                     onPageChanged={this.onPageChanged}
-                     usersData={this.props.usersData}
-                     follow={this.props.follow}
-                     unfollow={this.props.unfollow}/>
+            </div>
+
+
+
+
+
 
             /*<div>
                 <div>
@@ -137,7 +162,7 @@ class UserContainerC extends React.Component<UserPropsType> {
 
                     <div key={u.id} className={s.item}>
                         <img className={s.avatar}
-                             src={u.photos.small != null
+                             assets={u.photos.small != null
                                  ? u.photos.small
                                  : 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png'}
                              alt="img"/>

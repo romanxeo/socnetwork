@@ -77,7 +77,7 @@ class UserContainerAPI extends React.Component<UserPropsType> {
 
                     <div key={u.id} className={s.item}>
                         <img className={s.avatar}
-                             src={u.photos.small != null
+                             assets={u.photos.small != null
                                  ? u.photos.small
                                  : 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png'}
                              alt="img"/>
