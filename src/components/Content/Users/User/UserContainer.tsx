@@ -1,9 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
-
 import {AppStateType} from "../../../../redux/redux-store";
-
 import {
     UsersDataArray,
     initialStateType,
@@ -13,7 +10,6 @@ import {
     setUsers, toggleIsFetching,
     unfollow
 } from "../../../../redux/usersReducer";
-
 import axios from "axios";
 import UserNew from "./UserNew";
 import Preloader from '../../common/preloader/Preloader';
@@ -22,7 +18,7 @@ import Preloader from '../../common/preloader/Preloader';
 //Типизируем мап стейт то пропс
 type MSTPPropsType = initialStateType;
 
-//типизируем мап диспатч то пропс
+/*//типизируем мап диспатч то пропс
 type MDTPPropsType = {
     follow: (userID: number) => void
     unfollow: (userID: number) => void
@@ -30,7 +26,7 @@ type MDTPPropsType = {
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
-};
+};*/
 
 type mdtpType = {
     follow: (userID: number) => void

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './User.module.css';
 import {UsersDataArray} from "../../../../redux/usersReducer";
-
+import {NavLink} from 'react-router-dom';
 
 type UsersPresentationForClassType = {
     totalUsersCount: number
@@ -48,11 +48,16 @@ let UserNew = (props: UsersPresentationForClassType) => {
             {props.usersData.map((u: UsersDataArray) =>
 
                 <div key={u.id} className={s.item}>
-                    <img className={s.avatar}
-                         src={u.photos.small != null
-                             ? u.photos.small
-                             : 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png'}
-                         alt="img"/>
+
+                    <NavLink to={"/profile/" + u.id}>
+                        <img className={s.avatar}
+                             src={u.photos.small != null
+                                 ? u.photos.small
+                                 : 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png'}
+                             alt="img"/>
+                    </NavLink>
+
+
                     <span>{u.name} </span>
                     <span>{u.id} </span>
                     <span>{u.status} </span>

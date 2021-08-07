@@ -3,6 +3,7 @@ import {v1} from "uuid";
 //типы для редьюеров
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 //типизируем массив постов
 export type PostsDataArray = {
@@ -13,13 +14,39 @@ export type PostsDataArray = {
 }
 
 //типизируем стейт
+export type contactsType = {
+    facebook: string | null
+    website: string | null
+    vk: string | null
+    twitter: string | null
+    instagram: string | null
+    youtube: string | null
+    github: string | null
+    mainLink: string | null
+}
+type photosType = {
+    small: string | null
+    large: string | null
+}
+export type profileType = {
+    aboutMe: string | null
+    contacts: contactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
+    fullName: string | null
+    userId: number
+    photos: photosType
+}
 export type initialStateType = {
     postsData: Array<PostsDataArray>
     newPostText: string
+    profile: profileType
 }
 
 //типизируем action который может приходить
-export type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>
+export type ActionTypes = ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfile>
 
 //инициализируем стейт с данными
 const initialState: initialStateType = {
@@ -29,12 +56,32 @@ const initialState: initialStateType = {
         {id: v1(), name: 'Kukareku', post: 'HEfsdfRLfdE', likesCount: 13},
         {id: v1(), name: 'Stop', post: 'qweHERLfdE', likesCount: 5},
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: {
+        aboutMe: 'aboutMe',
+        contacts: {
+            facebook: 'facebook',
+            website: 'website',
+            vk: 'vk',
+            twitter: 'twitter',
+            instagram: 'instagram',
+            youtube: 'youtube',
+            github: 'github',
+            mainLink: 'mainLink'
+        },
+        lookingForAJob: true,
+        lookingForAJobDescription: 'lookingForAJobDescription',
+        fullName: 'fullName',
+        userId: 0,
+        photos: {
+            small: "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
+            large: "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
+        }
+    }
 }
 
 //profileReducer
 const profileReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
-
     switch (action.type) {
         case ADD_POST: {
 
@@ -61,6 +108,9 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
                 newPostText: action.newText
             }
         }
+        case SET_USER_PROFILE: {
+            return {...state, profile: action.profile}
+        }
         default: {
             //возращение стейта по дефолту если нет нужного типа
             return state;
@@ -73,12 +123,19 @@ export const addPostAC = () => {
         {type: ADD_POST}
     ) as const
 }
-
 export const updateNewPostTextAC = (newText: string) => {
     return (
         {
             type: UPDATE_NEW_POST_TEXT,
             newText: newText
+        }
+    ) as const
+}
+export const setUserProfile = (profile: any) => {
+    return (
+        {
+            type: SET_USER_PROFILE,
+            profile
         }
     ) as const
 }

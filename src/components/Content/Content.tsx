@@ -7,12 +7,13 @@ import Dialogs from "./Dialogs/Dialogs";
 import Messages from "./Messages/Messages";
 import Footer from "./Footer/Footer"
 import Users from './Users/Users';
+import {ProfileContainer} from "./Profile/ProfileContainer";
 
 const Content = () => {
     return (
         <div className={s.content_wrap}>
             <div className={s.top_left}>
-                <Route path="/profile" render={() => <Profile/>}/>
+                <Route path="/profile" render={() => <ProfileContainer/>}/>
                 <Route path="/dialogs" render={() => <Dialogs/>}/>
             </div>
             <div className={s.top_center}>
