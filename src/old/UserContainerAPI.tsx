@@ -1,7 +1,7 @@
 import React from 'react';
-import {UserPropsType} from "./UserContainer";
+import {UserPropsType} from "../components/Content/Users/User/UserContainer";
 import axios from 'axios';
-import UsersPresentationForClass from "./UserNew";
+import UsersPresentationForClass from "../components/Content/Users/User/UserNew";
 
 
 class UserContainerAPI extends React.Component<UserPropsType> {

@@ -34,12 +34,12 @@ export type initialStateType = {
 }
 
 //типизируем action который может приходить
-export type ActionTypes = ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+export type ActionTypes = ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
 
 //инициализируем стейт с данными
 const initialState: initialStateType = {
@@ -89,7 +89,7 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
 }
 
 
-export const followAC = (userID: number) => {
+export const follow = (userID: number) => {
     return (
         {
             type: FOLLOW,
@@ -98,7 +98,7 @@ export const followAC = (userID: number) => {
     ) as const
 }
 
-export const unfollowAC = (userID: number) => {
+export const unfollow = (userID: number) => {
     return (
         {
             type: UNFOLLOW,
@@ -107,7 +107,7 @@ export const unfollowAC = (userID: number) => {
     ) as const
 }
 
-export const setUsersAC = (usersData: Array<UsersDataArray>) => {
+export const setUsers = (usersData: Array<UsersDataArray>) => {
     return (
         {
             type: SET_USERS,
@@ -116,7 +116,7 @@ export const setUsersAC = (usersData: Array<UsersDataArray>) => {
     ) as const
 }
 
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return (
         {
             type: SET_CURRENT_PAGE,
@@ -125,7 +125,7 @@ export const setCurrentPageAC = (currentPage: number) => {
     ) as const
 }
 
-export const setTotalUsersCountAC = (totalUsersCount: number) => {
+export const setTotalUsersCount = (totalUsersCount: number) => {
     return (
         {
             type: SET_TOTAL_USERS_COUNT,
@@ -134,7 +134,7 @@ export const setTotalUsersCountAC = (totalUsersCount: number) => {
     ) as const
 }
 
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return (
         {
             type: TOGGLE_IS_FETCHING,

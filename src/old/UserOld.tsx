@@ -1,6 +1,6 @@
 import React from 'react';
-import s from './User.module.css';
-import {UserPropsType} from "./UserContainer";
+import s from '../components/Content/Users/User/User.module.css';
+import {UserPropsType} from "../components/Content/Users/User/UserContainer";
 import axios from 'axios';
 
 
