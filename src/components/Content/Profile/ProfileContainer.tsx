@@ -1,40 +1,59 @@
 import React from 'react';
 import Profile from './Profile';
 import axios from "axios";
-import {initialStateType, PostsDataArray, profileType, setUserProfile} from "../../../redux/profileReducer";
+import {profileType, setUserProfile, toggleIsFetching} from "../../../redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
+import {RouteComponentProps, withRouter} from 'react-router-dom';
+import Preloader from "../common/preloader/Preloader";
 
 
 //Типизируем мап стейт то пропс
-type MSTPPropsType = initialStateType;
+type MSTPType = {
+    profile: profileType
+    isFetching: boolean
+}
 
 //типизируем мап диспатч то пропс
-type mdtpType = {
+type MDTPType = {
     setUserProfile: (profile: profileType) => void
+    toggleIsFetching: (isFetching: boolean) => void
+}
+
+//типизируем withRouter
+type PathParamsType = {
+    userId: string | undefined
 }
 
 //объединяем тип
-export type ProfilePropsType = MSTPPropsType & mdtpType
+export type ProfilePropsType = MSTPType & MDTPType & RouteComponentProps<PathParamsType>
 
 //мап стейт то пропс
-const mapStateToProps = (state: AppStateType): MSTPPropsType => {
+const mapStateToProps = (state: AppStateType): MSTPType => {
     return {
-        postsData: state.profilePage.postsData,
-        newPostText: state.profilePage.newPostText,
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isFetching: state.profilePage.isFetching
     }
 }
 
-let mdtp: mdtpType = {
-    setUserProfile
+let mapDispatchToProps: MDTPType = {
+    setUserProfile,
+    toggleIsFetching
 }
 
-class ProfileContainerC extends React.Component<ProfilePropsType> {
+class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/15`)
+        this.props.toggleIsFetching(true)
+
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = '2';
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
+                this.props.toggleIsFetching(false)
+
                 this.props.setUserProfile(response.data);
             })
     }
@@ -42,13 +61,14 @@ class ProfileContainerC extends React.Component<ProfilePropsType> {
     render() {
         return (
             <div>
-                <Profile profile={this.props.profile}/>
-                {this.props.profile.lookingForAJobDescription}
-                {this.props.profile.aboutMe}
+                {this.props.isFetching
+                    ? <Preloader/>
+                    : <Profile profile={this.props.profile}/>
+                }
             </div>
 
         )
     }
 }
 
-export const ProfileContainer = connect(mapStateToProps, mdtp)(ProfileContainerC)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfileContainer))

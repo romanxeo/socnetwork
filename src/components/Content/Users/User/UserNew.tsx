@@ -2,6 +2,7 @@ import React from 'react';
 import s from './User.module.css';
 import {UsersDataArray} from "../../../../redux/usersReducer";
 import {NavLink} from 'react-router-dom';
+import noavatar from '../../../../assets/noavatar.png'
 
 type UsersPresentationForClassType = {
     totalUsersCount: number
@@ -53,7 +54,7 @@ let UserNew = (props: UsersPresentationForClassType) => {
                         <img className={s.avatar}
                              src={u.photos.small != null
                                  ? u.photos.small
-                                 : 'https://w7.pngwing.com/pngs/165/45/png-transparent-computer-icons-male-avatar-white-collar-miscellaneous-blue-text.png'}
+                                 : noavatar}
                              alt="img"/>
                     </NavLink>
 

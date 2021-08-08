@@ -4,6 +4,7 @@ import {v1} from "uuid";
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 //типизируем массив постов
 export type PostsDataArray = {
@@ -41,12 +42,14 @@ export type initialStateType = {
     postsData: Array<PostsDataArray>
     newPostText: string
     profile: profileType
+    isFetching: boolean
 }
 
 //типизируем action который может приходить
 export type ActionTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof toggleIsFetching>
 
 //инициализируем стейт с данными
 const initialState: initialStateType = {
@@ -77,14 +80,14 @@ const initialState: initialStateType = {
             small: "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
             large: "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
         }
-    }
+    },
+    isFetching: false
 }
 
 //profileReducer
 const profileReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
     switch (action.type) {
         case ADD_POST: {
-
             //создаем новый объект поста
             const newPost: PostsDataArray = {
                 id: v1(),
@@ -92,7 +95,6 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
                 post: state.newPostText,
                 likesCount: 0
             }
-
             //делаем глубокую копию объекта стейт и ретурним ее
             return {
                 ...state,
@@ -101,7 +103,6 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
             }
         }
         case UPDATE_NEW_POST_TEXT: {
-
             //делаем копию стейта и вносим изменение обновление строки ввода нового поста и ретурним ее
             return {
                 ...state,
@@ -110,6 +111,9 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
         }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
+        }
+        case TOGGLE_IS_FETCHING: {
+            return {...state, isFetching: action.isFetching}
         }
         default: {
             //возращение стейта по дефолту если нет нужного типа
@@ -136,6 +140,14 @@ export const setUserProfile = (profile: any) => {
         {
             type: SET_USER_PROFILE,
             profile
+        }
+    ) as const
+}
+export const toggleIsFetching = (isFetching: boolean) => {
+    return (
+        {
+            type: TOGGLE_IS_FETCHING,
+            isFetching: isFetching
         }
     ) as const
 }

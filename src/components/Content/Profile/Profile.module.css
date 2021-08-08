@@ -1,3 +1,58 @@
 .profile {
-    background-color: darkgreen;
+    background-color: #dcdcdc;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+}
+
+.avatar {
+    display: block;
+    width: 100%;
+}
+
+.fullName {
+    font-size: 24px;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+}
+
+.descriptionImg {
+    width: 16px;
+    height: 16px;
+}
+
+.descriptionSpan {
+    color: #000000;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
+
+.linkImg {
+    width: 30px;
+    height: 30px;
+}
+
+.linkContainer {
+    margin-top: 4px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.buttonContainer {
+    margin-top: 4px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    width: 120px;
+
 }
