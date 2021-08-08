@@ -46,7 +46,7 @@ const Profile = (props: propsType) => {
                 : <></>
             }
 
-            <div className={s.linkContainer}>
+            <div className={s.container}>
                 {(props.profile.contacts.facebook != null)
                     ? <a href={props.profile.contacts.facebook}><img src={imgFB} className={s.linkImg}/></a>
                     : <></>}
@@ -81,7 +81,7 @@ const Profile = (props: propsType) => {
 
             </div>
 
-            <div className={s.buttonContainer}>
+            <div className={s.container}>
                 <button className={s.button}>Message</button>
                 <button className={s.button}>Subscribe</button>
             </div>
