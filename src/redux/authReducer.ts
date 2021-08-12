@@ -4,20 +4,20 @@ const SET_USER_DATA = "SET_USER_DATA"
 //типизируем стейт
 export type initialStateType = {
     userId: string | null
-    email: string | null
     login: string | null
+    email: string | null
     isAuth: boolean
     isFetching: boolean
 }
 
 //типизируем action который может приходить
-export type ActionTypes = ReturnType<typeof setUserDataAC>
+export type ActionTypes = ReturnType<typeof setUserData>
 
 //инициализируем стейт с данными
 let initialState: initialStateType = {
     userId: null,
-    email: null,
     login: null,
+    email: null,
     isAuth: false,
     isFetching: false
 }
@@ -33,16 +33,18 @@ const authReducer = (state: initialStateType = initialState, action: ActionTypes
             };
         }
         default: {
-            //возращение стейта по дефолту если нет нужного типа
             return state;
         }
     }
 }
 
 //экшн креейтор на логи
-export const setUserDataAC = (userId: string, email: string, login: string) => {
+export const setUserData = (userId: string, login: string, email: string) => {
     return (
-        {type: SET_USER_DATA, data: {userId, email, login}}
+      {
+          type: SET_USER_DATA,
+          data: {userId, login, email}
+      }
     ) as const
 }
 

@@ -49,8 +49,6 @@
     grid-area: settings;
 }
 
-
-
 .colum {
     grid-area: colum;
 }
@@ -63,10 +61,7 @@
 .bottom {
     height: 39px;
     text-align: center;
-
-
     padding-top: 15px;
-
     width: 100px;
     background-color: #35454e;
     display:inline-block;
@@ -81,9 +76,6 @@
 }
 .bottom:active {
     position:relative;
-
     top:2px;
-
     height: 37px;
-
 }

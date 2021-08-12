@@ -1,0 +1,27 @@
+.settings {
+    grid-area: settings;
+}
+
+.bottom {
+    height: 39px;
+    text-align: center;
+    padding-top: 15px;
+    width: 100px;
+    background-color: #35454e;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.bottom:hover {
+    background: linear-gradient(to bottom, #35454e 15%, #435a66 100%);
+    background-color: #35454e;
+}
+
+.bottom:active {
+    position: relative;
+    top: 2px;
+    height: 37px;
+}

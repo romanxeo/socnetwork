@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import logo from "./logo.png";
 import s from './Center.module.css';
+import LoginBlockContainer from "./LoginBlock/LoginBlockContainer";
 
 
 const Center = () => {
@@ -19,7 +20,7 @@ const Center = () => {
                 <NavLink to="/settings" className={`${s.settings} ${s.bottom}`}>Settings</NavLink>
 
                 <a className={s.colum}> </a>
-                <a className={s.avatarname}>AvatarName</a>
+                <LoginBlockContainer/>
             </div>
         </nav>
     )
