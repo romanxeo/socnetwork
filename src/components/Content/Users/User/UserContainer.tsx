@@ -13,22 +13,13 @@ import {
 import axios from "axios";
 import UserNew from "./UserNew";
 import Preloader from '../../common/preloader/Preloader';
+import {usersAPI} from '../../../../api/api';
 
 
 //Типизируем мап стейт то пропс
-type MSTPPropsType = initialStateType;
+type MSTPType = initialStateType;
 
-/*//типизируем мап диспатч то пропс
-type MDTPPropsType = {
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
-    setUsers: (usersData: Array<UsersDataArray>) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
-};*/
-
-type mdtpType = {
+type MDTPType = {
   follow: (userID: number) => void
   unfollow: (userID: number) => void
   setUsers: (usersData: Array<UsersDataArray>) => void
@@ -38,10 +29,9 @@ type mdtpType = {
 }
 
 //объединяем тип
-export type UserPropsType = MSTPPropsType & mdtpType
+export type UserPropsType = MSTPType & MDTPType
 
-//мап стейт то пропс
-const mapStateToProps = (state: AppStateType): MSTPPropsType => {
+const MSTP = (state: AppStateType): MSTPType => {
   return {
     usersData: state.usersPage.usersData,
     pageSize: state.usersPage.pageSize,
@@ -51,31 +41,7 @@ const mapStateToProps = (state: AppStateType): MSTPPropsType => {
   }
 }
 
-//мап диспатч то пропс
-/*const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
-    return {
-        follow: (userID: number) => {
-            dispatch(followAC(userID));
-        },
-        unfollow: (userID: number) => {
-            dispatch(unfollowAC(userID));
-        },
-        setUsers: (usersData: Array<UsersDataArray>) => {
-            dispatch(setUsersAC(usersData));
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage));
-        },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount));
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching));
-        }
-    }
-}*/
-
-let mdtp: mdtpType = {
+let MDTP: MDTPType = {
   follow,
   unfollow,
   setUsers,
@@ -88,28 +54,16 @@ class UserContainerC extends React.Component<UserPropsType> {
 
   //когда компонента монтируется вызывается тело метода один раз
   componentDidMount() {
-    this.getUsers();
-  }
-
-  //метод который вызывается когда мы нажимаем кнопку получить еще юзеров
-  getUsers = () => {
 
     this.props.toggleIsFetching(true)
 
-    axios.get(
-      `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-      {
-        withCredentials: true,
-        headers: {
-          'API-KEY': 'd683f2e5-a7af-46f3-9fb7-3906f227c671'
-        }
-      }
-    ).then(response => {
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
       this.props.toggleIsFetching(false)
 
-      this.props.setUsers(response.data.items);
-      this.props.setTotalUsersCount(response.data.totalCount)
+      this.props.setUsers(data.items);
+      this.props.setTotalUsersCount(data.totalCount)
     })
+
   }
 
   //метод для кнопки переключения страницы
@@ -119,19 +73,10 @@ class UserContainerC extends React.Component<UserPropsType> {
     //меняем стейт
     this.props.setCurrentPage(b)
 
-    //даем новый запрос на сервер
-    axios.get(
-      `https://social-network.samuraijs.com/api/1.0/users?page=${b}&count=${this.props.pageSize}`,
-      {
-        withCredentials: true,
-        headers: {
-          'API-KEY': 'd683f2e5-a7af-46f3-9fb7-3906f227c671'
-        }
-      }
-    ).then(response => {
+    usersAPI.getUsers(b, this.props.pageSize).then(data => {
       this.props.toggleIsFetching(false)
 
-      this.props.setUsers(response.data.items)
+      this.props.setUsers(data.items)
     })
   }
 
@@ -155,7 +100,7 @@ class UserContainerC extends React.Component<UserPropsType> {
 }
 
 //создание контейнеркой компоненты
-export const UserContainer = connect(mapStateToProps, mdtp)(UserContainerC)
+export const UserContainer = connect(MSTP, MDTP)(UserContainerC)
 
 
 
