@@ -8,9 +8,8 @@ import {
   setCurrentPage,
   setTotalUsersCount,
   setUsers, toggleIsFetching,
-  unfollow
+  unfollow, toggleFollowingProgress
 } from "../../../../redux/usersReducer";
-import axios from "axios";
 import UserNew from "./UserNew";
 import Preloader from '../../common/preloader/Preloader';
 import {usersAPI} from '../../../../api/api';
@@ -26,6 +25,7 @@ type MDTPType = {
   setCurrentPage: (currentPage: number) => void
   setTotalUsersCount: (totalUsersCount: number) => void
   toggleIsFetching: (isFetching: boolean) => void
+  toggleFollowingProgress: (followingProgress: boolean, userId: number) => void
 }
 
 //объединяем тип
@@ -37,7 +37,8 @@ const MSTP = (state: AppStateType): MSTPType => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    followingProgress: state.usersPage.followingProgress
   }
 }
 
@@ -47,7 +48,8 @@ let MDTP: MDTPType = {
   setUsers,
   setCurrentPage,
   setTotalUsersCount,
-  toggleIsFetching
+  toggleIsFetching,
+  toggleFollowingProgress
 }
 
 class UserContainerC extends React.Component<UserPropsType> {
@@ -86,13 +88,17 @@ class UserContainerC extends React.Component<UserPropsType> {
       <div>
         {this.props.isFetching
           ? <Preloader/>
-          : <UserNew totalUsersCount={this.props.totalUsersCount}
-                     pageSize={this.props.pageSize}
-                     currentPage={this.props.currentPage}
-                     onPageChanged={this.onPageChanged}
-                     usersData={this.props.usersData}
-                     follow={this.props.follow}
-                     unfollow={this.props.unfollow}/>
+          : <UserNew
+            totalUsersCount={this.props.totalUsersCount}
+            pageSize={this.props.pageSize}
+            currentPage={this.props.currentPage}
+            onPageChanged={this.onPageChanged}
+            usersData={this.props.usersData}
+            follow={this.props.follow}
+            unfollow={this.props.unfollow}
+            followingProgress={this.props.followingProgress}
+            toggleFollowingProgress={this.props.toggleFollowingProgress}
+          />
         }
       </div>
     )
