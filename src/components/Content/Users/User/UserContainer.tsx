@@ -2,30 +2,24 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../../../redux/redux-store";
 import {
-  UsersDataArray,
   initialStateType,
-  follow,
   setCurrentPage,
-  setTotalUsersCount,
-  setUsers, toggleIsFetching,
-  unfollow, toggleFollowingProgress
+  follow,
+  unfollow,
+  getUsers
 } from "../../../../redux/usersReducer";
 import UserNew from "./UserNew";
 import Preloader from '../../common/preloader/Preloader';
-import {usersAPI} from '../../../../api/api';
 
 
 //Типизируем мап стейт то пропс
 type MSTPType = initialStateType;
 
 type MDTPType = {
-  follow: (userID: number) => void
-  unfollow: (userID: number) => void
-  setUsers: (usersData: Array<UsersDataArray>) => void
   setCurrentPage: (currentPage: number) => void
-  setTotalUsersCount: (totalUsersCount: number) => void
-  toggleIsFetching: (isFetching: boolean) => void
-  toggleFollowingProgress: (followingProgress: boolean, userId: number) => void
+  getUsers: (currentPage: number, pageSize: number) => void
+  follow: (userId: number) => void
+  unfollow: (userId: number) => void
 }
 
 //объединяем тип
@@ -43,43 +37,23 @@ const MSTP = (state: AppStateType): MSTPType => {
 }
 
 let MDTP: MDTPType = {
-  follow,
-  unfollow,
-  setUsers,
   setCurrentPage,
-  setTotalUsersCount,
-  toggleIsFetching,
-  toggleFollowingProgress
+  getUsers,
+  follow,
+  unfollow
 }
 
 class UserContainerC extends React.Component<UserPropsType> {
 
   //когда компонента монтируется вызывается тело метода один раз
   componentDidMount() {
-
-    this.props.toggleIsFetching(true)
-
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-      this.props.toggleIsFetching(false)
-
-      this.props.setUsers(data.items);
-      this.props.setTotalUsersCount(data.totalCount)
-    })
-
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
   //метод для кнопки переключения страницы
-  onPageChanged = (b: number) => {
-    this.props.toggleIsFetching(true)
-
-    //меняем стейт
-    this.props.setCurrentPage(b)
-
-    usersAPI.getUsers(b, this.props.pageSize).then(data => {
-      this.props.toggleIsFetching(false)
-
-      this.props.setUsers(data.items)
-    })
+  onPageChanged = (buttonCurrentPage: number) => {
+    this.props.getUsers(buttonCurrentPage, this.props.pageSize);
+    this.props.setCurrentPage(buttonCurrentPage)
   }
 
   render() {
@@ -97,7 +71,6 @@ class UserContainerC extends React.Component<UserPropsType> {
             follow={this.props.follow}
             unfollow={this.props.unfollow}
             followingProgress={this.props.followingProgress}
-            toggleFollowingProgress={this.props.toggleFollowingProgress}
           />
         }
       </div>

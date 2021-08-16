@@ -1,11 +1,9 @@
 import React from 'react';
 import s from './User.module.css';
-import {
-  UsersDataArray
-} from "../../../../redux/usersReducer";
+import {UsersDataArray} from "../../../../redux/usersReducer";
 import {NavLink} from 'react-router-dom';
 import noavatar from '../../../../assets/noavatar.png'
-import axios from "axios";
+
 
 type UsersPresentationForClassType = {
   totalUsersCount: number
@@ -16,7 +14,6 @@ type UsersPresentationForClassType = {
   follow: (userID: number) => void
   unfollow: (userID: number) => void
   followingProgress: Array<number>
-  toggleFollowingProgress: (followingProgress: boolean, userId: number) => void
 }
 
 let UserNew = (props: UsersPresentationForClassType) => {
@@ -25,7 +22,6 @@ let UserNew = (props: UsersPresentationForClassType) => {
 
   let pagesButtonSwitcher = [];
   pagesButtonSwitcher.push(1)
-
   for (let i = props.currentPage - 3; i <= props.currentPage + 3; i++) {
     if (i < 3) {
       pagesButtonSwitcher.push(2, 3, 4, 5, 6)
@@ -40,7 +36,6 @@ let UserNew = (props: UsersPresentationForClassType) => {
   }
   pagesButtonSwitcher.push(pagesCount)
 
-
   return (
     <div>
       <div>
@@ -54,9 +49,7 @@ let UserNew = (props: UsersPresentationForClassType) => {
       </div>
 
       {props.usersData.map((u: UsersDataArray) =>
-
         <div key={u.id} className={s.item}>
-
           <NavLink to={"/profile/" + u.id}>
             <img className={s.avatar}
                  src={u.photos.small != null
@@ -64,8 +57,6 @@ let UserNew = (props: UsersPresentationForClassType) => {
                    : noavatar}
                  alt="img"/>
           </NavLink>
-
-
           <span>{u.name} </span>
           <span>{u.id} </span>
           <span>{u.status} </span>
@@ -74,49 +65,19 @@ let UserNew = (props: UsersPresentationForClassType) => {
           {u.followed
             ? <button
               onClick={() => {
-                props.toggleFollowingProgress(true, u.id)
-                axios.delete(
-                  `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                  {
-                    withCredentials: true,
-                    headers: {
-                      'API-KEY': 'd683f2e5-a7af-46f3-9fb7-3906f227c671'
-                    }
-                  }
-                ).then(response => {
-                  if (response.data.resultCode === 0) {
-                    props.unfollow(u.id)
-                  }
-                  props.toggleFollowingProgress(false, u.id)
-                })
+                props.unfollow(u.id)
               }}
               disabled={props.followingProgress.some(id => id === u.id)}
             >UNFOLLOW</button>
             : <button
               onClick={() => {
-                props.toggleFollowingProgress(true, u.id)
-                axios.post(
-                  `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                  {},
-                  {
-                    withCredentials: true,
-                    headers: {
-                      'API-KEY': 'd683f2e5-a7af-46f3-9fb7-3906f227c671'
-                    }
-                  }
-                ).then(response => {
-                  if (response.data.resultCode === 0) {
-                    props.follow(u.id)
-                  }
-                  props.toggleFollowingProgress(false, u.id)
-                })
+                props.follow(u.id)
               }}
               disabled={props.followingProgress.some(id => id === u.id)}
             >FOLLOW</button>}
         </div>
       )}
     </div>
-
   )
 }
 
