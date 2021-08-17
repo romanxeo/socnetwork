@@ -1,19 +1,17 @@
 import React from 'react';
 import LoginBlock from "./LoginBlock";
-import axios from "axios";
 import {connect} from 'react-redux';
-import {setUserData} from "../../../../redux/authReducer";
+import {getAuthUserData} from "../../../../redux/authReducer";
 import {AppStateType} from "../../../../redux/redux-store";
 
-;
 
 export type MSTPType = {
-  userId: string | null
+  userId: string | undefined
   isAuth: boolean
 }
 
 type MDTPType = {
-  setUserData: (userId: string, login: string, email: string) => void
+  getAuthUserData: () => void;
 }
 
 type LoginBlockPropsType = MSTPType & MDTPType
@@ -26,21 +24,12 @@ const mapStateToProps = (state: AppStateType): MSTPType => {
 }
 
 let MDTP: MDTPType = {
-  setUserData
+  getAuthUserData
 }
 
 class LoginBlockContainer extends React.Component<LoginBlockPropsType> {
   componentDidMount() {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-      withCredentials: true
-    })
-      .then(response => {
-        debugger
-        if (response.data.resultCode === 0) {
-          let {id, login, email} = response.data.data;
-          this.props.setUserData(id, login, email);
-        }
-      })
+    this.props.getAuthUserData();
   }
 
   render() {

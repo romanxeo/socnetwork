@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {usersAPI} from "../api/api";
+import {setTotalUsersCount, setUsers} from "./usersReducer";
 
 //типы для редьюеров
 const ADD_POST = "ADD-POST"
@@ -145,11 +147,24 @@ export const setUserProfile = (profile: any) => {
 }
 export const toggleIsFetching = (isFetching: boolean) => {
     return (
-        {
-            type: TOGGLE_IS_FETCHING,
-            isFetching: isFetching
-        }
+      {
+          type: TOGGLE_IS_FETCHING,
+          isFetching: isFetching
+      }
     ) as const
+}
+
+//thunk
+export const getUserProfile = (userId: string | undefined) => {
+    return (dispatch: any) => {
+        dispatch(toggleIsFetching(true));
+
+        usersAPI.getProfile(userId)
+          .then(response => {
+              dispatch(toggleIsFetching(false));
+              dispatch(setUserProfile(response.data));
+          })
+    }
 }
 
 export default profileReducer;

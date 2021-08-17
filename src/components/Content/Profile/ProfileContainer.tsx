@@ -1,7 +1,9 @@
 import React from 'react';
 import Profile from './Profile';
-import axios from "axios";
-import {profileType, setUserProfile, toggleIsFetching} from "../../../redux/profileReducer";
+import {
+  getUserProfile,
+  profileType,
+} from "../../../redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
@@ -11,13 +13,13 @@ import Preloader from "../common/preloader/Preloader";
 //Типизируем мап стейт то пропс
 type MSTPType = {
     profile: profileType
-    isFetching: boolean
+  isFetching: boolean
+  myUserId: string | undefined
 }
 
 //типизируем мап диспатч то пропс
 type MDTPType = {
-    setUserProfile: (profile: profileType) => void
-    toggleIsFetching: (isFetching: boolean) => void
+  getUserProfile: (userId: string | undefined) => void
 }
 
 //типизируем withRouter
@@ -31,31 +33,24 @@ export type ProfilePropsType = MSTPType & MDTPType & RouteComponentProps<PathPar
 //мап стейт то пропс
 const mapStateToProps = (state: AppStateType): MSTPType => {
     return {
-        profile: state.profilePage.profile,
-        isFetching: state.profilePage.isFetching
+      profile: state.profilePage.profile,
+      isFetching: state.profilePage.isFetching,
+      myUserId: state.auth.userId
     }
 }
 
 let mapDispatchToProps: MDTPType = {
-    setUserProfile,
-    toggleIsFetching
+  getUserProfile,
 }
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '2';
+          userId = this.props.myUserId;
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.toggleIsFetching(false)
-
-                this.props.setUserProfile(response.data);
-            })
+      this.props.getUserProfile(userId)
     }
 
     render() {
@@ -66,7 +61,6 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
                     : <Profile profile={this.props.profile}/>
                 }
             </div>
-
         )
     }
 }
