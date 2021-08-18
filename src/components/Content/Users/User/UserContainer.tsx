@@ -10,6 +10,7 @@ import {
 } from "../../../../redux/usersReducer";
 import UserNew from "./UserNew";
 import Preloader from '../../common/preloader/Preloader';
+import {Redirect} from "react-router-dom";
 
 
 //Типизируем мап стейт то пропс
@@ -32,7 +33,7 @@ const MSTP = (state: AppStateType): MSTPType => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
-    followingProgress: state.usersPage.followingProgress
+    followingProgress: state.usersPage.followingProgress,
   }
 }
 

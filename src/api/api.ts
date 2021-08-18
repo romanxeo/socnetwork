@@ -36,3 +36,14 @@ export const authAPI = {
     return instance.get(`auth/me`)
   }
 }
+
+
+const getGoogle = () => {
+  return axios.get('https://social-network.samuraijs.com/api/1.0/users?page=1&count=20')
+    .then(resp => resp.data)
+    .then(data => data.items)
+}
+
+
+getGoogle()
+  .then(items => console.log(items))

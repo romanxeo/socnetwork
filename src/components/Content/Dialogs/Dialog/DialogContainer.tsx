@@ -8,6 +8,7 @@ import {Dispatch} from "redux"
 //Типизируем мап то пропс
 type MSTPPropsType = {
     dialogsData: Array<DialogsDataArray>
+    isAuth: boolean
 };
 
 //тиизируем диспатч то пропс
@@ -18,7 +19,8 @@ export type DialogPropsType = MSTPPropsType & MDTPPropsType
 
 const mapStateToProps = (state: AppStateType): MSTPPropsType => {
     return {
-        dialogsData: state.dialogsPage.dialogsData
+        dialogsData: state.dialogsPage.dialogsData,
+        isAuth: state.auth.isAuth
     }
 }
 

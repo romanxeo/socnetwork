@@ -1,39 +1,26 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import s from './Dialog.module.css';
 import {DialogPropsType} from "./DialogContainer";
 
 const Dialog = (props: DialogPropsType) => {
 
     let dialogElement = props.dialogsData.map(d =>
-        <div key={d.id} className={s.dialog}>
-            <NavLink to={"/dialogs/" + d.id}> {d.name} </NavLink>
-        </div>
+      <div key={d.id} className={s.dialog}>
+          <NavLink to={"/dialogs/" + d.id}> {d.name} </NavLink>
+      </div>
     );
 
+    if (!props.isAuth) {
+        return <Redirect to={'/login'}/>
+    }
+    ;
+
     return (
-        <div>
-            {dialogElement}
-        </div>
+      <div>
+          {dialogElement}
+      </div>
     )
 }
 
 export default Dialog;
-/*
-
-
-/!*
-
-{/!**!/}
-
-
-/!*    let dialogsElement = props.dialogsData.map(d => <Dialog name={d.name} id={d.id}/>);
-
-return (
-<div className={s.dialogs}>
-    {dialogsElement}
-</div>
-)*!/
-
-
-*/
