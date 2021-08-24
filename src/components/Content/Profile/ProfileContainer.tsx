@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import Preloader from "../common/preloader/Preloader";
+import {withAuthRedirectHOC} from '../common/hoc/AuthRedirectHOC';
 
 
 //Типизируем мап стейт то пропс
@@ -15,8 +16,6 @@ type MSTPType = {
   profile: profileType
   isFetching: boolean
   myUserId: string | undefined
-  isAuth: boolean
-
 }
 
 //типизируем мап диспатч то пропс
@@ -41,13 +40,13 @@ const mapStateToProps = (state: AppStateType): MSTPType => {
     profile: state.profilePage.profile,
     isFetching: state.profilePage.isFetching,
     myUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
   }
 }
 
 let mapDispatchToProps: MDTPType = {
   getUserProfile,
 }
+
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
@@ -60,11 +59,6 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
   }
 
   render() {
-
-    if (!this.props.isAuth) {
-      return <Redirect to={'/login'}/>
-    }
-    ;
 
     return (
       <div>
@@ -79,4 +73,6 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfileContainer))
+let AuthRedirectComponent = withAuthRedirectHOC(ProfileContainer)
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AuthRedirectComponent))
