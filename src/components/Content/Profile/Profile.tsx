@@ -12,7 +12,7 @@ import imgIG from '../../../assets/linkimg/instagram.png'
 import imgYB from '../../../assets/linkimg/youtube.png'
 import imgGH from '../../../assets/linkimg/git.png'
 import imgGM from '../../../assets/linkimg/gmail.png'
-import {Redirect} from "react-router-dom";
+import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
 type propsType = {
   profile: profileType
@@ -22,6 +22,7 @@ const Profile = (props: propsType) => {
 
   return (
     <div className={s.profile}>
+
       <img className={s.avatar}
            src={props.profile.photos.large != null
              ? props.profile.photos.large
@@ -30,6 +31,7 @@ const Profile = (props: propsType) => {
 
       <div className={s.fullName}>{props.profile.fullName}</div>
 
+      <ProfileStatus status={'hello'}/>
 
       {(props.profile.aboutMe != null)
         ? <div className={s.aboutMe}>
