@@ -9,6 +9,7 @@ import {AppStateType} from "../../../redux/redux-store";
 import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import Preloader from "../common/preloader/Preloader";
 import {withAuthRedirectHOC} from '../common/hoc/AuthRedirectHOC';
+import {compose} from 'redux';
 
 
 //Типизируем мап стейт то пропс
@@ -73,6 +74,11 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
   }
 }
 
-let AuthRedirectComponent = withAuthRedirectHOC(ProfileContainer)
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AuthRedirectComponent))
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter,
+  withAuthRedirectHOC,
+)(ProfileContainer)
+
+

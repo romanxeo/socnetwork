@@ -2,8 +2,6 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import {DialogContainer} from "./Dialog/DialogContainer";
 
-
-
 const Dialogs = () => {
 
     return (

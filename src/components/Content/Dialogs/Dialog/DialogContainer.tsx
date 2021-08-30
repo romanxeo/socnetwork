@@ -3,12 +3,13 @@ import {DialogsDataArray} from "../../../../redux/dialogsReducer";
 import {connect} from "react-redux";
 import Dialog from "./Dialog";
 import {AppStateType} from "../../../../redux/redux-store";
-import {Dispatch} from "redux"
+import {compose, Dispatch} from "redux"
+import {withAuthRedirectHOC} from "../../common/hoc/AuthRedirectHOC";
+import {withRouter} from "react-router-dom";
 
 //Типизируем мап то пропс
 type MSTPPropsType = {
     dialogsData: Array<DialogsDataArray>
-    isAuth: boolean
 };
 
 //тиизируем диспатч то пропс
@@ -19,8 +20,7 @@ export type DialogPropsType = MSTPPropsType & MDTPPropsType
 
 const mapStateToProps = (state: AppStateType): MSTPPropsType => {
     return {
-        dialogsData: state.dialogsPage.dialogsData,
-        isAuth: state.auth.isAuth
+        dialogsData: state.dialogsPage.dialogsData
     }
 }
 
@@ -28,5 +28,11 @@ const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
     return {}
 }
 
-export const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialog)
+export const DialogContainer = compose<React.ComponentType>(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter,
+  withAuthRedirectHOC,
+)(Dialog)
+
+
 
