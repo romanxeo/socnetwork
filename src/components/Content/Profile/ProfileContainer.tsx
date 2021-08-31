@@ -2,11 +2,13 @@ import React from 'react';
 import Profile from './Profile';
 import {
   getUserProfile,
+  getStatus,
   profileType,
+  updateStatus,
 } from "../../../redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import Preloader from "../common/preloader/Preloader";
 import {withAuthRedirectHOC} from '../common/hoc/AuthRedirectHOC';
 import {compose} from 'redux';
@@ -17,11 +19,14 @@ type MSTPType = {
   profile: profileType
   isFetching: boolean
   myUserId: string | undefined
+  status: string
 }
 
 //типизируем мап диспатч то пропс
 type MDTPType = {
   getUserProfile: (userId: string | undefined) => void
+  getStatus: (userId: string | undefined) => void
+  updateStatus: (status: string) => void
 }
 
 //типизируем withRouter
@@ -41,11 +46,14 @@ const mapStateToProps = (state: AppStateType): MSTPType => {
     profile: state.profilePage.profile,
     isFetching: state.profilePage.isFetching,
     myUserId: state.auth.userId,
+    status: state.profilePage.status
   }
 }
 
 let mapDispatchToProps: MDTPType = {
   getUserProfile,
+  getStatus,
+  updateStatus
 }
 
 
@@ -57,6 +65,8 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
       userId = this.props.myUserId;
     }
     this.props.getUserProfile(userId)
+
+    this.props.getStatus(userId)
   }
 
   render() {
@@ -67,6 +77,8 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
           ? <Preloader/>
           : <Profile
             profile={this.props.profile}
+            status={this.props.status}
+            updateStatus={this.props.updateStatus}
           />
         }
       </div>
