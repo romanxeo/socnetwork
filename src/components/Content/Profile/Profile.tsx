@@ -17,7 +17,8 @@ import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 type propsType = {
   profile: profileType
   status: string
-  updateStatus: (status: string) => void
+  updateStatus: (userId: string | undefined, status: string) => void
+  userId: string | undefined
 }
 
 const Profile = (props: propsType) => {
@@ -36,6 +37,7 @@ const Profile = (props: propsType) => {
       <ProfileStatus
         status={props.status}
         updateStatus={props.updateStatus}
+        userId={props.userId}
       />
 
       {(props.profile.aboutMe != null)

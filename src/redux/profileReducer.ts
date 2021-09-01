@@ -198,20 +198,16 @@ export const getStatus = (userId: string | undefined) => {
 }
 
 //thunk
-export const updateStatus = (status: string) => {
-  debugger
+export const updateStatus = (userId: string | undefined, status: string) => {
   return (dispatch: any) => {
-    /*dispatch(toggleIsFetching(true));*/
-    debugger
     profileAPI.updateStatus(status)
       .then(response => {
-        debugger
         if (response.data.resultCode === 0) {
-          debugger
-          /*dispatch(toggleIsFetching(false));*/
-          dispatch(setStatus(
-            JSON.parse(response.config.data).status
-          ));
+          profileAPI.getStatus(userId)
+            .then(response => {
+              dispatch(setStatus(response.data));
+            })
+
         }
       })
   }

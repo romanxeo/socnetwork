@@ -26,7 +26,7 @@ type MSTPType = {
 type MDTPType = {
   getUserProfile: (userId: string | undefined) => void
   getStatus: (userId: string | undefined) => void
-  updateStatus: (status: string) => void
+  updateStatus: (userId: string | undefined, status: string) => void
 }
 
 //типизируем withRouter
@@ -79,6 +79,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
             profile={this.props.profile}
             status={this.props.status}
             updateStatus={this.props.updateStatus}
+            userId={this.props.myUserId}
           />
         }
       </div>
