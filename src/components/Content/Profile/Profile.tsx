@@ -12,6 +12,7 @@ import imgIG from '../../../assets/linkimg/instagram.png'
 import imgYB from '../../../assets/linkimg/youtube.png'
 import imgGH from '../../../assets/linkimg/git.png'
 import imgGM from '../../../assets/linkimg/gmail.png'
+import imgStatus from '../../../assets/linkimg/status.png'
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
 type propsType = {
@@ -34,11 +35,15 @@ const Profile = (props: propsType) => {
 
       <div className={s.fullName}>{props.profile.fullName}</div>
 
-      <ProfileStatus
-        status={props.status}
-        updateStatus={props.updateStatus}
-        userId={props.userId}
-      />
+
+      <div>
+        <img className={s.descriptionImg} src={imgStatus}/>
+        <ProfileStatus
+          status={props.status}
+          updateStatus={props.updateStatus}
+          userId={props.userId}
+        />
+      </div>
 
       {(props.profile.aboutMe != null)
         ? <div className={s.aboutMe}>

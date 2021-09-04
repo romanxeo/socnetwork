@@ -14,6 +14,14 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
     status: this.props.status
   }
 
+  componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>, snapshot?: any) {
+    if (prevProps.status !== this.props.status) {
+      this.setState({
+        status: this.props.status
+      })
+    }
+  }
+
   activateEditeMode = () => {
     this.setState({
       editMode: true
@@ -36,25 +44,21 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
 
   render() {
     return (
-      <div>
+      <>
         {this.state.editMode
           ?
-          <div>
             <input
               onChange={this.onStatusChange}
               autoFocus={true}
               onBlur={this.deActivateEditeMode}
               value={this.state.status}
             />
-          </div>
           :
-          <div>
           <span onDoubleClick={this.activateEditeMode}>
-            {this.props.status || 'no statuse'}
+            {' ' + this.props.status || 'no statuse'}
           </span>
-          </div>
         }
-      </div>
+      </>
     )
   }
-}
+};
