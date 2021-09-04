@@ -1,12 +1,56 @@
 import {v1} from "uuid";
 import {profileAPI} from "../api/api";
 
-//типы для редьюеров
-const ADD_POST = "ADD-POST"
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
-const SET_USER_PROFILE = 'SET_USER_PROFILE'
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-const SET_STATUS = 'SET_STATUS'
+export const addPostAC = () => {
+  return {type: 'PROFILE/ADD-POST'} as const
+}
+
+export const addPostFormAC = (newPostText: string) => {
+  return {type: 'PROFILE/ADD-POST-FORM', newPostText} as const
+}
+
+export const updateNewPostTextAC = (newText: string) => {
+  return {
+    type: 'PROFILE/UPDATE-NEW-POST-TEXT',
+    newText: newText
+  } as const
+}
+
+export const setUserProfile = (profile: any) => {
+  return {
+    type: 'PROFILE/SET-USER-PROFILE',
+    profile
+  } as const
+}
+
+export const setStatus = (status: string) => {
+  return {
+    type: 'PROFILE/SET-STATUS',
+    status
+  } as const
+}
+
+export const toggleIsFetching = (isFetching: boolean) => {
+  return {
+    type: 'PROFILE/TOGGLE-IS-FETCHING',
+    isFetching: isFetching
+  } as const
+}
+
+export type addPostAT = ReturnType<typeof addPostAC>
+export type updateNewPostTextAT = ReturnType<typeof updateNewPostTextAC>
+export type setUserProfileAT = ReturnType<typeof setUserProfile>
+export type toggleIsFetchingAT = ReturnType<typeof toggleIsFetching>
+export type setStatusAT = ReturnType<typeof setStatus>
+export type addPostFormAT = ReturnType<typeof addPostFormAC>
+
+export type ActionTypes = addPostAT
+  | updateNewPostTextAT
+  | setUserProfileAT
+  | toggleIsFetchingAT
+  | setStatusAT
+  | addPostFormAT
+
 
 //типизируем массив постов
 export type PostsDataArray = {
@@ -48,13 +92,6 @@ export type initialStateType = {
   status: string
 }
 
-//типизируем action который может приходить
-export type ActionTypes = ReturnType<typeof addPostAC>
-  | ReturnType<typeof updateNewPostTextAC>
-  | ReturnType<typeof setUserProfile>
-  | ReturnType<typeof toggleIsFetching>
-  | ReturnType<typeof setStatus>
-
 //инициализируем стейт с данными
 const initialState: initialStateType = {
   postsData: [
@@ -92,7 +129,8 @@ const initialState: initialStateType = {
 //profileReducer
 const profileReducer = (state: initialStateType = initialState, action: ActionTypes): initialStateType => {
   switch (action.type) {
-    case ADD_POST: {
+
+    case 'PROFILE/ADD-POST': {
       //создаем новый объект поста
       const newPost: PostsDataArray = {
         id: v1(),
@@ -107,20 +145,40 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
         newPostText: ''
       }
     }
-    case UPDATE_NEW_POST_TEXT: {
+
+    case 'PROFILE/ADD-POST-FORM': {
+      //создаем новый объект поста
+      const newPost: PostsDataArray = {
+        id: v1(),
+        name: 'name',
+        post: action.newPostText,
+        likesCount: 0
+      }
+      //делаем глубокую копию объекта стейт и ретурним ее
+      return {
+        ...state,
+        postsData: [...state.postsData, newPost], //делаем глубокую копию сообщений и в конец добавляем новой пост
+        newPostText: ''
+      }
+    }
+
+    case 'PROFILE/UPDATE-NEW-POST-TEXT': {
       //делаем копию стейта и вносим изменение обновление строки ввода нового поста и ретурним ее
       return {
         ...state,
         newPostText: action.newText
       }
     }
-    case SET_USER_PROFILE: {
+
+    case 'PROFILE/SET-USER-PROFILE': {
       return {...state, profile: action.profile}
     }
-    case TOGGLE_IS_FETCHING: {
+
+    case 'PROFILE/TOGGLE-IS-FETCHING': {
       return {...state, isFetching: action.isFetching}
     }
-    case SET_STATUS: {
+
+    case 'PROFILE/SET-STATUS': {
       return {...state, status: action.status}
     }
 
@@ -129,46 +187,6 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
       return state;
     }
   }
-}
-
-export const addPostAC = () => {
-  return (
-    {type: ADD_POST}
-  ) as const
-}
-export const updateNewPostTextAC = (newText: string) => {
-  return (
-    {
-      type: UPDATE_NEW_POST_TEXT,
-      newText: newText
-    }
-  ) as const
-}
-export const setUserProfile = (profile: any) => {
-  return (
-    {
-      type: SET_USER_PROFILE,
-      profile
-    }
-  ) as const
-}
-
-export const setStatus = (status: string) => {
-  return (
-    {
-      type: SET_STATUS,
-      status
-    }
-  ) as const
-}
-
-export const toggleIsFetching = (isFetching: boolean) => {
-  return (
-    {
-      type: TOGGLE_IS_FETCHING,
-      isFetching: isFetching
-    }
-  ) as const
 }
 
 //thunk

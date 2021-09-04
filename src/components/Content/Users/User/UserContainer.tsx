@@ -10,7 +10,6 @@ import {
 } from "../../../../redux/usersReducer";
 import UserNew from "./UserNew";
 import Preloader from '../../common/preloader/Preloader';
-import {Redirect} from "react-router-dom";
 
 
 //Типизируем мап стейт то пропс

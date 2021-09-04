@@ -35,6 +35,6 @@ const Login = (props: any) => {
       <LoginReduxForm onSubmit={onSubmit}/>
     </div>
   )
-}
+};
 
 export default Login
