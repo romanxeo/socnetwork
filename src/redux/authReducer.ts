@@ -30,8 +30,7 @@ const authReducer = (state: initialStateType = initialState, action: ActionTypes
         case SET_USER_DATA: {
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload
             };
         }
         default: {
@@ -41,26 +40,47 @@ const authReducer = (state: initialStateType = initialState, action: ActionTypes
 }
 
 //экшн креейтор на логи
-export const setAuthUserData = (userId: string, login: string, email: string) => {
-    return (
-      {
-          type: SET_USER_DATA,
-          data: {userId, login, email}
-      }
-    ) as const
+export const setAuthUserData = (userId: string | undefined, login: string | null, email: string | null, isAuth: boolean) => {
+  return (
+    {
+      type: SET_USER_DATA,
+      payload: {userId, login, email, isAuth},
+    }
+  ) as const
 }
 
 //thunk
 export const getAuthUserData = () => {
     return (dispatch: any) => {
-        authAPI.authMe()
-          .then(response => {
-              if (response.data.resultCode === 0) {
-                  let {id, login, email} = response.data.data;
-                  dispatch(setAuthUserData(id, login, email));
-              }
-          })
+      authAPI.me()
+        .then(response => {
+          if (response.data.resultCode === 0) {
+            let {id, login, email} = response.data.data;
+            dispatch(setAuthUserData(id, login, email, true));
+          }
+        })
     }
+}
+
+//thunk
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: any) => {
+  authAPI.login(email, password, rememberMe)
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        dispatch(getAuthUserData())
+      }
+    })
+}
+
+//thunk
+export const logout = () => (dispatch: any) => {
+  debugger
+  authAPI.logout()
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData(undefined, null, null, false));
+      }
+    })
 }
 
 export default authReducer;

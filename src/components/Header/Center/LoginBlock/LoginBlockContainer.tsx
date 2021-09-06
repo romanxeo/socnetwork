@@ -1,30 +1,32 @@
 import React from 'react';
 import LoginBlock from "./LoginBlock";
 import {connect} from 'react-redux';
-import {getAuthUserData} from "../../../../redux/authReducer";
+import {getAuthUserData, logout} from "../../../../redux/authReducer";
 import {AppStateType} from "../../../../redux/redux-store";
 
 
-export type MSTPType = {
-  userId: string | undefined
+type MSTPType = {
+  id: string | undefined
   isAuth: boolean
 }
 
 type MDTPType = {
   getAuthUserData: () => void;
+  logout: () => void
 }
 
-type LoginBlockPropsType = MSTPType & MDTPType
+export type LoginBlockPropsType = MSTPType & MDTPType
 
 const mapStateToProps = (state: AppStateType): MSTPType => {
   return {
-    userId: state.auth.userId,
+    id: state.auth.userId,
     isAuth: state.auth.isAuth
   }
 }
 
 let MDTP: MDTPType = {
-  getAuthUserData
+  getAuthUserData,
+  logout
 }
 
 class LoginBlockContainer extends React.Component<LoginBlockPropsType> {
@@ -35,8 +37,10 @@ class LoginBlockContainer extends React.Component<LoginBlockPropsType> {
   render() {
     return (
       <LoginBlock
-        userId={this.props.userId}
+        id={this.props.id}
         isAuth={this.props.isAuth}
+        getAuthUserData={this.props.getAuthUserData}
+        logout={this.props.logout}
       />
     )
   }

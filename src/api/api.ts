@@ -19,43 +19,41 @@ export const usersAPI = {
   },
 
   follow(userId: number) {
-    return instance.post(`follow/${userId}`)
+    return instance.post(`follow/${userId}`);
   },
 
   unfollow(userId: number) {
-    return instance.delete(`follow/${userId}`)
+    return instance.delete(`follow/${userId}`);
   }
 }
 
 export const profileAPI = {
   getProfile(userId: string | null | undefined) {
-    return instance.get(`profile/${userId}`)
+    return instance.get(`profile/${userId}`);
   },
 
   getStatus(userId: string | null | undefined) {
-    return instance.get(`profile/status/${userId}`)
+    return instance.get(`profile/status/${userId}`);
   },
 
   updateStatus(status: string) {
-    return instance.put(`profile/status`, {status: status})
+    return instance.put(`profile/status`, {status: status});
   }
 
 }
 
 
 export const authAPI = {
-  authMe() {
-    return instance.get(`auth/me`)
+  me() {
+    return instance.get(`auth/me`);
+  },
+
+  login(email: string, password: string, rememberMe: boolean = false) {
+    return instance.post(`auth/login`, {email, password, rememberMe});
+  },
+
+  logout() {
+    return instance.delete(`auth/login`);
   }
 }
 
-
-const getGoogle = () => {
-  return axios.get('https://social-network.samuraijs.com/api/1.0/users?page=1&count=20')
-    .then(resp => resp.data)
-    .then(data => data.items)
-}
-
-
-getGoogle()
-  .then(items => console.log(items))

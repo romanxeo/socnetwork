@@ -1,13 +1,14 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './LoginBlock.module.css'
-import {MSTPType} from './LoginBlockContainer';
+import {LoginBlockPropsType} from './LoginBlockContainer';
 
-const LoginBlock = (props: MSTPType) => {
+const LoginBlock = (props: LoginBlockPropsType) => {
+
   return (
     <div>
       {props.isAuth
-        ? <div className={s.bottom}>{props.userId}</div>
+        ? <div onClick={props.logout} className={s.bottom}>{props.id}</div>
         : <NavLink to={'/login'} className={s.bottom}>Login</NavLink>}
     </div>
   )

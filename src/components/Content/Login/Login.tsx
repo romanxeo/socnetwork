@@ -6,17 +6,21 @@ import {
   maxLengthCreator,
   requiredField
 } from "../../../utils/validators/validators";
+import {connect} from 'react-redux';
+import {login} from '../../../redux/authReducer';
+import {Redirect} from "react-router-dom";
+import {AppStateType} from "../../../redux/redux-store";
 
-const maxLength10 = maxLengthCreator(10)
+const maxLength50 = maxLengthCreator(50)
 
 const LoginForm = (props: any) => {
   return <form onSubmit={props.handleSubmit}>
     <div>
       <Field
-        placeholder={'login'}
+        placeholder={'email'}
         component={Input}
-        name={'login'}
-        validate={[requiredField, maxLength10]}
+        name={'email'}
+        validate={[requiredField, maxLength50]}
       />
     </div>
     <div>
@@ -24,7 +28,8 @@ const LoginForm = (props: any) => {
         placeholder={'password'}
         component={Input}
         name={'password'}
-        validate={[requiredField, maxLength10]}
+        type={'password'}
+        validate={[requiredField, maxLength50]}
       />
     </div>
     <div>
@@ -32,7 +37,7 @@ const LoginForm = (props: any) => {
         type={'checkbox'}
         component={Input}
         name={'rememberMe'}
-        validate={[requiredField, maxLength10]}
+        validate={[requiredField, maxLength50]}
       />
       Remember me
     </div>
@@ -46,10 +51,37 @@ const LoginReduxForm = reduxForm({
   form: 'login'
 })(LoginForm)
 
-const Login = (props: any) => {
-  const onSubmit = (formData: any) => {
-    console.log(formData)
+
+type MSTPType = {
+  isAuth: boolean
+}
+
+type MDTPType = {
+  login: (email: string, password: string, rememberMe: boolean) => void
+}
+
+type loginType = MSTPType & MDTPType
+
+const MSTP = (state: AppStateType): MSTPType => {
+  return {
+    isAuth: state.auth.isAuth,
   }
+}
+
+const MDTP: MDTPType = {
+  login
+}
+
+
+const Login = (props: loginType) => {
+  const onSubmit = (formData: any) => {
+    props.login(formData.email, formData.password, formData.rememberMe)
+  }
+
+  if (props.isAuth) {
+    return <Redirect to={'/profile'}/>
+  }
+
 
   return (
     <div className={s.loginBlock}>
@@ -59,4 +91,4 @@ const Login = (props: any) => {
   )
 };
 
-export default Login
+export default connect(MSTP, MDTP)(Login)

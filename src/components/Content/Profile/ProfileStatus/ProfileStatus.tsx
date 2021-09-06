@@ -4,7 +4,8 @@ import s from './ProfileStatus.module.css';
 type ProfileStatusType = {
   status: string
   updateStatus: (userId: string | undefined, status: string) => void
-  userId: string | undefined
+  myUserId: string | undefined
+  currentUserId: number
 }
 
 export class ProfileStatus extends React.Component<ProfileStatusType> {
@@ -23,16 +24,18 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
   }
 
   activateEditeMode = () => {
-    this.setState({
-      editMode: true
-    })
+    if (String(this.props.myUserId) === String(this.props.currentUserId)) {
+      this.setState({
+        editMode: true
+      })
+    }
   }
 
   deActivateEditeMode = () => {
     this.setState({
       editMode: false
     })
-    this.props.updateStatus(this.props.userId, this.state.status)
+    this.props.updateStatus(this.props.myUserId, this.state.status)
   }
 
   onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,12 +50,12 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
       <>
         {this.state.editMode
           ?
-            <input
-              onChange={this.onStatusChange}
-              autoFocus={true}
-              onBlur={this.deActivateEditeMode}
-              value={this.state.status}
-            />
+          <input
+            onChange={this.onStatusChange}
+            autoFocus={true}
+            onBlur={this.deActivateEditeMode}
+            value={this.state.status}
+          />
           :
           <span onDoubleClick={this.activateEditeMode}>
             {' ' + this.props.status || 'no statuse'}
@@ -61,4 +64,4 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
       </>
     )
   }
-};
+}

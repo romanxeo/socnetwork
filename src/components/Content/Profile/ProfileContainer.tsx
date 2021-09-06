@@ -93,5 +93,3 @@ export default compose<React.ComponentType>(
   withRouter,
   withAuthRedirectHOC,
 )(ProfileContainer)
-
-
