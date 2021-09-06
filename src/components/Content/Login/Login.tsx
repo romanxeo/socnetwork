@@ -85,7 +85,7 @@ const Login = (props: loginType) => {
 
   return (
     <div className={s.loginBlock}>
-      <h1>LOGIN</h1>
+      <h1>LOGIN1</h1>
       <LoginReduxForm onSubmit={onSubmit}/>
     </div>
   )
