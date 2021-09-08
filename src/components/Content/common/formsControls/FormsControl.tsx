@@ -21,14 +21,14 @@ export const Input = ({input, meta, ...props}: any) => {
 
   const hasError = meta.touched && meta.error
   return (
-    <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
-      <div>
+    <span className={s.formControl + ' ' + (hasError ? s.error : '')}>
+      <span>
         <input {...input} {...props}/>
-      </div>
-      <div>
+      </span>
+      <span>
         {hasError && <span>{meta.error}</span>}
-      </div>
-    </div>
+      </span>
+    </span>
   )
 }
 

@@ -10,3 +10,8 @@
 .formControl.error span {
     color: red;
 }
+
+.checkBox {
+    /*display: inline;*/
+    width: 50px;
+}

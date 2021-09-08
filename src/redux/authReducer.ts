@@ -1,4 +1,5 @@
 //типы для редьюеров
+import {stopSubmit} from "redux-form";
 import {authAPI} from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA"
@@ -64,10 +65,17 @@ export const getAuthUserData = () => {
 
 //thunk
 export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: any) => {
+
   authAPI.login(email, password, rememberMe)
     .then(response => {
       if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
+      } else {
+        if (response.data.messages.length > 0) {
+          dispatch(stopSubmit('login', {_error: response.data.messages[0]}))
+        } else {
+          dispatch(stopSubmit('login', {_error: 'some error'}))
+        }
       }
     })
 }

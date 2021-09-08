@@ -38,9 +38,15 @@ const LoginForm = (props: any) => {
         component={Input}
         name={'rememberMe'}
         validate={[requiredField, maxLength50]}
+        className={s.checkBox}
       />
       Remember me
     </div>
+    {props.error &&
+    <div className={s.formSummaryError}>
+      {props.error}
+    </div>
+    }
     <div>
       <button>Login</button>
     </div>

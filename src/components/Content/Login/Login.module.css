@@ -2,3 +2,9 @@
     grid-area: footer;
     background-color: #fafafa;
 }
+
+.formSummaryError {
+    border: red 1px solid;
+    padding: 4px;
+    color: rosybrown;
+}
