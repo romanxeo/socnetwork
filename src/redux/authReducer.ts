@@ -51,16 +51,14 @@ export const setAuthUserData = (userId: string | undefined, login: string | null
 }
 
 //thunk
-export const getAuthUserData = () => {
-    return (dispatch: any) => {
-      authAPI.me()
-        .then(response => {
-          if (response.data.resultCode === 0) {
-            let {id, login, email} = response.data.data;
-            dispatch(setAuthUserData(id, login, email, true));
-          }
-        })
-    }
+export const getAuthUserData = () => (dispatch: any) => {
+  return authAPI.me()
+    .then(response => {
+      if (response.data.resultCode === 0) {
+        let {id, login, email} = response.data.data;
+        dispatch(setAuthUserData(id, login, email, true));
+      }
+    })
 }
 
 //thunk
@@ -82,7 +80,6 @@ export const login = (email: string, password: string, rememberMe: boolean) => (
 
 //thunk
 export const logout = () => (dispatch: any) => {
-  debugger
   authAPI.logout()
     .then(response => {
       if (response.data.resultCode === 0) {
