@@ -10,6 +10,11 @@ import {
 } from "../../../../redux/usersReducer";
 import UserNew from "./UserNew";
 import Preloader from '../../common/preloader/Preloader';
+import {
+  getCurrentPage,
+  getFollowingProgress,
+  getIsFetching, getPageSize, getTotalUsersCount, getUsersData
+} from "../../../../redux/usersSelector";
 
 
 //Типизируем мап стейт то пропс
@@ -25,7 +30,7 @@ type MDTPType = {
 //объединяем тип
 export type UserPropsType = MSTPType & MDTPType
 
-const MSTP = (state: AppStateType): MSTPType => {
+/*const MSTP = (state: AppStateType): MSTPType => {
   return {
     usersData: state.usersPage.usersData,
     pageSize: state.usersPage.pageSize,
@@ -33,6 +38,17 @@ const MSTP = (state: AppStateType): MSTPType => {
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
     followingProgress: state.usersPage.followingProgress,
+  }
+}*/
+
+const MSTP = (state: AppStateType): MSTPType => {
+  return {
+    usersData: getUsersData(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingProgress: getFollowingProgress(state),
   }
 }
 
