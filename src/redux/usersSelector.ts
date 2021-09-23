@@ -1,7 +1,14 @@
-export const getUsersData = (state: any) => {
-  debugger
+import {createSelector} from "reselect"
+import {UsersDataArray} from "./usersReducer";
+import {AppStateType} from "./redux-store";
+
+export const getUsersData = (state: AppStateType) => {
   return state.usersPage.usersData
 }
+
+export const getUserDataSelector = createSelector(getUsersData, (users: Array<UsersDataArray>) => {
+  return users.filter(u => true)
+})
 
 export const getPageSize = (state: any) => {
   return state.usersPage.pageSize

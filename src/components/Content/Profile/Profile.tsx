@@ -14,6 +14,7 @@ import imgGH from '../../../assets/linkimg/git.png'
 import imgGM from '../../../assets/linkimg/gmail.png'
 import imgStatus from '../../../assets/linkimg/status.png'
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
+import ProfileStatusWithHook from "./ProfileStatus/ProfileStatusWithHook";
 
 type propsType = {
   profile: profileType
@@ -38,7 +39,7 @@ const Profile = (props: propsType) => {
 
       <div>
         <img className={s.descriptionImg} src={imgStatus}/>
-        <ProfileStatus
+        <ProfileStatusWithHook
           status={props.status}
           updateStatus={props.updateStatus}
           myUserId={props.userId}

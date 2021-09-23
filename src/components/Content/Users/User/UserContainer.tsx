@@ -13,7 +13,11 @@ import Preloader from '../../common/preloader/Preloader';
 import {
   getCurrentPage,
   getFollowingProgress,
-  getIsFetching, getPageSize, getTotalUsersCount, getUsersData
+  getIsFetching,
+  getPageSize,
+  getTotalUsersCount,
+  getUsersData,
+  getUserDataSelector
 } from "../../../../redux/usersSelector";
 
 
@@ -43,7 +47,7 @@ export type UserPropsType = MSTPType & MDTPType
 
 const MSTP = (state: AppStateType): MSTPType => {
   return {
-    usersData: getUsersData(state),
+    usersData: getUserDataSelector(state),
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),
