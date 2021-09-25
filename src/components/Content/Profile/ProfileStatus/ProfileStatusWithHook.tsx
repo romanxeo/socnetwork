@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 
 type TProps = {
   status: string
@@ -19,13 +19,17 @@ const ProfileStatusWithHook: React.FC<TProps> = props => {
   let [editMode, setEditMode] = useState<boolean>(false);
   let [statusText, setStatusText] = useState<string>(status);
 
+  useEffect(() => {
+    setStatusText(status)
+  }, [status])
+
   const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     setStatusText(e.currentTarget.value)
   }
 
   const activateEditeMode = () => {
     if (String(myUserId) === String(currentUserId)) {
-      setStatusText(status)
+
       setEditMode(true)
     }
   }
