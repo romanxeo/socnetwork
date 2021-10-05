@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {profileAPI} from "../api/api";
-// d
+// dre
 
 export const addPostAC = () => {
   return {type: 'PROFILE/ADD-POST'} as const
