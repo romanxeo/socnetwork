@@ -16,33 +16,41 @@ export const updateNewPostTextAC = (newText: string) => {
   } as const
 }
 
-export const setUserProfile = (profile: any) => {
+export const setUserProfileAC = (profile: any) => {
   return {
     type: 'PROFILE/SET-USER-PROFILE',
     profile
   } as const
 }
 
-export const setStatus = (status: string) => {
+export const setStatusAC = (status: string) => {
   return {
     type: 'PROFILE/SET-STATUS',
     status
   } as const
 }
 
-export const toggleIsFetching = (isFetching: boolean) => {
+export const toggleIsFetchingAC = (isFetching: boolean) => {
   return {
     type: 'PROFILE/TOGGLE-IS-FETCHING',
     isFetching: isFetching
   } as const
 }
 
+export const deletePostAC = (id: string) => {
+  return {
+    type: 'PROFILE/DELETE-POST',
+    id
+  } as const
+}
+
 export type addPostAT = ReturnType<typeof addPostAC>
 export type updateNewPostTextAT = ReturnType<typeof updateNewPostTextAC>
-export type setUserProfileAT = ReturnType<typeof setUserProfile>
-export type toggleIsFetchingAT = ReturnType<typeof toggleIsFetching>
-export type setStatusAT = ReturnType<typeof setStatus>
+export type setUserProfileAT = ReturnType<typeof setUserProfileAC>
+export type toggleIsFetchingAT = ReturnType<typeof toggleIsFetchingAC>
+export type setStatusAT = ReturnType<typeof setStatusAC>
 export type addPostFormAT = ReturnType<typeof addPostFormAC>
+export type deletePostAT = ReturnType<typeof deletePostAC>
 
 export type ActionTypes = addPostAT
   | updateNewPostTextAT
@@ -50,6 +58,7 @@ export type ActionTypes = addPostAT
   | toggleIsFetchingAT
   | setStatusAT
   | addPostFormAT
+  | deletePostAT
 
 
 //типизируем массив постов
@@ -71,7 +80,7 @@ export type contactsType = {
   github: string | null
   mainLink: string | null
 }
-type photosType = {
+export type photosType = {
   small: string | null
   large: string | null
 }
@@ -182,6 +191,13 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
       return {...state, status: action.status}
     }
 
+    case 'PROFILE/DELETE-POST': {
+      return {
+        ...state,
+        postsData: state.postsData.filter(p => p.id != action.id)
+      }
+    }
+
     default: {
       //возращение стейта по дефолту если нет нужного типа
       return state;
@@ -192,12 +208,12 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
 //thunk
 export const getUserProfile = (userId: string | undefined) => {
   return (dispatch: any) => {
-    dispatch(toggleIsFetching(true));
+    dispatch(toggleIsFetchingAC(true));
 
     profileAPI.getProfile(userId)
       .then(response => {
-        dispatch(toggleIsFetching(false));
-        dispatch(setUserProfile(response.data));
+        dispatch(toggleIsFetchingAC(false));
+        dispatch(setUserProfileAC(response.data));
       })
   }
 }
@@ -210,7 +226,7 @@ export const getStatus = (userId: string | undefined) => {
     profileAPI.getStatus(userId)
       .then(response => {
         /*dispatch(toggleIsFetching(false));*/
-        dispatch(setStatus(response.data));
+        dispatch(setStatusAC(response.data));
       })
   }
 }
@@ -223,7 +239,7 @@ export const updateStatus = (userId: string | undefined, status: string) => {
         if (response.data.resultCode === 0) {
           profileAPI.getStatus(userId)
             .then(response => {
-              dispatch(setStatus(response.data));
+              dispatch(setStatusAC(response.data));
             })
 
         }
