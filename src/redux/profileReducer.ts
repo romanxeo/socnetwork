@@ -10,38 +10,23 @@ export const addPostFormAC = (newPostText: string) => {
 }
 
 export const updateNewPostTextAC = (newText: string) => {
-  return {
-    type: 'PROFILE/UPDATE-NEW-POST-TEXT',
-    newText: newText
-  } as const
+  return {type: 'PROFILE/UPDATE-NEW-POST-TEXT', newText} as const
 }
 
 export const setUserProfileAC = (profile: any) => {
-  return {
-    type: 'PROFILE/SET-USER-PROFILE',
-    profile
-  } as const
+  return {type: 'PROFILE/SET-USER-PROFILE', profile} as const
 }
 
 export const setStatusAC = (status: string) => {
-  return {
-    type: 'PROFILE/SET-STATUS',
-    status
-  } as const
+  return {type: 'PROFILE/SET-STATUS', status} as const
 }
 
 export const toggleIsFetchingAC = (isFetching: boolean) => {
-  return {
-    type: 'PROFILE/TOGGLE-IS-FETCHING',
-    isFetching: isFetching
-  } as const
+  return {type: 'PROFILE/TOGGLE-IS-FETCHING', isFetching: isFetching} as const
 }
 
 export const deletePostAC = (id: string) => {
-  return {
-    type: 'PROFILE/DELETE-POST',
-    id
-  } as const
+  return {type: 'PROFILE/DELETE-POST', id} as const
 }
 
 export type addPostAT = ReturnType<typeof addPostAC>

@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../../../redux/redux-store";
 import {
   initialStateType,
-  setCurrentPage,
+  setCurrentPageAC,
   follow,
   unfollow,
   getUsers
@@ -25,7 +25,7 @@ import {
 type MSTPType = initialStateType;
 
 type MDTPType = {
-  setCurrentPage: (currentPage: number) => void
+  setCurrentPageAC: (currentPage: number) => void
   getUsers: (currentPage: number, pageSize: number) => void
   follow: (userId: number) => void
   unfollow: (userId: number) => void
@@ -57,7 +57,7 @@ const MSTP = (state: AppStateType): MSTPType => {
 }
 
 let MDTP: MDTPType = {
-  setCurrentPage,
+  setCurrentPageAC,
   getUsers,
   follow,
   unfollow
@@ -73,7 +73,7 @@ class UserContainerC extends React.Component<UserPropsType> {
   //метод для кнопки переключения страницы
   onPageChanged = (buttonCurrentPage: number) => {
     this.props.getUsers(buttonCurrentPage, this.props.pageSize);
-    this.props.setCurrentPage(buttonCurrentPage)
+    this.props.setCurrentPageAC(buttonCurrentPage)
   }
 
   render() {
