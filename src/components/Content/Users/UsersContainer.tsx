@@ -1,15 +1,15 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {AppStateType} from "../../../../redux/redux-store";
+import {AppStateType} from "../../../redux/redux-store";
 import {
   initialStateType,
   setCurrentPageAC,
   followTC,
   unfollowTC,
   getUsersTC
-} from "../../../../redux/usersReducer";
-import UserNew from "./UserNew";
-import Preloader from '../../common/preloader/Preloader';
+} from "../../../redux/usersReducer";
+import Users from "./Users";
+import Preloader from '../common/preloader/Preloader';
 import {
   getCurrentPage,
   getFollowingProgress,
@@ -18,7 +18,7 @@ import {
   getTotalUsersCount,
   getUsersData,
   getUserDataSelector
-} from "../../../../redux/usersSelector";
+} from "../../../redux/usersSelector";
 
 
 //Типизируем мап стейт то пропс
@@ -82,7 +82,7 @@ class UserContainerC extends React.Component<UserPropsType> {
       <div>
         {this.props.isFetching
           ? <Preloader/>
-          : <UserNew
+          : <Users
             totalUsersCount={this.props.totalUsersCount}
             pageSize={this.props.pageSize}
             currentPage={this.props.currentPage}
@@ -99,7 +99,7 @@ class UserContainerC extends React.Component<UserPropsType> {
 }
 
 //создание контейнеркой компоненты
-export const UserContainer = connect(MSTP, MDTP)(UserContainerC)
+export const UsersContainer = connect(MSTP, MDTP)(UserContainerC)
 
 
 

@@ -1,5 +1,13 @@
+.dialog {
+    background-color: darkred;
+    display: block;
+}
+
+.active {
+    color: gold;
+}
+
 .dialogs {
     background-color: darkorange;
     padding: 5px;
 }
-

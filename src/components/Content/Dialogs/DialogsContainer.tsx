@@ -1,10 +1,10 @@
 import React from 'react'
-import {DialogsDataArray} from "../../../../redux/dialogsReducer";
+import {DialogsDataArray} from "../../../redux/dialogsReducer";
 import {connect} from "react-redux";
-import Dialog from "./Dialog";
-import {AppStateType} from "../../../../redux/redux-store";
+import Dialogs from "./Dialogs";
+import {AppStateType} from "../../../redux/redux-store";
 import {compose, Dispatch} from "redux"
-import {withAuthRedirectHOC} from "../../common/hoc/AuthRedirectHOC";
+import {withAuthRedirectHOC} from "../common/hoc/AuthRedirectHOC";
 import {withRouter} from "react-router-dom";
 
 //Типизируем мап то пропс
@@ -28,11 +28,11 @@ const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
     return {}
 }
 
-export const DialogContainer = compose<React.ComponentType>(
+export const DialogsContainer = compose<React.ComponentType>(
   connect(mapStateToProps, mapDispatchToProps),
   withRouter,
   withAuthRedirectHOC,
-)(Dialog)
+)(Dialogs)
 
 
 
