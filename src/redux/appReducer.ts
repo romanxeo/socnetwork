@@ -2,10 +2,9 @@ import {Dispatch} from "redux"
 import {getAuthUserData} from "./authReducer"
 
 // actions
-export const setInitializedAC = (isInitialized: boolean) => ({
-  type: 'APP/SET-INITIALIZED',
-  isInitialized
-} as const)
+export const setInitializedAC = (isInitialized: boolean) => {
+  return {type: 'APP/SET-INITIALIZED', isInitialized} as const
+}
 
 // types
 export type setInitializedAT = ReturnType<typeof setInitializedAC>
@@ -28,6 +27,14 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
   }
 }
 
+//thunk
+export const initializeTC = (isInitialized: boolean) => async (dispatch: any) => {
+  await dispatch(getAuthUserData())
+  dispatch(setInitializedAC(isInitialized))
+}
+
+/*
+//thunk
 export const initializeTC = (isInitialized: boolean) => {
   return (dispatch: any) => {
     dispatch(getAuthUserData())
@@ -35,4 +42,4 @@ export const initializeTC = (isInitialized: boolean) => {
         dispatch(setInitializedAC(isInitialized))
       })
   }
-}
+}*/

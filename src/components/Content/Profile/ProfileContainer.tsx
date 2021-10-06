@@ -1,10 +1,10 @@
 import React from 'react';
 import Profile from './Profile';
 import {
-  getUserProfile,
-  getStatus,
+  getUserProfileTC,
+  getStatusTC,
   profileType,
-  updateStatus,
+  updateStatusTC,
 } from "../../../redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
@@ -24,9 +24,9 @@ type MSTPType = {
 
 //типизируем мап диспатч то пропс
 type MDTPType = {
-  getUserProfile: (userId: string | undefined) => void
-  getStatus: (userId: string | undefined) => void
-  updateStatus: (userId: string | undefined, status: string) => void
+  getUserProfileTC: (userId: string | undefined) => void
+  getStatusTC: (userId: string | undefined) => void
+  updateStatusTC: (userId: string | undefined, status: string) => void
 }
 
 //типизируем withRouter
@@ -51,9 +51,9 @@ const mapStateToProps = (state: AppStateType): MSTPType => {
 }
 
 let mapDispatchToProps: MDTPType = {
-  getUserProfile,
-  getStatus,
-  updateStatus
+  getUserProfileTC,
+  getStatusTC,
+  updateStatusTC
 }
 
 
@@ -64,9 +64,9 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
     if (!userId) {
       userId = this.props.myUserId;
     }
-    this.props.getUserProfile(userId)
+    this.props.getUserProfileTC(userId)
 
-    this.props.getStatus(userId)
+    this.props.getStatusTC(userId)
   }
 
   render() {
@@ -78,7 +78,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
           : <Profile
             profile={this.props.profile}
             status={this.props.status}
-            updateStatus={this.props.updateStatus}
+            updateStatus={this.props.updateStatusTC}
             userId={this.props.myUserId}
           />
         }

@@ -1,6 +1,5 @@
 import {v1} from "uuid";
 import {profileAPI} from "../api/api";
-//eqwe drewerrwerfffwer4rwer
 
 export const addPostAC = () => {
   return {type: 'PROFILE/ADD-POST'} as const
@@ -54,7 +53,6 @@ export type PostsDataArray = {
   post: string
   likesCount: number
 }
-
 //типизируем стейт
 export type contactsType = {
   facebook: string | null
@@ -192,45 +190,37 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
 }
 
 //thunk
-export const getUserProfile = (userId: string | undefined) => {
-  return (dispatch: any) => {
-    dispatch(toggleIsFetchingAC(true));
+export const getUserProfileTC = (userId: string | undefined) => async (dispatch: any) => {
+  dispatch(toggleIsFetchingAC(true));
 
-    profileAPI.getProfile(userId)
-      .then(response => {
-        dispatch(toggleIsFetchingAC(false));
-        dispatch(setUserProfileAC(response.data));
-      })
-  }
+  let response = await profileAPI.getProfile(userId)
+
+  dispatch(toggleIsFetchingAC(false));
+  dispatch(setUserProfileAC(response.data));
+
 }
 
 //thunk
-export const getStatus = (userId: string | undefined) => {
-  return (dispatch: any) => {
-    /*dispatch(toggleIsFetching(true));*/
+export const getStatusTC = (userId: string | undefined) => async (dispatch: any) => {
 
+  let response = await profileAPI.getStatus(userId)
+
+  dispatch(setStatusAC(response.data));
+
+}
+
+//thunk
+export const updateStatusTC = (userId: string | undefined, status: string) => async (dispatch: any) => {
+  let response = await profileAPI.updateStatus(status)
+
+  if (response.data.resultCode === 0) {
     profileAPI.getStatus(userId)
       .then(response => {
-        /*dispatch(toggleIsFetching(false));*/
         dispatch(setStatusAC(response.data));
       })
-  }
-}
 
-//thunk
-export const updateStatus = (userId: string | undefined, status: string) => {
-  return (dispatch: any) => {
-    profileAPI.updateStatus(status)
-      .then(response => {
-        if (response.data.resultCode === 0) {
-          profileAPI.getStatus(userId)
-            .then(response => {
-              dispatch(setStatusAC(response.data));
-            })
-
-        }
-      })
   }
+
 }
 
 export default profileReducer;

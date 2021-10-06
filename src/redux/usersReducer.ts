@@ -139,43 +139,40 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
 }
 
 
-
-
 //thunk
-export const getUsers = (currentPage: number, pageSize: number) => {
-  return (dispatch: any) => {
-    dispatch(toggleIsFetchingAC(true));
-    usersAPI.getUsers(currentPage, pageSize).then(data => {
-      dispatch(toggleIsFetchingAC(false));
-      dispatch(setUsersAC(data.items));
-      dispatch(setTotalUsersCountAC(data.totalCount));
-    })
-  }
+export const getUsersTC = (currentPage: number, pageSize: number) => async (dispatch: any) => {
+  dispatch(toggleIsFetchingAC(true));
+
+  let data = await usersAPI.getUsers(currentPage, pageSize)
+
+  dispatch(toggleIsFetchingAC(false));
+  dispatch(setUsersAC(data.items));
+  dispatch(setTotalUsersCountAC(data.totalCount));
 }
 
-export const unfollow = (userId: number) => {
-  return (dispatch: any) => {
-    dispatch(toggleFollowingProgressAC(true, userId));
-    usersAPI.unfollow(userId).then(response => {
-      if (response.data.resultCode === 0) {
-        dispatch(unfollowSuccessAC(userId));
-      }
-      dispatch(toggleFollowingProgressAC(false, userId));
-    })
+export const unfollowTC = (userId: number) => async (dispatch: any) => {
+  dispatch(toggleFollowingProgressAC(true, userId));
+
+  let response = await usersAPI.unfollow(userId)
+
+  if (response.data.resultCode === 0) {
+    dispatch(unfollowSuccessAC(userId));
   }
+
+  dispatch(toggleFollowingProgressAC(false, userId));
 }
 
-export const follow = (userId: number) => {
-  return (dispatch: any) => {
-    dispatch(toggleFollowingProgressAC(true, userId));
-    usersAPI.follow(userId).then(response => {
-      if (response.data.resultCode === 0) {
-        dispatch(followSuccessAC(userId));
-      }
-      dispatch(toggleFollowingProgressAC(false, userId));
-    })
-  }
-}
+export const followTC = (userId: number) => async (dispatch: any) => {
+  dispatch(toggleFollowingProgressAC(true, userId));
 
+  let response = await usersAPI.follow(userId)
+
+  if (response.data.resultCode === 0) {
+    dispatch(followSuccessAC(userId));
+  }
+
+  dispatch(toggleFollowingProgressAC(false, userId));
+
+}
 
 export default usersReducer

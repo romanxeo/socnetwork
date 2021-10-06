@@ -4,9 +4,9 @@ import {AppStateType} from "../../../../redux/redux-store";
 import {
   initialStateType,
   setCurrentPageAC,
-  follow,
-  unfollow,
-  getUsers
+  followTC,
+  unfollowTC,
+  getUsersTC
 } from "../../../../redux/usersReducer";
 import UserNew from "./UserNew";
 import Preloader from '../../common/preloader/Preloader';
@@ -26,9 +26,9 @@ type MSTPType = initialStateType;
 
 type MDTPType = {
   setCurrentPageAC: (currentPage: number) => void
-  getUsers: (currentPage: number, pageSize: number) => void
-  follow: (userId: number) => void
-  unfollow: (userId: number) => void
+  getUsersTC: (currentPage: number, pageSize: number) => void
+  followTC: (userId: number) => void
+  unfollowTC: (userId: number) => void
 }
 
 //объединяем тип
@@ -58,21 +58,21 @@ const MSTP = (state: AppStateType): MSTPType => {
 
 let MDTP: MDTPType = {
   setCurrentPageAC,
-  getUsers,
-  follow,
-  unfollow
+  getUsersTC,
+  followTC,
+  unfollowTC
 }
 
 class UserContainerC extends React.Component<UserPropsType> {
 
   //когда компонента монтируется вызывается тело метода один раз
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.getUsersTC(this.props.currentPage, this.props.pageSize);
   }
 
   //метод для кнопки переключения страницы
   onPageChanged = (buttonCurrentPage: number) => {
-    this.props.getUsers(buttonCurrentPage, this.props.pageSize);
+    this.props.getUsersTC(buttonCurrentPage, this.props.pageSize);
     this.props.setCurrentPageAC(buttonCurrentPage)
   }
 
@@ -88,8 +88,8 @@ class UserContainerC extends React.Component<UserPropsType> {
             currentPage={this.props.currentPage}
             onPageChanged={this.onPageChanged}
             usersData={this.props.usersData}
-            follow={this.props.follow}
-            unfollow={this.props.unfollow}
+            follow={this.props.followTC}
+            unfollow={this.props.unfollowTC}
             followingProgress={this.props.followingProgress}
           />
         }

@@ -5,16 +5,11 @@ export const addMessageAC = () => {
 }
 
 export const addMessageFormAC = (newMessageText: string) => {
-  return {
-    type: 'DIALOGS/ADD-MESSAGE-FORM', newMessageText
-  } as const
+  return {type: 'DIALOGS/ADD-MESSAGE-FORM', newMessageText} as const
 }
 
 export const updateNewMessageTextAC = (newText: string) => {
-  return {
-    type: 'DIALOGS/UPDATE-NEW-MESSAGE-TEXT',
-    newText
-  } as const
+  return {type: 'DIALOGS/UPDATE-NEW-MESSAGE-TEXT', newText} as const
 }
 
 export type addMessageAT = ReturnType<typeof addMessageAC>
