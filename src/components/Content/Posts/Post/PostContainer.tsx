@@ -8,13 +8,10 @@ import {Dispatch} from "redux"
 //Типизируем мап то пропс
 type MSTPPropsType = {
     postsData: Array<PostsDataArray>
-    /*    newPostText: string*/
 };
 
 //тиизируем диспатч то пропс
 type MDTPPropsType = {
-    /*    addPost: () => void
-        updateNewPostText: (newText: string) => void*/
 };
 
 //объединяем тип
@@ -27,14 +24,7 @@ const mapStateToProps = (state: AppStateType): MSTPPropsType => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
-    return {
-        /*        addPost: () => {
-                    dispatch(addPostActionCreator());
-                },
-                updateNewPostText: (newText: string) => {
-                    dispatch(updateNewPostTextActionCreator(newText));
-                }*/
-    }
+    return {}
 }
 
 export const PostContainer = connect(mapStateToProps, mapDispatchToProps)(Post)

@@ -13,7 +13,6 @@ import imgYB from '../../../assets/linkimg/youtube.png'
 import imgGH from '../../../assets/linkimg/git.png'
 import imgGM from '../../../assets/linkimg/gmail.png'
 import imgStatus from '../../../assets/linkimg/status.png'
-import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import ProfileStatusWithHook from "./ProfileStatus/ProfileStatusWithHook";
 
 type propsType = {
@@ -23,86 +22,101 @@ type propsType = {
   userId: string | undefined
 }
 
-const Profile = (props: propsType) => {
+const Profile: React.FC<propsType> = props => {
+
+  const {
+    profile,
+    status,
+    updateStatus,
+    userId
+  } = props
 
   return (
     <div className={s.profile}>
 
       <img className={s.avatar}
-           src={props.profile.photos.large != null
-             ? props.profile.photos.large
+           src={profile.photos.large != null
+             ? profile.photos.large
              : noavatar}
            alt="img"/>
 
-      <div className={s.fullName}>{props.profile.fullName}</div>
+      <div className={s.fullName}>{profile.fullName}</div>
 
 
       <div>
         <img className={s.descriptionImg} src={imgStatus}/>
         <ProfileStatusWithHook
-          status={props.status}
-          updateStatus={props.updateStatus}
-          myUserId={props.userId}
-          currentUserId={props.profile.userId}
+          status={status}
+          updateStatus={updateStatus}
+          myUserId={userId}
+          currentUserId={profile.userId}
         />
       </div>
 
-      {(props.profile.aboutMe != null)
+      {(profile.aboutMe != null)
         ? <div className={s.aboutMe}>
           <img className={s.descriptionImg} src={imgAbout}/>
-          <span className={s.descriptionSpan}> {props.profile.aboutMe}</span>
+          <span className={s.descriptionSpan}> {profile.aboutMe}</span>
         </div>
         : <></>
       }
 
-      {(props.profile.lookingForAJob)
+      {(profile.lookingForAJob)
         ? <div className={s.aboutMe}>
           <img className={s.descriptionImg} src={imgJob}/>
           <span
-            className={s.descriptionSpan}> {props.profile.lookingForAJobDescription}</span>
+            className={s.descriptionSpan}> {profile.lookingForAJobDescription}</span>
         </div>
         : <></>
       }
 
       <div className={s.container}>
-        {(props.profile.contacts.facebook != null)
-          ? <a href={props.profile.contacts.facebook}><img src={imgFB}
-                                                           className={s.linkImg}/></a>
+        {(profile.contacts.facebook != null)
+          ? <a href={profile.contacts.facebook}>
+            <img src={imgFB} className={s.linkImg}/>
+          </a>
           : <></>}
 
-        {(props.profile.contacts.website != null)
-          ? <a href={props.profile.contacts.website}><img src={imgWeb}
-                                                          className={s.linkImg}/></a>
+        {(profile.contacts.website != null)
+          ? <a href={profile.contacts.website}>
+            <img src={imgWeb} className={s.linkImg}/>
+          </a>
           : <></>}
 
-        {(props.profile.contacts.vk != null)
-          ? <a href={props.profile.contacts.vk}><img src={imgVK}
-                                                     className={s.linkImg}/></a>
+        {(profile.contacts.vk != null)
+          ? <a href={profile.contacts.vk}>
+            <img src={imgVK} className={s.linkImg}/>
+          </a>
           : <></>}
 
-        {(props.profile.contacts.twitter != null)
-          ? <a href={props.profile.contacts.twitter}><img src={imgTW}
-                                                          className={s.linkImg}/></a>
+        {(profile.contacts.twitter != null)
+          ? <a href={profile.contacts.twitter}>
+            <img src={imgTW} className={s.linkImg}/>
+          </a>
           : <></>}
 
-        {(props.profile.contacts.instagram != null)
-          ? <a href={props.profile.contacts.instagram}><img src={imgIG}
-                                                            className={s.linkImg}/></a>
+        {(profile.contacts.instagram != null)
+          ? <a href={profile.contacts.instagram}>
+            <img src={imgIG} className={s.linkImg}/>
+          </a>
           : <></>}
 
-        {(props.profile.contacts.youtube != null)
-          ? <a href={props.profile.contacts.youtube}><img src={imgYB}
-                                                          className={s.linkImg}/></a>
+        {(profile.contacts.youtube != null)
+          ? <a href={profile.contacts.youtube}>
+            <img src={imgYB} className={s.linkImg}/>
+          </a>
           : <></>}
 
-        {(props.profile.contacts.github != null)
-          ? <a href={props.profile.contacts.github}><img src={imgGH}
-                                                         className={s.linkImg}/></a>
+        {(profile.contacts.github != null)
+          ? <a href={profile.contacts.github}>
+            <img src={imgGH} className={s.linkImg}/>
+          </a>
           : <></>}
 
-        {(props.profile.contacts.mainLink != null)
-          ? <a href={props.profile.contacts.mainLink}><img src={imgGM}
-                                                           className={s.linkImg}/></a>
+        {(profile.contacts.mainLink != null)
+          ? <a href={profile.contacts.mainLink}>
+            <img src={imgGM} className={s.linkImg}/>
+          </a>
           : <></>}
 
       </div>

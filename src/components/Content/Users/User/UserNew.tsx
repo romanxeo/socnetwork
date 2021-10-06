@@ -3,6 +3,7 @@ import s from './User.module.css';
 import {UsersDataArray} from "../../../../redux/usersReducer";
 import {NavLink} from 'react-router-dom';
 import noavatar from '../../../../assets/noavatar.png'
+import Paginator from './Paginator';
 
 
 type UsersPresentationForClassType = {
@@ -16,39 +17,28 @@ type UsersPresentationForClassType = {
   followingProgress: Array<number>
 }
 
-let UserNew = (props: UsersPresentationForClassType) => {
+const UserNew: React.FC<UsersPresentationForClassType> = props => {
 
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-
-  let pagesButtonSwitcher = [];
-  pagesButtonSwitcher.push(1)
-  for (let i = props.currentPage - 3; i <= props.currentPage + 3; i++) {
-    if (i < 3) {
-      pagesButtonSwitcher.push(2, 3, 4, 5, 6)
-      break;
-    } else if (i > pagesCount - 3) {
-      pagesButtonSwitcher.push(pagesCount - 2)
-      pagesButtonSwitcher.push(pagesCount - 1)
-      break;
-    } else {
-      pagesButtonSwitcher.push(i)
-    }
-  }
-  pagesButtonSwitcher.push(pagesCount)
+  const {
+    totalUsersCount,
+    pageSize,
+    currentPage,
+    onPageChanged,
+    usersData,
+    follow,
+    unfollow,
+    followingProgress,
+  } = props
 
   return (
     <div>
-      <div>
-        {pagesButtonSwitcher.map(b =>
-          <button
-            className={props.currentPage === b ? s.selectedPage : s.nonSelectedPage}
-            onClick={(e) => {
-              props.onPageChanged(b)
-            }}>{b}</button>
-        )}
-      </div>
+      <Paginator
+        totalUsersCount={totalUsersCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChanged={onPageChanged}/>
 
-      {props.usersData.map((u: UsersDataArray) =>
+      {usersData.map((u: UsersDataArray) =>
         <div key={u.id} className={s.item}>
           <NavLink to={"/profile/" + u.id}>
             <img className={s.avatar}
@@ -65,15 +55,15 @@ let UserNew = (props: UsersPresentationForClassType) => {
           {u.followed
             ? <button
               onClick={() => {
-                props.unfollow(u.id)
+                unfollow(u.id)
               }}
-              disabled={props.followingProgress.some(id => id === u.id)}
+              disabled={followingProgress.some(id => id === u.id)}
             >UNFOLLOW</button>
             : <button
               onClick={() => {
-                props.follow(u.id)
+                follow(u.id)
               }}
-              disabled={props.followingProgress.some(id => id === u.id)}
+              disabled={followingProgress.some(id => id === u.id)}
             >FOLLOW</button>}
         </div>
       )}

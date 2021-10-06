@@ -48,6 +48,5 @@ class App extends React.Component<AppPropsType> {
 }
 
 export default compose(
-  /*withRouter,*/
   connect(MSTP, MDTP)
 )(App)
