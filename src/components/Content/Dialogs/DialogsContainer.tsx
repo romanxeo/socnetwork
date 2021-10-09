@@ -28,11 +28,13 @@ const mapDispatchToProps = (dispatch: Dispatch): MDTPPropsType => {
     return {}
 }
 
-export const DialogsContainer = compose<React.ComponentType>(
+const DialogsContainer = compose<React.ComponentType>(
   connect(mapStateToProps, mapDispatchToProps),
   withRouter,
   withAuthRedirectHOC,
 )(Dialogs)
+
+export default DialogsContainer
 
 
 

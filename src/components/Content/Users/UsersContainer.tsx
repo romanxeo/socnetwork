@@ -16,9 +16,11 @@ import {
   getIsFetching,
   getPageSize,
   getTotalUsersCount,
-  getUsersData,
   getUserDataSelector
 } from "../../../redux/usersSelector";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
+import {withAuthRedirectHOC} from "../common/hoc/AuthRedirectHOC";
 
 
 //Типизируем мап стейт то пропс
@@ -33,17 +35,6 @@ type MDTPType = {
 
 //объединяем тип
 export type UserPropsType = MSTPType & MDTPType
-
-/*const MSTP = (state: AppStateType): MSTPType => {
-  return {
-    usersData: state.usersPage.usersData,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followingProgress: state.usersPage.followingProgress,
-  }
-}*/
 
 const MSTP = (state: AppStateType): MSTPType => {
   return {
@@ -63,7 +54,7 @@ let MDTP: MDTPType = {
   unfollowTC
 }
 
-class UserContainerC extends React.Component<UserPropsType> {
+class UserContainer extends React.Component<UserPropsType> {
 
   //когда компонента монтируется вызывается тело метода один раз
   componentDidMount() {
@@ -98,8 +89,10 @@ class UserContainerC extends React.Component<UserPropsType> {
   }
 }
 
-//создание контейнеркой компоненты
-export const UsersContainer = connect(MSTP, MDTP)(UserContainerC)
+export default compose<React.ComponentType>(
+  connect(MSTP, MDTP),
+)(UserContainer)
+
 
 
 
