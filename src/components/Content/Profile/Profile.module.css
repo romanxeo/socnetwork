@@ -6,10 +6,55 @@
     border-radius: 4px;
 }
 
+.avatarBlock {
+    width: 100%;
+    background-color: darkgreen;
+    position: relative;
+}
+
+.avatarBlock:hover .label {
+    opacity: 90%;
+}
+
 .avatar {
     display: block;
     width: 100%;
+
     border-radius: 4px;
+}
+
+.label {
+    opacity: 0;
+    display: table;
+    background: #f9f9f9; /*//linear-gradient(top, #f9f9f9, #e3e3e3);*/
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    font-size: 10pt;
+
+    position: absolute;
+    top: 100%; /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+
+    transform: translate(-50%, -110%);
+    transition: .5s;
+}
+
+.label:hover {
+    border-color: black;
+    background: #e3e3e3;
+}
+
+.label:active {
+    background: #e3e3e3;
+}
+
+.input {
+    display: none;
 }
 
 .fullName {

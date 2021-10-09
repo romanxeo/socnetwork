@@ -29,6 +29,10 @@ export const deletePostAC = (id: string) => {
   return {type: 'PROFILE/DELETE-POST', id} as const
 }
 
+export const savePhotoSuccessAC = (photos: photosType) => {
+  return {type: 'PROFILE/SET-PHOTO-SUCCESS', photos} as const
+}
+
 export type addPostAT = ReturnType<typeof addPostAC>
 export type updateNewPostTextAT = ReturnType<typeof updateNewPostTextAC>
 export type setUserProfileAT = ReturnType<typeof setUserProfileAC>
@@ -36,6 +40,7 @@ export type toggleIsFetchingAT = ReturnType<typeof toggleIsFetchingAC>
 export type setStatusAT = ReturnType<typeof setStatusAC>
 export type addPostFormAT = ReturnType<typeof addPostFormAC>
 export type deletePostAT = ReturnType<typeof deletePostAC>
+export type savePhotoSuccessAT = ReturnType<typeof savePhotoSuccessAC>
 
 export type ActionTypes = addPostAT
   | updateNewPostTextAT
@@ -44,7 +49,7 @@ export type ActionTypes = addPostAT
   | setStatusAT
   | addPostFormAT
   | deletePostAT
-
+  | savePhotoSuccessAT
 
 //типизируем массив постов
 export type PostsDataArray = {
@@ -182,6 +187,13 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
       }
     }
 
+    case 'PROFILE/SET-PHOTO-SUCCESS': {
+      return {
+        ...state,
+        profile: {...state.profile, photos: action.photos}
+      }
+    }
+
     default: {
       //возращение стейта по дефолту если нет нужного типа
       return state;
@@ -214,13 +226,17 @@ export const updateStatusTC = (userId: string | undefined, status: string) => as
   let response = await profileAPI.updateStatus(status)
 
   if (response.data.resultCode === 0) {
-    profileAPI.getStatus(userId)
-      .then(response => {
-        dispatch(setStatusAC(response.data));
-      })
-
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatusAC(response.data));
   }
+}
 
+export const savePhotoTC = (file: any) => async (dispatch: any) => {
+  let response = await profileAPI.savePhoto(file)
+
+  if (response.data.resultCode === 0) {
+    dispatch(savePhotoSuccessAC(response.data.data.photos));
+  }
 }
 
 export default profileReducer;

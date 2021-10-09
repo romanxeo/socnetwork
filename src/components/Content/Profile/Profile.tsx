@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEventHandler, DetailedHTMLProps, InputHTMLAttributes} from 'react';
 import s from './Profile.module.css';
 import {profileType} from "../../../redux/profileReducer";
 import noavatar from "../../../assets/noavatar.png";
@@ -20,6 +20,7 @@ type propsType = {
   status: string
   updateStatus: (userId: string | undefined, status: string) => void
   userId: string | undefined
+  savePhoto: (file: any) => void
 }
 
 const Profile: React.FC<propsType> = props => {
@@ -28,20 +29,38 @@ const Profile: React.FC<propsType> = props => {
     profile,
     status,
     updateStatus,
-    userId
+    userId,
+    savePhoto
   } = props
+
+  const onMainPhotoSelected = (e: any) => {
+    if (e.target.files.length) {
+      savePhoto(e.target.files[0])
+    }
+  }
 
   return (
     <div className={s.profile}>
 
-      <img className={s.avatar}
-           src={profile.photos.large != null
-             ? profile.photos.large
-             : noavatar}
-           alt="img"/>
+      <div className={s.avatarBlock}>
+        <img className={s.avatar}
+             src={profile.photos.large != null
+               ? profile.photos.large
+               : noavatar}
+             alt="img"/>
+
+
+        {String(userId) === String(profile.userId)
+        && <label className={s.label}> Enter Your File
+          <input className={s.input} type={'file'} onChange={onMainPhotoSelected} title={'LOAD'}/>
+        </label>
+        }
+
+
+      </div>
+
 
       <div className={s.fullName}>{profile.fullName}</div>
-
 
       <div>
         <img className={s.descriptionImg} src={imgStatus}/>
