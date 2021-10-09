@@ -7,7 +7,7 @@ const Dialogs = () => {
 
   return (
     <div className={s.dialogs}>
-        <DialogsContainer/>12gg32
+        <DialogsContainer/>12gg32rewr
     </div>
   )
 }
