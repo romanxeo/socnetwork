@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "sources": [
+    "webpack://src/components/Content/Dialogs/Dialogs.module.css"
+  ],
+  "names": [],
+  "mappings": "AAAA,uBACI,wBAAyB,CACzB,aACJ,CAEA,uBACI,UACJ,CAEA,wBACI,wBAA4B,CAC5B,WACJ",
+  "file": "9.0510273e.chunk.css",
+  "sourcesContent": [
+    ".dialog {\r\n    background-color: darkred;\r\n    display: block;\r\n}\r\n\r\n.active {\r\n    color: gold;\r\n}\r\n\r\n.dialogs {\r\n    background-color: darkorange;\r\n    padding: 5px;\r\n}\r\n"
+  ]
+}
