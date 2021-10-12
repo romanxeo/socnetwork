@@ -10,7 +10,7 @@ const Center = () => {
         <nav>
             <div className={s.center}>
                 <img src={logo}/>
-                <a className={s.search}>Search</a>
+                <a className={s.search}>SOCNETWORK 96</a>
                 <a className={s.empty}> </a>
 
                 <NavLink to="/users" className={`${s.users} ${s.bottom}`}>Users</NavLink>
