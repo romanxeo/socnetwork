@@ -3,8 +3,8 @@
     "static/js/0.c20ce1fc.chunk.js": "/socnetwork/static/js/0.c20ce1fc.chunk.js",
     "static/js/0.c20ce1fc.chunk.js.map": "/socnetwork/static/js/0.c20ce1fc.chunk.js.map",
     "main.css": "/socnetwork/static/css/main.3661b62a.chunk.css",
-    "main.js": "/socnetwork/static/js/main.feee18ef.chunk.js",
-    "main.js.map": "/socnetwork/static/js/main.feee18ef.chunk.js.map",
+    "main.js": "/socnetwork/static/js/main.c298ff30.chunk.js",
+    "main.js.map": "/socnetwork/static/js/main.c298ff30.chunk.js.map",
     "runtime-main.js": "/socnetwork/static/js/runtime-main.dbabbf63.js",
     "runtime-main.js.map": "/socnetwork/static/js/runtime-main.dbabbf63.js.map",
     "static/js/3.1c47bd87.chunk.js": "/socnetwork/static/js/3.1c47bd87.chunk.js",
@@ -38,12 +38,12 @@
     "static/js/3.1c47bd87.chunk.js.LICENSE.txt": "/socnetwork/static/js/3.1c47bd87.chunk.js.LICENSE.txt",
     "static/media/logo.9a7b0c0d.png": "/socnetwork/static/media/logo.9a7b0c0d.png",
     "static/media/noavatar.png": "/socnetwork/static/media/noavatar.790a5777.png",
-    "static/media/preloaderNew.64bed448.svg": "/socnetwork/static/media/preloaderNew.64bed448.svg"
+    "static/media/preloaderNew.67f57325.svg": "/socnetwork/static/media/preloaderNew.67f57325.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.dbabbf63.js",
     "static/js/3.1c47bd87.chunk.js",
     "static/css/main.3661b62a.chunk.css",
-    "static/js/main.feee18ef.chunk.js"
+    "static/js/main.c298ff30.chunk.js"
   ]
 }
