@@ -33,6 +33,10 @@ export const savePhotoSuccessAC = (photos: photosType) => {
   return {type: 'PROFILE/SET-PHOTO-SUCCESS', photos} as const
 }
 
+export const toggleIsEditProfileInfoAC = (isEditProfileInfo: boolean) => {
+  return {type: 'PROFILE/TOGGLE-IS-EDIT-PROFILE-INGO', isEditProfileInfo} as const
+}
+
 export type addPostAT = ReturnType<typeof addPostAC>
 export type updateNewPostTextAT = ReturnType<typeof updateNewPostTextAC>
 export type setUserProfileAT = ReturnType<typeof setUserProfileAC>
@@ -41,15 +45,17 @@ export type setStatusAT = ReturnType<typeof setStatusAC>
 export type addPostFormAT = ReturnType<typeof addPostFormAC>
 export type deletePostAT = ReturnType<typeof deletePostAC>
 export type savePhotoSuccessAT = ReturnType<typeof savePhotoSuccessAC>
+export type toggleIsEditProfileInfoAT = ReturnType<typeof toggleIsEditProfileInfoAC>
 
 export type ActionTypes = addPostAT
-  | updateNewPostTextAT
-  | setUserProfileAT
-  | toggleIsFetchingAT
-  | setStatusAT
-  | addPostFormAT
-  | deletePostAT
-  | savePhotoSuccessAT
+    | updateNewPostTextAT
+    | setUserProfileAT
+    | toggleIsFetchingAT
+    | setStatusAT
+    | addPostFormAT
+    | deletePostAT
+    | savePhotoSuccessAT
+    | toggleIsEditProfileInfoAT
 
 //типизируем массив постов
 export type PostsDataArray = {
@@ -88,6 +94,7 @@ export type initialStateType = {
   profile: profileType
   isFetching: boolean
   status: string
+  isEditProfileInfo: boolean
 }
 
 //инициализируем стейт с данными
@@ -121,7 +128,8 @@ const initialState: initialStateType = {
     }
   },
   isFetching: false,
-  status: ''
+  status: '',
+  isEditProfileInfo: false
 }
 
 //profileReducer
@@ -194,6 +202,13 @@ const profileReducer = (state: initialStateType = initialState, action: ActionTy
       }
     }
 
+    case 'PROFILE/TOGGLE-IS-EDIT-PROFILE-INGO': {
+      return {
+        ...state,
+        isEditProfileInfo: action.isEditProfileInfo
+      }
+    }
+
     default: {
       //возращение стейта по дефолту если нет нужного типа
       return state;
@@ -231,6 +246,7 @@ export const updateStatusTC = (userId: string | undefined, status: string) => as
   }
 }
 
+//thunk
 export const savePhotoTC = (file: any) => async (dispatch: any) => {
   let response = await profileAPI.savePhoto(file)
 

@@ -5,7 +5,7 @@ import {
   getStatusTC,
   profileType,
   updateStatusTC,
-  savePhotoTC
+  savePhotoTC, toggleIsEditProfileInfoAC
 } from "../../../redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
@@ -21,6 +21,7 @@ type MSTPType = {
   isFetching: boolean
   myUserId: string | undefined
   status: string
+  isEditProfileInfo: boolean
 }
 
 //типизируем мап диспатч то пропс
@@ -29,6 +30,7 @@ type MDTPType = {
   getStatusTC: (userId: string | undefined) => void
   updateStatusTC: (userId: string | undefined, status: string) => void
   savePhotoTC: (file: any) => void
+  toggleIsEditProfileInfoAC: (isEditProfileInfo: boolean) => void
 }
 
 //типизируем withRouter
@@ -48,7 +50,8 @@ const mapStateToProps = (state: AppStateType): MSTPType => {
     profile: state.profilePage.profile,
     isFetching: state.profilePage.isFetching,
     myUserId: state.auth.userId,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    isEditProfileInfo: state.profilePage.isEditProfileInfo
   }
 }
 
@@ -56,7 +59,8 @@ let mapDispatchToProps: MDTPType = {
   getUserProfileTC,
   getStatusTC,
   updateStatusTC,
-  savePhotoTC
+  savePhotoTC,
+  toggleIsEditProfileInfoAC
 }
 
 
@@ -89,12 +93,14 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
         {this.props.isFetching
           ? <Preloader/>
           : <Profile
-            profile={this.props.profile}
-            status={this.props.status}
-            updateStatus={this.props.updateStatusTC}
-            userId={this.props.myUserId}
-            savePhoto={this.props.savePhotoTC}
-          />
+                profile={this.props.profile}
+                status={this.props.status}
+                updateStatus={this.props.updateStatusTC}
+                userId={this.props.myUserId}
+                savePhoto={this.props.savePhotoTC}
+                isEditProfileInfo={this.props.isEditProfileInfo}
+                toggleIsEditProfileInfoAC={this.props.toggleIsEditProfileInfoAC}
+            />
         }
       </div>
     )
