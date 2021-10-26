@@ -39,7 +39,8 @@ const ProfileInfo: React.FC<TProps> = props => {
                 ? <div className={s.aboutMe}>
                     <img className={s.descriptionImg} src={imgJob}/>
                     <span
-                        className={s.descriptionSpan}> {profile.lookingForAJobDescription}</span>
+                        className={s.descriptionSpan}> {profile.lookingForAJobDescription}
+                    </span>
                 </div>
                 : <></>
             }
