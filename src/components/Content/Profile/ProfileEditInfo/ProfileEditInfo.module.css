@@ -14,3 +14,10 @@
     display: flex;
     justify-content: space-around;
 }
+
+.formSummaryError {
+    border: red 1px solid;
+    padding: 4px;
+    color: rosybrown;
+}
+

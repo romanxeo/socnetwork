@@ -8,8 +8,8 @@ const LoginBlock = (props: LoginBlockPropsType) => {
   return (
     <div>
       {props.isAuth
-        ? <div onClick={props.logout} className={s.bottom}>{props.id}</div>
-        : <NavLink to={'/login'} className={s.bottom}>Login</NavLink>}
+          ? <div onClick={props.logout} className={s.bottom}>Logout</div>
+          : <NavLink to={'/login'} className={s.bottom}>Login</NavLink>}
     </div>
   )
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import Profile from './Profile';
 import {
-  getUserProfileTC,
-  getStatusTC,
-  profileType,
-  updateStatusTC,
-  savePhotoTC, toggleIsEditProfileInfoAC
+    getUserProfileTC,
+    getStatusTC,
+    profileType,
+    updateStatusTC,
+    savePhotoTC, toggleIsEditProfileInfoAC, saveProfileInfoTC
 } from "../../../redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
@@ -30,7 +30,8 @@ type MDTPType = {
   getStatusTC: (userId: string | undefined) => void
   updateStatusTC: (userId: string | undefined, status: string) => void
   savePhotoTC: (file: any) => void
-  toggleIsEditProfileInfoAC: (isEditProfileInfo: boolean) => void
+    toggleIsEditProfileInfoAC: (isEditProfileInfo: boolean) => void
+    saveProfileInfoTC: (formData: any) => void
 }
 
 //типизируем withRouter
@@ -56,11 +57,12 @@ const mapStateToProps = (state: AppStateType): MSTPType => {
 }
 
 let mapDispatchToProps: MDTPType = {
-  getUserProfileTC,
-  getStatusTC,
-  updateStatusTC,
-  savePhotoTC,
-  toggleIsEditProfileInfoAC
+    getUserProfileTC,
+    getStatusTC,
+    updateStatusTC,
+    savePhotoTC,
+    toggleIsEditProfileInfoAC,
+    saveProfileInfoTC
 }
 
 
@@ -100,6 +102,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
                 savePhoto={this.props.savePhotoTC}
                 isEditProfileInfo={this.props.isEditProfileInfo}
                 toggleIsEditProfileInfoAC={this.props.toggleIsEditProfileInfoAC}
+                saveProfileInfoTC={this.props.saveProfileInfoTC}
             />
         }
       </div>

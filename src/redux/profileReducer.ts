@@ -1,5 +1,7 @@
 import {v1} from "uuid";
 import {profileAPI} from "../api/api";
+import {AppStateType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export const addPostAC = () => {
   return {type: 'PROFILE/ADD-POST'} as const
@@ -37,6 +39,10 @@ export const toggleIsEditProfileInfoAC = (isEditProfileInfo: boolean) => {
   return {type: 'PROFILE/TOGGLE-IS-EDIT-PROFILE-INGO', isEditProfileInfo} as const
 }
 
+export const saveProfileAC = (formData: any) => {
+  return {type: 'PROFILE/SAVE-PROFILE-INGO', formData} as const
+}
+
 export type addPostAT = ReturnType<typeof addPostAC>
 export type updateNewPostTextAT = ReturnType<typeof updateNewPostTextAC>
 export type setUserProfileAT = ReturnType<typeof setUserProfileAC>
@@ -46,6 +52,7 @@ export type addPostFormAT = ReturnType<typeof addPostFormAC>
 export type deletePostAT = ReturnType<typeof deletePostAC>
 export type savePhotoSuccessAT = ReturnType<typeof savePhotoSuccessAC>
 export type toggleIsEditProfileInfoAT = ReturnType<typeof toggleIsEditProfileInfoAC>
+export type saveProfileAT = ReturnType<typeof saveProfileAC>
 
 export type ActionTypes = addPostAT
     | updateNewPostTextAT
@@ -253,6 +260,21 @@ export const savePhotoTC = (file: any) => async (dispatch: any) => {
   if (response.data.resultCode === 0) {
     dispatch(savePhotoSuccessAC(response.data.data.photos));
   }
+}
+
+//thunk //GOOD
+export const saveProfileInfoTC = (formData: any) => async (dispatch: any, getState: () => AppStateType) => {
+  const userId = getState().auth.userId;
+  const response = await profileAPI.saveProfileInfo(formData)
+
+  if (response.data.resultCode === 0) {
+    dispatch(getUserProfileTC(userId))
+    dispatch(toggleIsEditProfileInfoAC(false))
+  } else {
+    debugger
+    dispatch(stopSubmit('editProfile', {_error: response.data.messages[0]}))
+  }
+
 }
 
 export default profileReducer;

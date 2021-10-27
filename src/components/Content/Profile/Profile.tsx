@@ -2,20 +2,12 @@ import React, {ChangeEventHandler, DetailedHTMLProps, InputHTMLAttributes, Mouse
 import s from './Profile.module.css';
 import {profileType} from "../../../redux/profileReducer";
 import noavatar from "../../../assets/noavatar.png";
-import imgAbout from '../../../assets/linkimg/about.png'
-import imgJob from '../../../assets/linkimg/job.png'
-import imgFB from '../../../assets/linkimg/facebook.png'
-import imgWeb from '../../../assets/linkimg/site.png'
-import imgVK from '../../../assets/linkimg/vk.png'
-import imgTW from '../../../assets/linkimg/twitter.png'
-import imgIG from '../../../assets/linkimg/instagram.png'
-import imgYB from '../../../assets/linkimg/youtube.png'
-import imgGH from '../../../assets/linkimg/git.png'
-import imgGM from '../../../assets/linkimg/gmail.png'
 import imgStatus from '../../../assets/linkimg/status.png'
 import ProfileStatusWithHook from "./ProfileStatus/ProfileStatusWithHook";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import ProfileEditInfo from './ProfileEditInfo/ProfileEditInfo';
+import {
+    ProfileEditInfoFormTwoReduxForm
+} from './ProfileEditInfo/ProfileEditInfo';
 
 type propsType = {
     profile: profileType
@@ -25,6 +17,7 @@ type propsType = {
     savePhoto: (file: any) => void
     isEditProfileInfo: boolean
     toggleIsEditProfileInfoAC: (isEditProfileInfo: boolean) => void
+    saveProfileInfoTC: (formData: any) => void
 }
 
 const Profile: React.FC<propsType> = props => {
@@ -36,13 +29,23 @@ const Profile: React.FC<propsType> = props => {
         userId,
         savePhoto,
         isEditProfileInfo,
-        toggleIsEditProfileInfoAC
+        toggleIsEditProfileInfoAC,
+        saveProfileInfoTC
     } = props
 
     const onMainPhotoSelected = (e: any) => {
         if (e.target.files.length) {
             savePhoto(e.target.files[0])
         }
+    }
+
+    //good
+    const onSubmit = (formData: any) => {
+        saveProfileInfoTC(formData)
+    }
+
+    const cancelSubmit = () => {
+        toggleIsEditProfileInfoAC(false)
     }
 
     return (
@@ -76,9 +79,10 @@ const Profile: React.FC<propsType> = props => {
             </div>
 
             {isEditProfileInfo
-                ? <ProfileEditInfo/>
+                ? <ProfileEditInfoFormTwoReduxForm initialValues={profile} onSubmit={onSubmit}/>
                 : <ProfileInfo profile={profile}/>
             }
+
 
             {String(userId) === String(profile.userId)
                 ? <div className={s.container}>

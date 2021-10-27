@@ -22,6 +22,7 @@
 
 .search {
     grid-area: search;
+    margin-top: 14px;
 }
 
 .empty {
