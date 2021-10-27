@@ -29,9 +29,11 @@ const MDTP: MDTPType = {
 }
 
 class App extends React.Component<AppPropsType> {
-  componentDidMount() {
+
+    componentDidMount() {
     this.props.initializeTC(true);
-  }
+
+    }
 
   render() {
     if (!this.props.initialized) {

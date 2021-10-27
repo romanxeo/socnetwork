@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import s from './Content.module.css';
 import Footer from "./Footer/Footer"
 import {withSuspense} from "./common/hoc/WithSuspenseHOC";
@@ -21,23 +21,34 @@ const Posts = React.lazy(() => import ("./Posts/Posts"))
 const Login = React.lazy(() => import ("./Login/Login"))
 
 const Content = () => {
-  return (
-    <div className={s.content_wrap}>
-      <div className={s.top_left}>
-        <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
-        <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
-      </div>
-      <div className={s.top_center}>
-        <Route path="/profile" render={withSuspense(Posts)}/>
-        <Route path="/dialogs" render={withSuspense(Messages)}/>
-        <Route path="/users" render={withSuspense(UsersContainer)}/>
-        <Route path="/login" render={withSuspense(Login)}/>
-      </div>
-      <div className={s.bottom_left}>
-        <Footer/>
-      </div>
-    </div>
-  )
+    return (
+        <div className={s.content_wrap}>
+            <div className={s.top_left}>
+                <Switch>
+                    <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
+                    <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
+                </Switch>
+
+            </div>
+            <div className={s.top_center}>
+                <Switch>
+                    <Redirect exact from={'/'} to={'/profile'}/>
+                    <Route path="/profile" render={withSuspense(Posts)}/>
+                    <Route path="/dialogs" render={withSuspense(Messages)}/>
+                    <Route path="/users" render={withSuspense(UsersContainer)}/>
+                    <Route path="/login" render={withSuspense(Login)}/>
+                    <Route path={'/404'} render={() => <h2
+                        style={{textAlign: 'center', fontSize: '48px'}}>404: PAGE NOT
+                        FOUND</h2>}/>
+                    <Redirect from={'*'} to={'/404'}/>
+
+                </Switch>
+            </div>
+            <div className={s.bottom_left}>
+                <Footer/>
+            </div>
+        </div>
+    )
 }
 
 export default Content;
