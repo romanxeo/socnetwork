@@ -14,31 +14,31 @@ import {AppStateType} from "../../../redux/redux-store";
 const maxLength50 = maxLengthCreator(50)
 
 const LoginForm = (props: any) => {
+//const LoginForm = ({handleSubmit, error, captchaUrl}: any) => {
   return <form onSubmit={props.handleSubmit}>
     <div>
       <Field
-        placeholder={'email'}
-        component={Input}
-        name={'email'}
-        validate={[requiredField, maxLength50]}
+          placeholder={'email'}
+          component={Input}
+          name={'email'}
+          validate={[requiredField, maxLength50]}
       />
     </div>
     <div>
       <Field
-        placeholder={'password'}
-        component={Input}
-        name={'password'}
-        type={'password'}
-        validate={[requiredField, maxLength50]}
+          placeholder={'password'}
+          component={Input}
+          name={'password'}
+          type={'password'}
+          validate={[requiredField, maxLength50]}
       />
     </div>
     <div>
       <Field
-        type={'checkbox'}
-        component={Input}
-        name={'rememberMe'}
-        validate={[requiredField, maxLength50]}
-        className={s.checkBox}
+          type={'checkbox'}
+          component={Input}
+          name={'rememberMe'}
+          className={s.checkBox}
       />
       Remember me
     </div>
@@ -47,10 +47,27 @@ const LoginForm = (props: any) => {
       {props.error}
     </div>
     }
+
+    {props.captchaUrl &&
+    <img src={props.captchaUrl}/>
+    }
+
+    {props.captchaUrl &&
+    <div>
+      <Field
+          placeholder={'captcha'}
+          component={Input}
+          name={'captcha'}
+          validate={[requiredField, maxLength50]}
+      />
+    </div>
+    }
+
     <div>
       <button>Login</button>
     </div>
   </form>
+}
 }
 
 const LoginReduxForm = reduxForm({
@@ -60,10 +77,11 @@ const LoginReduxForm = reduxForm({
 
 type MSTPType = {
   isAuth: boolean
+  captchaUrl: string | null
 }
 
 type MDTPType = {
-  login: (email: string, password: string, rememberMe: boolean) => void
+  login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 
 type loginType = MSTPType & MDTPType
@@ -71,6 +89,7 @@ type loginType = MSTPType & MDTPType
 const MSTP = (state: AppStateType): MSTPType => {
   return {
     isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
   }
 }
 
@@ -81,7 +100,7 @@ const MDTP: MDTPType = {
 
 const Login = (props: loginType) => {
   const onSubmit = (formData: any) => {
-    props.login(formData.email, formData.password, formData.rememberMe)
+    props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
   }
 
   if (props.isAuth) {
@@ -92,7 +111,7 @@ const Login = (props: loginType) => {
   return (
     <div className={s.loginBlock}>
       <h1>LOGIN</h1>
-      <LoginReduxForm onSubmit={onSubmit}/>
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
     </div>
   )
 };
